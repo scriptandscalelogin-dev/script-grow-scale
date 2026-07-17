@@ -1,4 +1,14 @@
-export const TIERS = [
+type Tier = {
+  id: string;
+  name: string;
+  price: number;
+  cadence: string;
+  tagline: string;
+  includes: string[];
+  highlight?: boolean;
+};
+
+export const TIERS: Tier[] = [
   {
     id: "starter",
     name: "Starter",
