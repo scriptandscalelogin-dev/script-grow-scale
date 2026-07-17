@@ -47,26 +47,85 @@ export type Database = {
         }
         Relationships: []
       }
+      deals: {
+        Row: {
+          closed_at: string
+          created_at: string
+          id: string
+          profile_id: string
+          title: string
+          updated_at: string
+          value_gbp: number
+        }
+        Insert: {
+          closed_at?: string
+          created_at?: string
+          id?: string
+          profile_id: string
+          title: string
+          updated_at?: string
+          value_gbp: number
+        }
+        Update: {
+          closed_at?: string
+          created_at?: string
+          id?: string
+          profile_id?: string
+          title?: string
+          updated_at?: string
+          value_gbp?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deals_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
+          company: string | null
           created_at: string
           email: string | null
           full_name: string | null
           id: string
+          monthly_fee: number | null
+          notes: string | null
+          phone: string | null
+          start_date: string | null
+          status: Database["public"]["Enums"]["client_status"]
+          tier: Database["public"]["Enums"]["tier"] | null
           updated_at: string
         }
         Insert: {
+          company?: string | null
           created_at?: string
           email?: string | null
           full_name?: string | null
           id: string
+          monthly_fee?: number | null
+          notes?: string | null
+          phone?: string | null
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["client_status"]
+          tier?: Database["public"]["Enums"]["tier"] | null
           updated_at?: string
         }
         Update: {
+          company?: string | null
           created_at?: string
           email?: string | null
           full_name?: string | null
           id?: string
+          monthly_fee?: number | null
+          notes?: string | null
+          phone?: string | null
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["client_status"]
+          tier?: Database["public"]["Enums"]["tier"] | null
           updated_at?: string
         }
         Relationships: []
@@ -107,6 +166,8 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "client"
+      client_status: "active" | "paused" | "ended"
+      tier: "starter" | "growth" | "scale"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -235,6 +296,8 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "client"],
+      client_status: ["active", "paused", "ended"],
+      tier: ["starter", "growth", "scale"],
     },
   },
 } as const
