@@ -19,6 +19,9 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
+import { Route as AuthenticatedPortalInboxRouteImport } from './routes/_authenticated/portal.inbox'
+import { Route as AuthenticatedPortalClientsRouteImport } from './routes/_authenticated/portal.clients'
+import { Route as AuthenticatedPortalClientsIdRouteImport } from './routes/_authenticated/portal.clients.$id'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -69,6 +72,24 @@ const AuthenticatedPortalRoute = AuthenticatedPortalRouteImport.update({
   path: '/portal',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPortalInboxRoute =
+  AuthenticatedPortalInboxRouteImport.update({
+    id: '/inbox',
+    path: '/inbox',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalClientsRoute =
+  AuthenticatedPortalClientsRouteImport.update({
+    id: '/clients',
+    path: '/clients',
+    getParentRoute: () => AuthenticatedPortalRoute,
+  } as any)
+const AuthenticatedPortalClientsIdRoute =
+  AuthenticatedPortalClientsIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedPortalClientsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -79,7 +100,10 @@ export interface FileRoutesByFullPath {
   '/how-it-works': typeof HowItWorksRoute
   '/pricing': typeof PricingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/portal': typeof AuthenticatedPortalRoute
+  '/portal': typeof AuthenticatedPortalRouteWithChildren
+  '/portal/clients': typeof AuthenticatedPortalClientsRouteWithChildren
+  '/portal/inbox': typeof AuthenticatedPortalInboxRoute
+  '/portal/clients/$id': typeof AuthenticatedPortalClientsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -90,7 +114,10 @@ export interface FileRoutesByTo {
   '/how-it-works': typeof HowItWorksRoute
   '/pricing': typeof PricingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/portal': typeof AuthenticatedPortalRoute
+  '/portal': typeof AuthenticatedPortalRouteWithChildren
+  '/portal/clients': typeof AuthenticatedPortalClientsRouteWithChildren
+  '/portal/inbox': typeof AuthenticatedPortalInboxRoute
+  '/portal/clients/$id': typeof AuthenticatedPortalClientsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -103,7 +130,10 @@ export interface FileRoutesById {
   '/how-it-works': typeof HowItWorksRoute
   '/pricing': typeof PricingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/_authenticated/portal': typeof AuthenticatedPortalRoute
+  '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
+  '/_authenticated/portal/clients': typeof AuthenticatedPortalClientsRouteWithChildren
+  '/_authenticated/portal/inbox': typeof AuthenticatedPortalInboxRoute
+  '/_authenticated/portal/clients/$id': typeof AuthenticatedPortalClientsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,6 +147,9 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/sitemap.xml'
     | '/portal'
+    | '/portal/clients'
+    | '/portal/inbox'
+    | '/portal/clients/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -128,6 +161,9 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/sitemap.xml'
     | '/portal'
+    | '/portal/clients'
+    | '/portal/inbox'
+    | '/portal/clients/$id'
   id:
     | '__root__'
     | '/'
@@ -140,6 +176,9 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/sitemap.xml'
     | '/_authenticated/portal'
+    | '/_authenticated/portal/clients'
+    | '/_authenticated/portal/inbox'
+    | '/_authenticated/portal/clients/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -226,15 +265,63 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/portal/inbox': {
+      id: '/_authenticated/portal/inbox'
+      path: '/inbox'
+      fullPath: '/portal/inbox'
+      preLoaderRoute: typeof AuthenticatedPortalInboxRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/clients': {
+      id: '/_authenticated/portal/clients'
+      path: '/clients'
+      fullPath: '/portal/clients'
+      preLoaderRoute: typeof AuthenticatedPortalClientsRouteImport
+      parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/portal/clients/$id': {
+      id: '/_authenticated/portal/clients/$id'
+      path: '/$id'
+      fullPath: '/portal/clients/$id'
+      preLoaderRoute: typeof AuthenticatedPortalClientsIdRouteImport
+      parentRoute: typeof AuthenticatedPortalClientsRoute
+    }
   }
 }
 
+interface AuthenticatedPortalClientsRouteChildren {
+  AuthenticatedPortalClientsIdRoute: typeof AuthenticatedPortalClientsIdRoute
+}
+
+const AuthenticatedPortalClientsRouteChildren: AuthenticatedPortalClientsRouteChildren =
+  {
+    AuthenticatedPortalClientsIdRoute: AuthenticatedPortalClientsIdRoute,
+  }
+
+const AuthenticatedPortalClientsRouteWithChildren =
+  AuthenticatedPortalClientsRoute._addFileChildren(
+    AuthenticatedPortalClientsRouteChildren,
+  )
+
+interface AuthenticatedPortalRouteChildren {
+  AuthenticatedPortalClientsRoute: typeof AuthenticatedPortalClientsRouteWithChildren
+  AuthenticatedPortalInboxRoute: typeof AuthenticatedPortalInboxRoute
+}
+
+const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
+  AuthenticatedPortalClientsRoute: AuthenticatedPortalClientsRouteWithChildren,
+  AuthenticatedPortalInboxRoute: AuthenticatedPortalInboxRoute,
+}
+
+const AuthenticatedPortalRouteWithChildren =
+  AuthenticatedPortalRoute._addFileChildren(AuthenticatedPortalRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedPortalRoute: typeof AuthenticatedPortalRoute
+  AuthenticatedPortalRoute: typeof AuthenticatedPortalRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedPortalRoute: AuthenticatedPortalRoute,
+  AuthenticatedPortalRoute: AuthenticatedPortalRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
