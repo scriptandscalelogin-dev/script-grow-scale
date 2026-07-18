@@ -16,7 +16,7 @@ type Profile = {
 
 type Deal = { id: string; title: string; value_gbp: number; closed_at: string };
 
-export const Route = createFileRoute("/_authenticated/portal")({
+export const Route = createFileRoute("/_authenticated/portal/")({
   head: () => ({
     meta: [
       { title: "Portal — Script & Scale" },
