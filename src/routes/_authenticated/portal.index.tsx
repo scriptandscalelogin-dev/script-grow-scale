@@ -247,8 +247,17 @@ function ClientHome({ profile, deals }: { profile: Profile | null; deals: Deal[]
 
       <section>
         <div className="container-tight grid gap-6 py-6 md:grid-cols-3">
+          <Link
+            to="/portal/library"
+            className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
+          >
+            <div className="eyebrow">Library</div>
+            <div className="mt-2 font-serif text-xl">Scripts, SOPs, objections</div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Everything assigned to you, with change history.
+            </p>
+          </Link>
           {[
-            ["Coming next", "Content library", "Scripts, SOPs, objection sheets."],
             ["Coming next", "Sessions", "Workshop log and recording links."],
             ["Coming next", "Roleplays", "Upload calls, get review notes."],
           ].map(([e, t, b]) => (
