@@ -128,7 +128,7 @@ function Portal() {
 function AdminHome({ openContacts, clientCount }: { openContacts: number; clientCount: number }) {
   return (
     <section>
-      <div className="container-tight grid gap-6 py-12 md:grid-cols-2">
+      <div className="container-tight grid gap-6 py-12 md:grid-cols-3">
         <Link
           to="/portal/clients"
           className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
@@ -137,6 +137,16 @@ function AdminHome({ openContacts, clientCount }: { openContacts: number; client
           <div className="mt-2 font-serif text-2xl">{clientCount}</div>
           <p className="mt-2 text-sm text-muted-foreground">
             View, edit tier, log deal value against guarantee.
+          </p>
+        </Link>
+        <Link
+          to="/portal/library"
+          className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
+        >
+          <div className="eyebrow">Library</div>
+          <div className="mt-2 font-serif text-2xl">Scripts · SOPs · Objections</div>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Author versioned content and assign to clients.
           </p>
         </Link>
         <Link
