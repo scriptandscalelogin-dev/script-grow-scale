@@ -47,6 +47,125 @@ export type Database = {
         }
         Relationships: []
       }
+      content_assignments: {
+        Row: {
+          assigned_at: string
+          assigned_by: string
+          content_id: string
+          id: string
+          profile_id: string
+        }
+        Insert: {
+          assigned_at?: string
+          assigned_by: string
+          content_id: string
+          id?: string
+          profile_id: string
+        }
+        Update: {
+          assigned_at?: string
+          assigned_by?: string
+          content_id?: string
+          id?: string
+          profile_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_assignments_content_id_fkey"
+            columns: ["content_id"]
+            isOneToOne: false
+            referencedRelation: "content_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_assignments_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content_items: {
+        Row: {
+          body: string
+          created_at: string
+          created_by: string
+          current_version: number
+          id: string
+          kind: Database["public"]["Enums"]["content_kind"]
+          status: Database["public"]["Enums"]["content_status"]
+          summary: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          created_by: string
+          current_version?: number
+          id?: string
+          kind: Database["public"]["Enums"]["content_kind"]
+          status?: Database["public"]["Enums"]["content_status"]
+          summary?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          created_by?: string
+          current_version?: number
+          id?: string
+          kind?: Database["public"]["Enums"]["content_kind"]
+          status?: Database["public"]["Enums"]["content_status"]
+          summary?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      content_versions: {
+        Row: {
+          body: string
+          change_notes: string | null
+          content_id: string
+          created_at: string
+          created_by: string
+          id: string
+          title: string
+          version_number: number
+        }
+        Insert: {
+          body: string
+          change_notes?: string | null
+          content_id: string
+          created_at?: string
+          created_by: string
+          id?: string
+          title: string
+          version_number: number
+        }
+        Update: {
+          body?: string
+          change_notes?: string | null
+          content_id?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          title?: string
+          version_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_versions_content_id_fkey"
+            columns: ["content_id"]
+            isOneToOne: false
+            referencedRelation: "content_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       deals: {
         Row: {
           closed_at: string
@@ -167,6 +286,8 @@ export type Database = {
     Enums: {
       app_role: "admin" | "client"
       client_status: "active" | "paused" | "ended"
+      content_kind: "script" | "sop" | "objection"
+      content_status: "draft" | "published" | "archived"
       tier: "starter" | "growth" | "scale"
     }
     CompositeTypes: {
@@ -297,6 +418,8 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "client"],
       client_status: ["active", "paused", "ended"],
+      content_kind: ["script", "sop", "objection"],
+      content_status: ["draft", "published", "archived"],
       tier: ["starter", "growth", "scale"],
     },
   },
