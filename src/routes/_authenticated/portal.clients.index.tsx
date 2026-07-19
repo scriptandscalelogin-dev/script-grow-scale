@@ -17,7 +17,7 @@ type Row = {
   start_date: string | null;
 };
 
-export const Route = createFileRoute("/_authenticated/portal/clients")({
+export const Route = createFileRoute("/_authenticated/portal/clients/")({
   head: () => ({ meta: [{ title: "Clients — Portal" }, { name: "robots", content: "noindex" }] }),
   beforeLoad: async () => {
     const { data: u } = await supabase.auth.getUser();
