@@ -1,7 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { PageShell } from "@/components/site-shell";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  SessionsPanel,
+  RoleplaysPanel,
+  KpisPanel,
+} from "./portal.clients.$id";
+
 
 type Profile = {
   id: string;
