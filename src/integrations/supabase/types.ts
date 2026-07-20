@@ -204,6 +204,56 @@ export type Database = {
           },
         ]
       }
+      kpi_entries: {
+        Row: {
+          avg_deal_value: number
+          client_id: string
+          close_rate_est: number
+          closed_deal_value: number
+          created_at: string
+          dead_pipeline_value: number
+          id: string
+          month: string
+          notes: string | null
+          opportunities: number
+          updated_at: string
+        }
+        Insert: {
+          avg_deal_value?: number
+          client_id: string
+          close_rate_est?: number
+          closed_deal_value?: number
+          created_at?: string
+          dead_pipeline_value?: number
+          id?: string
+          month: string
+          notes?: string | null
+          opportunities?: number
+          updated_at?: string
+        }
+        Update: {
+          avg_deal_value?: number
+          client_id?: string
+          close_rate_est?: number
+          closed_deal_value?: number
+          created_at?: string
+          dead_pipeline_value?: number
+          id?: string
+          month?: string
+          notes?: string | null
+          opportunities?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kpi_entries_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           company: string | null
@@ -249,6 +299,60 @@ export type Database = {
         }
         Relationships: []
       }
+      roleplay_recordings: {
+        Row: {
+          client_id: string
+          created_at: string
+          id: string
+          mime_type: string | null
+          notes: string | null
+          recorded_on: string
+          session_id: string | null
+          storage_path: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          id?: string
+          mime_type?: string | null
+          notes?: string | null
+          recorded_on?: string
+          session_id?: string | null
+          storage_path: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          id?: string
+          mime_type?: string | null
+          notes?: string | null
+          recorded_on?: string
+          session_id?: string | null
+          storage_path?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "roleplay_recordings_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "roleplay_recordings_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "workshop_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -269,6 +373,50 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      workshop_sessions: {
+        Row: {
+          action_items: string | null
+          attended: boolean
+          client_id: string
+          covered: string | null
+          created_at: string
+          id: string
+          notes: string | null
+          session_date: string
+          updated_at: string
+        }
+        Insert: {
+          action_items?: string | null
+          attended?: boolean
+          client_id: string
+          covered?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          session_date: string
+          updated_at?: string
+        }
+        Update: {
+          action_items?: string | null
+          attended?: boolean
+          client_id?: string
+          covered?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          session_date?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workshop_sessions_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
