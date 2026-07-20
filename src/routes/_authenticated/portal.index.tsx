@@ -237,7 +237,23 @@ function AdminHome({ openContacts, clientCount }: { openContacts: number; client
   );
 }
 
-function ClientHome({ profile, deals }: { profile: Profile | null; deals: Deal[] }) {
+function ClientHome({
+  profile,
+  deals,
+  sessions,
+  roleplays,
+  kpis,
+  userId,
+  reload,
+}: {
+  profile: Profile | null;
+  deals: Deal[];
+  sessions: Session[];
+  roleplays: Roleplay[];
+  kpis: Kpi[];
+  userId: string | null;
+  reload: () => void;
+}) {
   if (!profile) {
     return (
       <div className="container-tight py-16 text-sm text-muted-foreground">
@@ -317,29 +333,69 @@ function ClientHome({ profile, deals }: { profile: Profile | null; deals: Deal[]
       </section>
 
       <section>
-        <div className="container-tight grid gap-6 py-6 md:grid-cols-3">
+        <div className="container-tight py-4">
           <Link
             to="/portal/library"
-            className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
+            className="block rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
           >
             <div className="eyebrow">Library</div>
-            <div className="mt-2 font-serif text-xl">Scripts, SOPs, objections</div>
+            <div className="mt-2 font-serif text-xl">Scripts, SOPs, objections assigned to you</div>
             <p className="mt-2 text-sm text-muted-foreground">
-              Everything assigned to you, with change history.
+              Read-only with change history.
             </p>
           </Link>
-          {[
-            ["Coming next", "Sessions", "Workshop log and recording links."],
-            ["Coming next", "Roleplays", "Upload calls, get review notes."],
-          ].map(([e, t, b]) => (
-            <div key={t} className="rounded-md border border-rule bg-card p-6">
-              <div className="eyebrow">{e}</div>
-              <div className="mt-2 font-serif text-xl">{t}</div>
-              <p className="mt-2 text-sm text-muted-foreground">{b}</p>
-            </div>
-          ))}
         </div>
       </section>
+
+      {userId && (
+        <>
+          <SessionsPanelReadOnly sessions={sessions} />
+          <RoleplaysPanel
+            clientId={userId}
+            roleplays={roleplays}
+            sessions={sessions}
+            reload={reload}
+            isAdmin={false}
+          />
+          <KpisPanel clientId={userId} kpis={kpis} reload={reload} isAdmin={false} />
+        </>
+      )}
     </>
   );
 }
+
+function SessionsPanelReadOnly({ sessions }: { sessions: Session[] }) {
+  return (
+    <section className="rule-t">
+      <div className="container-tight py-10">
+        <div className="eyebrow">Workshop sessions</div>
+        {sessions.length === 0 ? (
+          <p className="mt-3 text-sm text-muted-foreground">No sessions logged yet.</p>
+        ) : (
+          <ul className="mt-4 space-y-3">
+            {sessions.map((s) => (
+              <li key={s.id} className="rounded-md border border-rule bg-card p-4 text-sm">
+                <div className="mono text-xs text-muted-foreground">
+                  {new Date(s.session_date).toLocaleDateString("en-GB")} · {s.attended ? "attended" : "missed"}
+                </div>
+                {s.covered && (
+                  <div className="mt-2">
+                    <div className="eyebrow">Covered</div>
+                    <div className="whitespace-pre-wrap">{s.covered}</div>
+                  </div>
+                )}
+                {s.action_items && (
+                  <div className="mt-2">
+                    <div className="eyebrow">Action items</div>
+                    <div className="whitespace-pre-wrap">{s.action_items}</div>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  );
+}
+
