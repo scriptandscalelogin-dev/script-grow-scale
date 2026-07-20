@@ -1,7 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { PageShell } from "@/components/site-shell";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  SessionsPanel,
+  RoleplaysPanel,
+  KpisPanel,
+} from "./portal.clients.$id";
+
 
 type Profile = {
   id: string;
@@ -26,20 +32,88 @@ export const Route = createFileRoute("/_authenticated/portal/")({
   component: Portal,
 });
 
+type Session = {
+  id: string;
+  session_date: string;
+  covered: string | null;
+  action_items: string | null;
+  attended: boolean;
+  notes: string | null;
+};
+type Roleplay = {
+  id: string;
+  title: string;
+  recorded_on: string;
+  storage_path: string;
+  mime_type: string | null;
+  notes: string | null;
+  session_id: string | null;
+};
+type Kpi = {
+  id: string;
+  month: string;
+  opportunities: number;
+  avg_deal_value: number;
+  close_rate_est: number;
+  closed_deal_value: number;
+  dead_pipeline_value: number;
+  notes: string | null;
+};
+
 function Portal() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [deals, setDeals] = useState<Deal[]>([]);
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [roleplays, setRoleplays] = useState<Roleplay[]>([]);
+  const [kpis, setKpis] = useState<Kpi[]>([]);
   const [openContacts, setOpenContacts] = useState(0);
   const [clientCount, setClientCount] = useState(0);
+
+  const loadClient = useCallback(async (uid: string) => {
+    const [{ data: p }, { data: d }, { data: s }, { data: r }, { data: k }] = await Promise.all([
+      supabase
+        .from("profiles")
+        .select("id,email,full_name,company,tier,monthly_fee,start_date,status")
+        .eq("id", uid)
+        .maybeSingle(),
+      supabase
+        .from("deals")
+        .select("id,title,value_gbp,closed_at")
+        .eq("profile_id", uid)
+        .order("closed_at", { ascending: false }),
+      supabase
+        .from("workshop_sessions")
+        .select("id,session_date,covered,action_items,attended,notes")
+        .eq("client_id", uid)
+        .order("session_date", { ascending: false }),
+      supabase
+        .from("roleplay_recordings")
+        .select("id,title,recorded_on,storage_path,mime_type,notes,session_id")
+        .eq("client_id", uid)
+        .order("recorded_on", { ascending: false }),
+      supabase
+        .from("kpi_entries")
+        .select("id,month,opportunities,avg_deal_value,close_rate_est,closed_deal_value,dead_pipeline_value,notes")
+        .eq("client_id", uid)
+        .order("month", { ascending: false }),
+    ]);
+    setProfile(p as Profile | null);
+    setDeals((d ?? []) as Deal[]);
+    setSessions((s ?? []) as Session[]);
+    setRoleplays((r ?? []) as Roleplay[]);
+    setKpis((k ?? []) as Kpi[]);
+  }, []);
 
   useEffect(() => {
     (async () => {
       const { data: userData } = await supabase.auth.getUser();
       const user = userData.user;
       if (!user) return;
+      setUserId(user.id);
 
       const { data: roleRow } = await supabase
         .from("user_roles")
@@ -61,25 +135,13 @@ function Portal() {
             .select("id", { count: "exact", head: true }),
         ]);
         setOpenContacts(cCount ?? 0);
-        setClientCount((pCount ?? 1) - 1); // exclude admin
+        setClientCount((pCount ?? 1) - 1);
       } else {
-        const { data: p } = await supabase
-          .from("profiles")
-          .select("id,email,full_name,company,tier,monthly_fee,start_date,status")
-          .eq("id", user.id)
-          .maybeSingle();
-        setProfile(p as Profile | null);
-
-        const { data: d } = await supabase
-          .from("deals")
-          .select("id,title,value_gbp,closed_at")
-          .eq("profile_id", user.id)
-          .order("closed_at", { ascending: false });
-        setDeals((d ?? []) as Deal[]);
+        await loadClient(user.id);
       }
       setLoading(false);
     })();
-  }, []);
+  }, [loadClient]);
 
   async function signOut() {
     await supabase.auth.signOut();
@@ -119,11 +181,20 @@ function Portal() {
       ) : isAdmin ? (
         <AdminHome openContacts={openContacts} clientCount={clientCount} />
       ) : (
-        <ClientHome profile={profile} deals={deals} />
+        <ClientHome
+          profile={profile}
+          deals={deals}
+          sessions={sessions}
+          roleplays={roleplays}
+          kpis={kpis}
+          userId={userId}
+          reload={() => userId && loadClient(userId)}
+        />
       )}
     </PageShell>
   );
 }
+
 
 function AdminHome({ openContacts, clientCount }: { openContacts: number; clientCount: number }) {
   return (
@@ -166,7 +237,23 @@ function AdminHome({ openContacts, clientCount }: { openContacts: number; client
   );
 }
 
-function ClientHome({ profile, deals }: { profile: Profile | null; deals: Deal[] }) {
+function ClientHome({
+  profile,
+  deals,
+  sessions,
+  roleplays,
+  kpis,
+  userId,
+  reload,
+}: {
+  profile: Profile | null;
+  deals: Deal[];
+  sessions: Session[];
+  roleplays: Roleplay[];
+  kpis: Kpi[];
+  userId: string | null;
+  reload: () => void;
+}) {
   if (!profile) {
     return (
       <div className="container-tight py-16 text-sm text-muted-foreground">
@@ -246,29 +333,69 @@ function ClientHome({ profile, deals }: { profile: Profile | null; deals: Deal[]
       </section>
 
       <section>
-        <div className="container-tight grid gap-6 py-6 md:grid-cols-3">
+        <div className="container-tight py-4">
           <Link
             to="/portal/library"
-            className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
+            className="block rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
           >
             <div className="eyebrow">Library</div>
-            <div className="mt-2 font-serif text-xl">Scripts, SOPs, objections</div>
+            <div className="mt-2 font-serif text-xl">Scripts, SOPs, objections assigned to you</div>
             <p className="mt-2 text-sm text-muted-foreground">
-              Everything assigned to you, with change history.
+              Read-only with change history.
             </p>
           </Link>
-          {[
-            ["Coming next", "Sessions", "Workshop log and recording links."],
-            ["Coming next", "Roleplays", "Upload calls, get review notes."],
-          ].map(([e, t, b]) => (
-            <div key={t} className="rounded-md border border-rule bg-card p-6">
-              <div className="eyebrow">{e}</div>
-              <div className="mt-2 font-serif text-xl">{t}</div>
-              <p className="mt-2 text-sm text-muted-foreground">{b}</p>
-            </div>
-          ))}
         </div>
       </section>
+
+      {userId && (
+        <>
+          <SessionsPanelReadOnly sessions={sessions} />
+          <RoleplaysPanel
+            clientId={userId}
+            roleplays={roleplays}
+            sessions={sessions}
+            reload={reload}
+            isAdmin={false}
+          />
+          <KpisPanel clientId={userId} kpis={kpis} reload={reload} isAdmin={false} />
+        </>
+      )}
     </>
   );
 }
+
+function SessionsPanelReadOnly({ sessions }: { sessions: Session[] }) {
+  return (
+    <section className="rule-t">
+      <div className="container-tight py-10">
+        <div className="eyebrow">Workshop sessions</div>
+        {sessions.length === 0 ? (
+          <p className="mt-3 text-sm text-muted-foreground">No sessions logged yet.</p>
+        ) : (
+          <ul className="mt-4 space-y-3">
+            {sessions.map((s) => (
+              <li key={s.id} className="rounded-md border border-rule bg-card p-4 text-sm">
+                <div className="mono text-xs text-muted-foreground">
+                  {new Date(s.session_date).toLocaleDateString("en-GB")} · {s.attended ? "attended" : "missed"}
+                </div>
+                {s.covered && (
+                  <div className="mt-2">
+                    <div className="eyebrow">Covered</div>
+                    <div className="whitespace-pre-wrap">{s.covered}</div>
+                  </div>
+                )}
+                {s.action_items && (
+                  <div className="mt-2">
+                    <div className="eyebrow">Action items</div>
+                    <div className="whitespace-pre-wrap">{s.action_items}</div>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  );
+}
+
