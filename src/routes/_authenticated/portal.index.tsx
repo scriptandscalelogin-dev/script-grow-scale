@@ -32,20 +32,88 @@ export const Route = createFileRoute("/_authenticated/portal/")({
   component: Portal,
 });
 
+type Session = {
+  id: string;
+  session_date: string;
+  covered: string | null;
+  action_items: string | null;
+  attended: boolean;
+  notes: string | null;
+};
+type Roleplay = {
+  id: string;
+  title: string;
+  recorded_on: string;
+  storage_path: string;
+  mime_type: string | null;
+  notes: string | null;
+  session_id: string | null;
+};
+type Kpi = {
+  id: string;
+  month: string;
+  opportunities: number;
+  avg_deal_value: number;
+  close_rate_est: number;
+  closed_deal_value: number;
+  dead_pipeline_value: number;
+  notes: string | null;
+};
+
 function Portal() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [deals, setDeals] = useState<Deal[]>([]);
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [roleplays, setRoleplays] = useState<Roleplay[]>([]);
+  const [kpis, setKpis] = useState<Kpi[]>([]);
   const [openContacts, setOpenContacts] = useState(0);
   const [clientCount, setClientCount] = useState(0);
+
+  const loadClient = useCallback(async (uid: string) => {
+    const [{ data: p }, { data: d }, { data: s }, { data: r }, { data: k }] = await Promise.all([
+      supabase
+        .from("profiles")
+        .select("id,email,full_name,company,tier,monthly_fee,start_date,status")
+        .eq("id", uid)
+        .maybeSingle(),
+      supabase
+        .from("deals")
+        .select("id,title,value_gbp,closed_at")
+        .eq("profile_id", uid)
+        .order("closed_at", { ascending: false }),
+      supabase
+        .from("workshop_sessions")
+        .select("id,session_date,covered,action_items,attended,notes")
+        .eq("client_id", uid)
+        .order("session_date", { ascending: false }),
+      supabase
+        .from("roleplay_recordings")
+        .select("id,title,recorded_on,storage_path,mime_type,notes,session_id")
+        .eq("client_id", uid)
+        .order("recorded_on", { ascending: false }),
+      supabase
+        .from("kpi_entries")
+        .select("id,month,opportunities,avg_deal_value,close_rate_est,closed_deal_value,dead_pipeline_value,notes")
+        .eq("client_id", uid)
+        .order("month", { ascending: false }),
+    ]);
+    setProfile(p as Profile | null);
+    setDeals((d ?? []) as Deal[]);
+    setSessions((s ?? []) as Session[]);
+    setRoleplays((r ?? []) as Roleplay[]);
+    setKpis((k ?? []) as Kpi[]);
+  }, []);
 
   useEffect(() => {
     (async () => {
       const { data: userData } = await supabase.auth.getUser();
       const user = userData.user;
       if (!user) return;
+      setUserId(user.id);
 
       const { data: roleRow } = await supabase
         .from("user_roles")
@@ -67,25 +135,13 @@ function Portal() {
             .select("id", { count: "exact", head: true }),
         ]);
         setOpenContacts(cCount ?? 0);
-        setClientCount((pCount ?? 1) - 1); // exclude admin
+        setClientCount((pCount ?? 1) - 1);
       } else {
-        const { data: p } = await supabase
-          .from("profiles")
-          .select("id,email,full_name,company,tier,monthly_fee,start_date,status")
-          .eq("id", user.id)
-          .maybeSingle();
-        setProfile(p as Profile | null);
-
-        const { data: d } = await supabase
-          .from("deals")
-          .select("id,title,value_gbp,closed_at")
-          .eq("profile_id", user.id)
-          .order("closed_at", { ascending: false });
-        setDeals((d ?? []) as Deal[]);
+        await loadClient(user.id);
       }
       setLoading(false);
     })();
-  }, []);
+  }, [loadClient]);
 
   async function signOut() {
     await supabase.auth.signOut();
@@ -125,11 +181,20 @@ function Portal() {
       ) : isAdmin ? (
         <AdminHome openContacts={openContacts} clientCount={clientCount} />
       ) : (
-        <ClientHome profile={profile} deals={deals} />
+        <ClientHome
+          profile={profile}
+          deals={deals}
+          sessions={sessions}
+          roleplays={roleplays}
+          kpis={kpis}
+          userId={userId}
+          reload={() => userId && loadClient(userId)}
+        />
       )}
     </PageShell>
   );
 }
+
 
 function AdminHome({ openContacts, clientCount }: { openContacts: number; clientCount: number }) {
   return (
