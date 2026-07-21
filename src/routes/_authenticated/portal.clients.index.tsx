@@ -195,10 +195,22 @@ function ClientsList() {
                 <input className={inp} type="date" value={form.start_date}
                   onChange={(e) => setForm({ ...form, start_date: e.target.value })} />
               </Field>
-              <Field label="Password (leave blank to auto-generate)">
-                <input className={inp} type="text" minLength={8} value={form.password}
-                  onChange={(e) => setForm({ ...form, password: e.target.value })} />
+              <Field label="How they get their login">
+                <select
+                  className={inp}
+                  value={form.invite_mode}
+                  onChange={(e) => setForm({ ...form, invite_mode: e.target.value as "password" | "invite" })}
+                >
+                  <option value="password">Set a temporary password (I&apos;ll share it out-of-band)</option>
+                  <option value="invite">Email an invite link (they set their own password)</option>
+                </select>
               </Field>
+              {form.invite_mode === "password" && (
+                <Field label="Password (leave blank to auto-generate)">
+                  <input className={inp} type="text" minLength={8} value={form.password}
+                    onChange={(e) => setForm({ ...form, password: e.target.value })} />
+                </Field>
+              )}
               <div className="md:col-span-2 flex items-center gap-3">
                 <button type="submit" disabled={submitting} className="btn-primary">
                   {submitting ? "Creating…" : "Create client account"}
@@ -206,14 +218,48 @@ function ClientsList() {
                 {formMsg && <span className="text-xs text-muted-foreground">{formMsg}</span>}
               </div>
               <p className="md:col-span-2 text-xs text-muted-foreground">
-                Creates a login account (email confirmed) and a client profile. Share the password with them separately, or use the auth reset-password flow.
+                {form.invite_mode === "password"
+                  ? "Creates a login (email confirmed) with the password above. You&apos;ll see the password once so you can share it."
+                  : "Creates the account and emails a setup link so they set their own password. Uses default Supabase auth emails until you configure a custom sender domain."}
               </p>
             </form>
           </div>
         </section>
       )}
 
-      {!showAdd && formMsg && (
+      {createdInfo && (
+        <section className="rule-b bg-card">
+          <div className="container-tight py-5 text-sm">
+            {createdInfo.mode === "password" && createdInfo.tempPassword ? (
+              <>
+                <div className="eyebrow text-highlight">Copy this now — it won&apos;t be shown again</div>
+                <div className="mt-2">
+                  Login for <strong>{createdInfo.email}</strong>:{" "}
+                  <code className="mono rounded bg-background px-2 py-1">{createdInfo.tempPassword}</code>
+                </div>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Share this password with the client through your normal channel. They can change it from the sign-in page via &ldquo;Forgot password?&rdquo;.
+                </p>
+              </>
+            ) : (
+              <>
+                <div className="eyebrow text-highlight">Invite sent</div>
+                <div className="mt-2">
+                  Setup link emailed to <strong>{createdInfo.email}</strong>. They click it to set their password. If they don&apos;t receive it, check spam or use the &ldquo;Send password reset&rdquo; button on their client page.
+                </div>
+              </>
+            )}
+            <button
+              onClick={() => setCreatedInfo(null)}
+              className="mt-3 text-xs underline underline-offset-4 text-muted-foreground hover:text-foreground"
+            >
+              Dismiss
+            </button>
+          </div>
+        </section>
+      )}
+
+      {!showAdd && !createdInfo && formMsg && (
         <section className="rule-b">
           <div className="container-tight py-3 text-xs text-muted-foreground">{formMsg}</div>
         </section>
