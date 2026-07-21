@@ -103,17 +103,17 @@ function LibraryIndex() {
   return (
     <PageShell>
       <section className="rule-b">
-        <div className="container-tight flex items-center justify-between py-10">
-          <div>
+        <div className="container-tight grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 py-10 sm:flex sm:items-center sm:justify-between">
+          <div className="min-w-0">
             <div className="eyebrow">{isAdmin ? "Admin" : "Your"}</div>
-            <h1 className="mt-2 font-serif text-3xl">Content library</h1>
+            <h1 className="mt-2 font-serif text-2xl sm:text-3xl">Content library</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               {isAdmin
                 ? "Scripts, SOPs and objection sheets. Author here, assign to clients."
                 : "Scripts, SOPs and objection sheets assigned to you."}
             </p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="shrink-0 flex flex-col items-end gap-2 sm:flex-row sm:items-center sm:gap-4">
             {isAdmin && (
               <button onClick={() => setShowAdd((s) => !s)} className="btn-primary">
                 {showAdd ? "Cancel" : "New item"}
@@ -186,9 +186,13 @@ function LibraryIndex() {
           ) : msg ? (
             <p className="text-sm text-destructive">{msg}</p>
           ) : visible.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
-              {isAdmin ? "No content yet. Click “New item”." : "Nothing assigned yet."}
-            </p>
+            <div className="rounded-md border border-dashed border-rule bg-card px-5 py-8 text-sm text-muted-foreground">
+              {isAdmin
+                ? "No content yet. Click “New item” to add your first script, SOP, or objection sheet."
+                : filterKind === "all"
+                  ? "Your coach hasn’t published anything for you yet. Scripts, SOPs and objection sheets will show up here as they’re assigned to you."
+                  : `No ${KIND_LABELS[filterKind].toLowerCase()}s assigned to you yet. Check back after your next workshop.`}
+            </div>
           ) : (
             <div className="overflow-x-auto rounded-md border border-rule bg-card">
               <table className="w-full text-sm">
