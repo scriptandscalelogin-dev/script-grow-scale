@@ -19,7 +19,7 @@ export async function logActivity(
       event_type,
       target_kind: opts.target_kind ?? null,
       target_id: opts.target_id ?? null,
-      metadata: opts.metadata ?? {},
+      metadata: (opts.metadata ?? {}) as never,
     });
   } catch {
     // best-effort; never block UI

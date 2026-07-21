@@ -9,7 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GuaranteeRouteImport } from './routes/guarantee'
@@ -25,9 +28,24 @@ import { Route as AuthenticatedPortalClientsIndexRouteImport } from './routes/_a
 import { Route as AuthenticatedPortalLibraryIdRouteImport } from './routes/_authenticated/portal.library.$id'
 import { Route as AuthenticatedPortalClientsIdRouteImport } from './routes/_authenticated/portal.clients.$id'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -114,7 +132,10 @@ export interface FileRoutesByFullPath {
   '/guarantee': typeof GuaranteeRoute
   '/how-it-works': typeof HowItWorksRoute
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/portal/inbox': typeof AuthenticatedPortalInboxRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
   '/portal/clients/$id': typeof AuthenticatedPortalClientsIdRoute
@@ -130,7 +151,10 @@ export interface FileRoutesByTo {
   '/guarantee': typeof GuaranteeRoute
   '/how-it-works': typeof HowItWorksRoute
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/portal/inbox': typeof AuthenticatedPortalInboxRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
   '/portal/clients/$id': typeof AuthenticatedPortalClientsIdRoute
@@ -148,7 +172,10 @@ export interface FileRoutesById {
   '/guarantee': typeof GuaranteeRoute
   '/how-it-works': typeof HowItWorksRoute
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/_authenticated/portal/inbox': typeof AuthenticatedPortalInboxRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
   '/_authenticated/portal/clients/$id': typeof AuthenticatedPortalClientsIdRoute
@@ -166,7 +193,10 @@ export interface FileRouteTypes {
     | '/guarantee'
     | '/how-it-works'
     | '/pricing'
+    | '/privacy'
+    | '/reset-password'
     | '/sitemap.xml'
+    | '/terms'
     | '/portal/inbox'
     | '/portal/'
     | '/portal/clients/$id'
@@ -182,7 +212,10 @@ export interface FileRouteTypes {
     | '/guarantee'
     | '/how-it-works'
     | '/pricing'
+    | '/privacy'
+    | '/reset-password'
     | '/sitemap.xml'
+    | '/terms'
     | '/portal/inbox'
     | '/portal'
     | '/portal/clients/$id'
@@ -199,7 +232,10 @@ export interface FileRouteTypes {
     | '/guarantee'
     | '/how-it-works'
     | '/pricing'
+    | '/privacy'
+    | '/reset-password'
     | '/sitemap.xml'
+    | '/terms'
     | '/_authenticated/portal/inbox'
     | '/_authenticated/portal/'
     | '/_authenticated/portal/clients/$id'
@@ -217,16 +253,40 @@ export interface RootRouteChildren {
   GuaranteeRoute: typeof GuaranteeRoute
   HowItWorksRoute: typeof HowItWorksRoute
   PricingRoute: typeof PricingRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -360,7 +420,10 @@ const rootRouteChildren: RootRouteChildren = {
   GuaranteeRoute: GuaranteeRoute,
   HowItWorksRoute: HowItWorksRoute,
   PricingRoute: PricingRoute,
+  PrivacyRoute: PrivacyRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
