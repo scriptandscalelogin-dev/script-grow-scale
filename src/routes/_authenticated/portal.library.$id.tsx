@@ -1,8 +1,9 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PageShell } from "@/components/site-shell";
 import { supabase } from "@/integrations/supabase/client";
 import { KIND_LABELS, STATUSES, type ContentKind, type ContentStatus } from "@/lib/library";
+import { logActivity, type ActivityTargetKind } from "@/lib/activity";
 
 type Item = {
   id: string;
@@ -53,6 +54,7 @@ function LibraryDetail() {
   const [changeNotes, setChangeNotes] = useState("");
   const [assignClientId, setAssignClientId] = useState("");
   const [notFound, setNotFound] = useState(false);
+  const viewLoggedRef = useRef(false);
 
   async function load() {
     const { data: u } = await supabase.auth.getUser();
@@ -106,8 +108,20 @@ function LibraryDetail() {
   }
 
   useEffect(() => {
+    viewLoggedRef.current = false;
     load();
   }, [id]);
+
+  // Log a client view once per mount when we've resolved the item + role.
+  useEffect(() => {
+    if (!item || isAdmin || viewLoggedRef.current) return;
+    viewLoggedRef.current = true;
+    logActivity("view_content", {
+      target_kind: item.kind as ActivityTargetKind,
+      target_id: item.id,
+      metadata: { title: item.title },
+    });
+  }, [item, isAdmin]);
 
   async function saveVersion(e: React.FormEvent) {
     e.preventDefault();
@@ -227,17 +241,17 @@ function LibraryDetail() {
   return (
     <PageShell>
       <section className="rule-b">
-        <div className="container-tight flex items-center justify-between py-10">
-          <div>
+        <div className="container-tight grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 py-10 sm:flex sm:items-center sm:justify-between">
+          <div className="min-w-0">
             <div className="eyebrow">
               {KIND_LABELS[item.kind]} · v{item.current_version} · {item.status}
             </div>
-            <h1 className="mt-2 font-serif text-3xl">{item.title}</h1>
+            <h1 className="mt-2 font-serif text-2xl sm:text-3xl break-words">{item.title}</h1>
             {item.summary && (
               <p className="mt-1 text-sm text-muted-foreground">{item.summary}</p>
             )}
           </div>
-          <Link to="/portal/library" className="text-sm underline underline-offset-4">All items</Link>
+          <Link to="/portal/library" className="shrink-0 text-sm underline underline-offset-4">All items</Link>
         </div>
       </section>
 

@@ -370,7 +370,9 @@ function SessionsPanelReadOnly({ sessions }: { sessions: Session[] }) {
       <div className="container-tight py-10">
         <div className="eyebrow">Workshop sessions</div>
         {sessions.length === 0 ? (
-          <p className="mt-3 text-sm text-muted-foreground">No sessions logged yet.</p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            No workshops logged yet. Once you&rsquo;ve had your first session with your coach it&rsquo;ll appear here with what was covered and any action items.
+          </p>
         ) : (
           <ul className="mt-4 space-y-3">
             {sessions.map((s) => (

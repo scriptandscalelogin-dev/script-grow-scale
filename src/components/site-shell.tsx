@@ -76,6 +76,8 @@ export function SiteFooter() {
           <ul className="mt-3 space-y-1.5 text-sm">
             <li><Link to="/auth" className="hover:text-highlight">Sign in</Link></li>
             <li className="text-muted-foreground">Accounts created by Script &amp; Scale.</li>
+            <li className="pt-2"><Link to="/privacy" className="hover:text-highlight">Privacy policy</Link></li>
+            <li><Link to="/terms" className="hover:text-highlight">Terms of service</Link></li>
           </ul>
         </div>
       </div>
