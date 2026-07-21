@@ -50,7 +50,13 @@ function ClientsList() {
     monthly_fee: "" as string,
     start_date: new Date().toISOString().slice(0, 10),
     password: "",
+    invite_mode: "password" as "password" | "invite",
   });
+  const [createdInfo, setCreatedInfo] = useState<{
+    email: string;
+    mode: "password" | "invite";
+    tempPassword: string | null;
+  } | null>(null);
 
   async function load() {
     const { data: adminRoles } = await supabase
@@ -84,6 +90,7 @@ function ClientsList() {
     e.preventDefault();
     setSubmitting(true);
     setFormMsg(null);
+    setCreatedInfo(null);
     try {
       const result = await createFn({
         data: {
@@ -94,8 +101,18 @@ function ClientsList() {
           tier: form.tier || null,
           monthly_fee: form.monthly_fee ? Number(form.monthly_fee) : null,
           start_date: form.start_date || null,
-          password: form.password || null,
+          password: form.invite_mode === "password" ? form.password || null : null,
+          invite_mode: form.invite_mode,
+          redirect_to:
+            form.invite_mode === "invite"
+              ? `${window.location.origin}/reset-password`
+              : null,
         },
+      });
+      setCreatedInfo({
+        email: result.email,
+        mode: form.invite_mode,
+        tempPassword: result.temp_password,
       });
       setFormMsg(`Created ${result.full_name} (${result.email}).`);
       setForm({
@@ -107,6 +124,7 @@ function ClientsList() {
         monthly_fee: "",
         start_date: new Date().toISOString().slice(0, 10),
         password: "",
+        invite_mode: form.invite_mode,
       });
       setShowAdd(false);
       load();
@@ -120,12 +138,12 @@ function ClientsList() {
   return (
     <PageShell>
       <section className="rule-b">
-        <div className="container-tight flex items-center justify-between py-10">
-          <div>
+        <div className="container-tight grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 py-10 sm:flex sm:items-center sm:justify-between">
+          <div className="min-w-0">
             <div className="eyebrow">Admin</div>
-            <h1 className="mt-2 font-serif text-3xl">Clients</h1>
+            <h1 className="mt-2 font-serif text-2xl sm:text-3xl">Clients</h1>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="shrink-0 flex flex-col items-end gap-2 sm:flex-row sm:items-center sm:gap-4">
             <button
               onClick={() => {
                 setShowAdd((s) => !s);
