@@ -1,8 +1,11 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { PageShell } from "@/components/site-shell";
 import { supabase } from "@/integrations/supabase/client";
 import { TIERS } from "@/lib/tiers";
+import { sendPasswordResetForClient } from "@/lib/clients.functions";
+import { formatActivity } from "@/lib/activity";
 
 type Profile = {
   id: string;
@@ -195,15 +198,20 @@ function ClientDetail() {
   return (
     <PageShell>
       <section className="rule-b">
-        <div className="container-tight flex items-center justify-between py-10">
-          <div>
+        <div className="container-tight grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 py-10 sm:flex sm:items-center sm:justify-between">
+          <div className="min-w-0">
             <div className="eyebrow">Client</div>
-            <h1 className="mt-2 font-serif text-3xl">{profile.full_name || profile.email}</h1>
-            <div className="mono mt-1 text-xs text-muted-foreground">{profile.email}</div>
+            <h1 className="mt-2 font-serif text-2xl sm:text-3xl break-words">{profile.full_name || profile.email}</h1>
+            <div className="mono mt-1 text-xs text-muted-foreground truncate">{profile.email}</div>
           </div>
-          <Link to="/portal/clients" className="text-sm underline underline-offset-4">All clients</Link>
+          <div className="shrink-0 flex flex-col items-end gap-2">
+            <SendResetButton email={profile.email ?? ""} />
+            <Link to="/portal/clients" className="text-sm underline underline-offset-4">All clients</Link>
+          </div>
         </div>
       </section>
+
+      
 
       <section>
         <div className="container-tight grid gap-8 py-10 md:grid-cols-2">
@@ -390,7 +398,122 @@ function ClientDetail() {
         isAdmin={true}
       />
       <KpisPanel clientId={id} kpis={kpis} reload={load} isAdmin={true} />
+      <ActivityPanel clientId={id} />
     </PageShell>
+  );
+}
+
+/* ------------------------- Send-reset button ------------------------- */
+
+function SendResetButton({ email }: { email: string }) {
+  const send = useServerFn(sendPasswordResetForClient);
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+  async function onClick() {
+    if (!email) return;
+    if (!confirm(`Send password reset email to ${email}?`)) return;
+    setBusy(true);
+    setMsg(null);
+    try {
+      await send({
+        data: {
+          email,
+          redirect_to: `${window.location.origin}/reset-password`,
+        },
+      });
+      setMsg("Reset email sent.");
+    } catch (e) {
+      setMsg(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <div className="text-right">
+      <button onClick={onClick} disabled={busy || !email} className="btn-outline text-xs">
+        {busy ? "Sending…" : "Send password reset"}
+      </button>
+      {msg && <div className="mt-1 text-xs text-muted-foreground">{msg}</div>}
+    </div>
+  );
+}
+
+/* ------------------------- Activity feed ------------------------- */
+
+type ActivityRow = {
+  id: string;
+  event_type: string;
+  target_kind: string | null;
+  target_id: string | null;
+  metadata: Record<string, unknown> | null;
+  created_at: string;
+};
+
+function ActivityPanel({ clientId }: { clientId: string }) {
+  const [rows, setRows] = useState<ActivityRow[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from("activity_log")
+        .select("id,event_type,target_kind,target_id,metadata,created_at")
+        .eq("user_id", clientId)
+        .order("created_at", { ascending: false })
+        .limit(20);
+      setRows((data ?? []) as ActivityRow[]);
+      setLoading(false);
+    })();
+  }, [clientId]);
+
+  const lastLogin = rows.find((r) => r.event_type === "login")?.created_at ?? null;
+  const lastView = rows.find((r) => r.event_type === "view_content");
+
+  return (
+    <section className="rule-t">
+      <div className="container-tight py-10">
+        <div className="eyebrow">Activity</div>
+        <div className="mt-3 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-md border border-rule bg-card p-4 text-sm">
+            <div className="eyebrow">Last sign-in</div>
+            <div className="mt-2 font-serif text-xl">
+              {lastLogin ? new Date(lastLogin).toLocaleString("en-GB") : "Never"}
+            </div>
+          </div>
+          <div className="rounded-md border border-rule bg-card p-4 text-sm">
+            <div className="eyebrow">Last content view</div>
+            <div className="mt-2 font-serif text-xl break-words">
+              {lastView
+                ? `${lastView.target_kind ?? "content"}: ${(lastView.metadata?.title as string) ?? "—"}`
+                : "None yet"}
+            </div>
+            <div className="mono mt-1 text-xs text-muted-foreground">
+              {lastView ? new Date(lastView.created_at).toLocaleString("en-GB") : ""}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <div className="eyebrow">Recent events ({rows.length})</div>
+          {loading ? (
+            <p className="mt-2 text-sm text-muted-foreground">Loading…</p>
+          ) : rows.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">No activity recorded yet.</p>
+          ) : (
+            <ul className="mt-3 divide-y divide-rule rounded-md border border-rule bg-card">
+              {rows.map((r) => (
+                <li key={r.id} className="flex flex-col gap-1 px-4 py-3 text-sm sm:flex-row sm:items-center sm:justify-between">
+                  <span className="break-words">{formatActivity(r)}</span>
+                  <span className="mono shrink-0 text-xs text-muted-foreground">
+                    {new Date(r.created_at).toLocaleString("en-GB")}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }
 
