@@ -114,12 +114,10 @@ function Home() {
           <div className="md:col-span-7">
             <p className="text-base">
               If closed deal value across your first three months doesn’t cover the fees you paid, and
-              you attended the workshops and ran the program, month four is free — and every month
-              after that, until we’re square.
+              you attended the workshops and ran the program, month four is free. Every month after that too, until we’re square.
             </p>
             <p className="mt-4 text-sm text-muted-foreground">
-              No cash refund. Attendance is required. It’s a real guarantee, not a marketing one — it
-              works because both sides show up.
+              No cash refund. Attendance is required. It’s a real guarantee, not a marketing one. It works because both sides show up.
             </p>
             <Link to="/guarantee" className="mt-6 inline-block text-sm underline-offset-4 hover:underline">
               Read the full mechanic →

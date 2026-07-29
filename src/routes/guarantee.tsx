@@ -20,7 +20,7 @@ function Guarantee() {
         <div className="container-tight py-20">
           <div className="eyebrow">The guarantee</div>
           <h1 className="mt-4 font-serif text-5xl md:text-6xl">
-            Your first three months pay for themselves — or the next ones are on us.
+            Your first three months pay for themselves. Or the next ones are on us.
           </h1>
         </div>
       </section>
@@ -47,8 +47,7 @@ function Guarantee() {
                 Until closed deal value catches up with fees paid.
               </p>
               <p className="text-muted-foreground">
-                No cash changes hands back. It’s time recovered, not money refunded. That’s deliberate —
-                a cash refund lets both sides off the hook. Free months mean we keep working until it works.
+                No cash changes hands back. It’s time recovered, not money refunded. That’s deliberate. A cash refund lets both sides off the hook. Free months mean we keep working until it works.
               </p>
             </div>
           </div>

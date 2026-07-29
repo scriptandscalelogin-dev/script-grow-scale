@@ -22,8 +22,7 @@ function HowItWorks() {
           <div className="eyebrow">How it works</div>
           <h1 className="mt-4 font-serif text-5xl md:text-6xl">A weekly rep, not a course.</h1>
           <p className="mt-6 max-w-2xl text-muted-foreground">
-            Workshops are 30–45 minutes. They’re working sessions — we look at your live pipeline,
-            build the script or the SOP you need this week, roleplay the objection you got yesterday.
+            Workshops are 30–45 minutes. They’re working sessions. We look at your live pipeline, build the script or SOP you need this week, roleplay the objection you got yesterday.
             You leave with something you can use on your next call.
           </p>
         </div>
@@ -78,8 +77,7 @@ function HowItWorks() {
           <h2 className="font-serif text-3xl">Between workshops</h2>
           <p className="mt-4 max-w-2xl text-muted-foreground">
             Your portal holds every script, SOP and objection sheet we’ve built together, plus
-            recordings of past workshops and, on Scale, the calls we reviewed. It’s a working library —
-            searchable, versioned, and yours to hand to a hire when one lands.
+            recordings of past workshops and, on Scale, the calls we reviewed. It’s a working library: searchable, versioned, yours to hand to a hire when one lands.
           </p>
         </div>
       </section>

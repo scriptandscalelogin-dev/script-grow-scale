@@ -78,7 +78,7 @@ function Pricing() {
               <div className="eyebrow">The guarantee</div>
               <p className="mt-5 text-sm">
                 If closed deal value across your first three months doesn’t cover the fees you paid,
-                month four is free — and every month after, until you break even.
+                month four is free. Every month after that too, until you break even.
               </p>
               <p className="mt-3 text-sm text-muted-foreground">
                 Attendance required. Fee recovery only, no cash refund.

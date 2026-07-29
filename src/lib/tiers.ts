@@ -30,7 +30,7 @@ export const TIERS: Tier[] = [
     tagline: "Follow-up stops leaking.",
     includes: [
       "Everything in Starter",
-      "Biweekly cadence — two workshops per month",
+      "Biweekly cadence: two workshops a month",
       "Follow-up SOPs (email, LinkedIn, phone)",
       "Roleplay drills against objections you hit last week",
     ],
@@ -44,9 +44,9 @@ export const TIERS: Tier[] = [
     tagline: "Reps, review, tonality.",
     includes: [
       "Everything in Growth",
-      "Weekly cadence — four workshops per month",
+      "Weekly cadence: four workshops a month",,
       "Tonality coaching on real recordings",
-      "Live call review — I sit on your calls, we debrief after",
+      "Live call review. I sit on your calls, we debrief after.",,
     ],
   },
 ] as const;

@@ -62,7 +62,7 @@ function Contact() {
           <div className="eyebrow">Book a call</div>
           <h1 className="mt-4 font-serif text-5xl md:text-6xl">30 minutes. No pitch deck.</h1>
           <p className="mt-6 max-w-2xl text-muted-foreground">
-            Tell me about your last five deals — what came in, what closed, what stalled. I’ll say
+            Tell me about your last five deals. What came in, what closed, what stalled. I’ll say
             whether Script &amp; Scale would move the needle. If it wouldn’t, I’ll say that too.
           </p>
         </div>
