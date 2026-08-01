@@ -44,9 +44,9 @@ export const TIERS: Tier[] = [
     tagline: "Reps, review, tonality.",
     includes: [
       "Everything in Growth",
-      "Weekly cadence: four workshops a month",,
+      "Weekly cadence: four workshops a month",
       "Tonality coaching on real recordings",
-      "Live call review. I sit on your calls, we debrief after.",,
+      "Live call review. I sit on your calls, we debrief after.",
     ],
   },
 ] as const;
