@@ -459,12 +459,128 @@ function LibraryDetail() {
                   Every save creates a new version. Only <strong>published</strong> items are visible to assigned clients.
                 </p>
               </form>
+
+              <div className="mt-8 space-y-4 rounded-md border border-rule bg-card p-5">
+                <div className="eyebrow">Attachment</div>
+                <p className="text-xs text-muted-foreground">
+                  A link and a file are independent — you can set either, both, or neither. Saving here
+                  updates the item straight away and does not create a new version.
+                </p>
+
+                <label className="block">
+                  <span className="eyebrow">Link (optional)</span>
+                  <input
+                    className={`${inp} mt-1.5`}
+                    type="url"
+                    placeholder="https://…"
+                    value={attachmentUrl}
+                    onChange={(e) => setAttachmentUrl(e.target.value)}
+                  />
+                </label>
+                <div className="flex flex-wrap items-center gap-3">
+                  <button type="button" onClick={saveAttachmentLink} disabled={attachBusy} className="btn-outline">
+                    Save link
+                  </button>
+                  {item.attachment_url && (
+                    <button
+                      type="button"
+                      onClick={removeLink}
+                      disabled={attachBusy}
+                      className="text-xs text-muted-foreground hover:text-destructive"
+                    >
+                      Remove link
+                    </button>
+                  )}
+                  {item.attachment_url && (
+                    <a
+                      href={item.attachment_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs underline underline-offset-4"
+                    >
+                      Open link
+                    </a>
+                  )}
+                </div>
+
+                <label className="block">
+                  <span className="eyebrow">File (optional)</span>
+                  <input
+                    ref={fileRef}
+                    className={`${inp} mt-1.5`}
+                    type="file"
+                    disabled={attachBusy}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) uploadAttachment(f);
+                    }}
+                  />
+                </label>
+                {item.attachment_storage_path ? (
+                  <div className="flex flex-wrap items-center gap-3 text-sm">
+                    <span className="mono text-xs break-all">
+                      {item.attachment_file_name ?? item.attachment_storage_path}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={openAttachmentFile}
+                      disabled={attachBusy}
+                      className="text-xs underline underline-offset-4"
+                    >
+                      Download file
+                    </button>
+                    <button
+                      type="button"
+                      onClick={removeFile}
+                      disabled={attachBusy}
+                      className="text-xs text-muted-foreground hover:text-destructive"
+                    >
+                      Remove file
+                    </button>
+                  </div>
+                ) : (
+                  <p className="text-xs text-muted-foreground">No file uploaded.</p>
+                )}
+
+                {attachMsg && <p className="text-xs text-muted-foreground">{attachMsg}</p>}
+                {attachBusy && <p className="text-xs text-muted-foreground">Working…</p>}
+              </div>
+              </>
             ) : (
               <div>
                 <div className="eyebrow">Body</div>
                 <pre className="mt-3 whitespace-pre-wrap rounded-md border border-rule bg-card p-5 font-mono text-sm leading-relaxed">
                   {item.body || "(empty)"}
                 </pre>
+
+                {(item.attachment_url || item.attachment_storage_path) && (
+                  <div className="mt-6 rounded-md border border-rule bg-card p-5">
+                    <div className="eyebrow">Attachment</div>
+                    <div className="mt-3 flex flex-wrap items-center gap-3">
+                      {item.attachment_url && (
+                        <a
+                          href={item.attachment_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-outline"
+                        >
+                          Open link
+                        </a>
+                      )}
+                      {item.attachment_storage_path && (
+                        <button type="button" onClick={openAttachmentFile} className="btn-outline">
+                          Download file
+                        </button>
+                      )}
+                      {item.attachment_file_name && (
+                        <span className="mono text-xs text-muted-foreground break-all">
+                          {item.attachment_file_name}
+                        </span>
+                      )}
+                    </div>
+                    {attachMsg && <p className="mt-2 text-xs text-destructive">{attachMsg}</p>}
+                  </div>
+                )}
               </div>
             )}
           </div>
