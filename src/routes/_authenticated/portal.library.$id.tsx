@@ -188,6 +188,127 @@ function LibraryDetail() {
     setMsg(error ? error.message : "Metadata saved.");
   }
 
+  async function saveAttachmentLink() {
+    if (!item) return;
+    setAttachMsg(null);
+    const trimmed = attachmentUrl.trim();
+    if (trimmed) {
+      try {
+        const u = new URL(trimmed);
+        if (u.protocol !== "http:" && u.protocol !== "https:") throw new Error("bad protocol");
+      } catch {
+        setAttachMsg("Enter a valid link starting with http:// or https://");
+        return;
+      }
+    }
+    setAttachBusy(true);
+    const { error } = await supabase
+      .from("content_items")
+      .update({ attachment_url: trimmed || null })
+      .eq("id", item.id);
+    setAttachBusy(false);
+    if (error) {
+      setAttachMsg(error.message);
+      return;
+    }
+    setItem({ ...item, attachment_url: trimmed || null });
+    setAttachMsg(trimmed ? "Link saved." : "Link removed.");
+  }
+
+  async function removeLink() {
+    if (!item) return;
+    setAttachmentUrl("");
+    setAttachBusy(true);
+    setAttachMsg(null);
+    const { error } = await supabase
+      .from("content_items")
+      .update({ attachment_url: null })
+      .eq("id", item.id);
+    setAttachBusy(false);
+    if (error) {
+      setAttachMsg(error.message);
+      return;
+    }
+    setItem({ ...item, attachment_url: null });
+    setAttachMsg("Link removed.");
+  }
+
+  async function uploadAttachment(file: File) {
+    if (!item) return;
+    setAttachBusy(true);
+    setAttachMsg(null);
+    if (item.attachment_storage_path) {
+      await supabase.storage.from("content-attachments").remove([item.attachment_storage_path]);
+    }
+    const safeName = file.name.replace(/[^\w.\-]+/g, "_");
+    const path = `${item.id}/${Date.now()}-${safeName}`;
+    const { error: upErr } = await supabase.storage
+      .from("content-attachments")
+      .upload(path, file, { contentType: file.type || undefined, upsert: true });
+    if (upErr) {
+      setAttachBusy(false);
+      setAttachMsg(upErr.message);
+      return;
+    }
+    const patch = {
+      attachment_storage_path: path,
+      attachment_file_name: file.name,
+      attachment_mime_type: file.type || null,
+    };
+    const { error } = await supabase.from("content_items").update(patch).eq("id", item.id);
+    setAttachBusy(false);
+    if (fileRef.current) fileRef.current.value = "";
+    if (error) {
+      setAttachMsg(error.message);
+      return;
+    }
+    setItem({ ...item, ...patch });
+    setAttachMsg("File uploaded.");
+  }
+
+  async function removeFile() {
+    if (!item?.attachment_storage_path) return;
+    if (!confirm("Remove the uploaded file?")) return;
+    setAttachBusy(true);
+    setAttachMsg(null);
+    const { error: rmErr } = await supabase.storage
+      .from("content-attachments")
+      .remove([item.attachment_storage_path]);
+    if (rmErr) {
+      setAttachBusy(false);
+      setAttachMsg(rmErr.message);
+      return;
+    }
+    const patch = {
+      attachment_storage_path: null,
+      attachment_file_name: null,
+      attachment_mime_type: null,
+    };
+    const { error } = await supabase.from("content_items").update(patch).eq("id", item.id);
+    setAttachBusy(false);
+    if (error) {
+      setAttachMsg(error.message);
+      return;
+    }
+    setItem({ ...item, ...patch });
+    setAttachMsg("File removed.");
+  }
+
+  async function openAttachmentFile() {
+    if (!item?.attachment_storage_path) return;
+    setAttachMsg(null);
+    const { data, error } = await supabase.storage
+      .from("content-attachments")
+      .createSignedUrl(item.attachment_storage_path, 300, { download: item.attachment_file_name ?? true });
+    if (error || !data?.signedUrl) {
+      setAttachMsg(error?.message ?? "Could not create a download link.");
+      return;
+    }
+    window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+  }
+
+
+
   async function restoreVersion(v: Version) {
     if (!item) return;
     if (!confirm(`Restore v${v.version_number}? This creates a new version with its contents.`)) return;
