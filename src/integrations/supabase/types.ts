@@ -118,6 +118,10 @@ export type Database = {
       }
       content_items: {
         Row: {
+          attachment_file_name: string | null
+          attachment_mime_type: string | null
+          attachment_storage_path: string | null
+          attachment_url: string | null
           body: string
           created_at: string
           created_by: string
@@ -130,6 +134,10 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          attachment_file_name?: string | null
+          attachment_mime_type?: string | null
+          attachment_storage_path?: string | null
+          attachment_url?: string | null
           body?: string
           created_at?: string
           created_by: string
@@ -142,6 +150,10 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          attachment_file_name?: string | null
+          attachment_mime_type?: string | null
+          attachment_storage_path?: string | null
+          attachment_url?: string | null
           body?: string
           created_at?: string
           created_by?: string

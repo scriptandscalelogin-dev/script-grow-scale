@@ -12,6 +12,8 @@ type Row = {
   status: ContentStatus;
   current_version: number;
   updated_at: string;
+  attachment_url: string | null;
+  attachment_storage_path: string | null;
 };
 
 export const Route = createFileRoute("/_authenticated/portal/library/")({
@@ -51,7 +53,7 @@ function LibraryIndex() {
 
     const { data, error } = await supabase
       .from("content_items")
-      .select("id,kind,title,summary,status,current_version,updated_at")
+      .select("id,kind,title,summary,status,current_version,updated_at,attachment_url,attachment_storage_path")
       .order("updated_at", { ascending: false });
     if (error) setMsg(error.message);
     setRows((data ?? []) as Row[]);
@@ -213,6 +215,14 @@ function LibraryIndex() {
                         <div className="font-medium">{r.title}</div>
                         {r.summary && (
                           <div className="text-xs text-muted-foreground">{r.summary}</div>
+                        )}
+                        {(r.attachment_url || r.attachment_storage_path) && (
+                          <div className="mono mt-1 text-[10px] uppercase text-muted-foreground">
+                            {[r.attachment_url ? "link" : null, r.attachment_storage_path ? "file" : null]
+                              .filter(Boolean)
+                              .join(" + ")}{" "}
+                            attached
+                          </div>
                         )}
                       </Td>
                       <Td className="mono text-xs uppercase">{KIND_LABELS[r.kind]}</Td>

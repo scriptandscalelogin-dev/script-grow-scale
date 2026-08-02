@@ -13,6 +13,10 @@ type Item = {
   body: string;
   status: ContentStatus;
   current_version: number;
+  attachment_url: string | null;
+  attachment_storage_path: string | null;
+  attachment_file_name: string | null;
+  attachment_mime_type: string | null;
 };
 
 type Version = {
@@ -54,6 +58,10 @@ function LibraryDetail() {
   const [changeNotes, setChangeNotes] = useState("");
   const [assignClientId, setAssignClientId] = useState("");
   const [notFound, setNotFound] = useState(false);
+  const [attachmentUrl, setAttachmentUrl] = useState("");
+  const [attachBusy, setAttachBusy] = useState(false);
+  const [attachMsg, setAttachMsg] = useState<string | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
   const viewLoggedRef = useRef(false);
 
   async function load() {
@@ -70,7 +78,9 @@ function LibraryDetail() {
 
     const { data: it } = await supabase
       .from("content_items")
-      .select("id,kind,title,summary,body,status,current_version")
+      .select(
+        "id,kind,title,summary,body,status,current_version,attachment_url,attachment_storage_path,attachment_file_name,attachment_mime_type",
+      )
       .eq("id", id)
       .maybeSingle();
     if (!it) {
@@ -78,6 +88,7 @@ function LibraryDetail() {
       return;
     }
     setItem(it as Item);
+    setAttachmentUrl((it as Item).attachment_url ?? "");
 
     const [{ data: vs }, { data: asg }] = await Promise.all([
       supabase
@@ -177,6 +188,127 @@ function LibraryDetail() {
     setMsg(error ? error.message : "Metadata saved.");
   }
 
+  async function saveAttachmentLink() {
+    if (!item) return;
+    setAttachMsg(null);
+    const trimmed = attachmentUrl.trim();
+    if (trimmed) {
+      try {
+        const u = new URL(trimmed);
+        if (u.protocol !== "http:" && u.protocol !== "https:") throw new Error("bad protocol");
+      } catch {
+        setAttachMsg("Enter a valid link starting with http:// or https://");
+        return;
+      }
+    }
+    setAttachBusy(true);
+    const { error } = await supabase
+      .from("content_items")
+      .update({ attachment_url: trimmed || null })
+      .eq("id", item.id);
+    setAttachBusy(false);
+    if (error) {
+      setAttachMsg(error.message);
+      return;
+    }
+    setItem({ ...item, attachment_url: trimmed || null });
+    setAttachMsg(trimmed ? "Link saved." : "Link removed.");
+  }
+
+  async function removeLink() {
+    if (!item) return;
+    setAttachmentUrl("");
+    setAttachBusy(true);
+    setAttachMsg(null);
+    const { error } = await supabase
+      .from("content_items")
+      .update({ attachment_url: null })
+      .eq("id", item.id);
+    setAttachBusy(false);
+    if (error) {
+      setAttachMsg(error.message);
+      return;
+    }
+    setItem({ ...item, attachment_url: null });
+    setAttachMsg("Link removed.");
+  }
+
+  async function uploadAttachment(file: File) {
+    if (!item) return;
+    setAttachBusy(true);
+    setAttachMsg(null);
+    if (item.attachment_storage_path) {
+      await supabase.storage.from("content-attachments").remove([item.attachment_storage_path]);
+    }
+    const safeName = file.name.replace(/[^\w.\-]+/g, "_");
+    const path = `${item.id}/${Date.now()}-${safeName}`;
+    const { error: upErr } = await supabase.storage
+      .from("content-attachments")
+      .upload(path, file, { contentType: file.type || undefined, upsert: true });
+    if (upErr) {
+      setAttachBusy(false);
+      setAttachMsg(upErr.message);
+      return;
+    }
+    const patch = {
+      attachment_storage_path: path,
+      attachment_file_name: file.name,
+      attachment_mime_type: file.type || null,
+    };
+    const { error } = await supabase.from("content_items").update(patch).eq("id", item.id);
+    setAttachBusy(false);
+    if (fileRef.current) fileRef.current.value = "";
+    if (error) {
+      setAttachMsg(error.message);
+      return;
+    }
+    setItem({ ...item, ...patch });
+    setAttachMsg("File uploaded.");
+  }
+
+  async function removeFile() {
+    if (!item?.attachment_storage_path) return;
+    if (!confirm("Remove the uploaded file?")) return;
+    setAttachBusy(true);
+    setAttachMsg(null);
+    const { error: rmErr } = await supabase.storage
+      .from("content-attachments")
+      .remove([item.attachment_storage_path]);
+    if (rmErr) {
+      setAttachBusy(false);
+      setAttachMsg(rmErr.message);
+      return;
+    }
+    const patch = {
+      attachment_storage_path: null,
+      attachment_file_name: null,
+      attachment_mime_type: null,
+    };
+    const { error } = await supabase.from("content_items").update(patch).eq("id", item.id);
+    setAttachBusy(false);
+    if (error) {
+      setAttachMsg(error.message);
+      return;
+    }
+    setItem({ ...item, ...patch });
+    setAttachMsg("File removed.");
+  }
+
+  async function openAttachmentFile() {
+    if (!item?.attachment_storage_path) return;
+    setAttachMsg(null);
+    const { data, error } = await supabase.storage
+      .from("content-attachments")
+      .createSignedUrl(item.attachment_storage_path, 300, { download: item.attachment_file_name ?? true });
+    if (error || !data?.signedUrl) {
+      setAttachMsg(error?.message ?? "Could not create a download link.");
+      return;
+    }
+    window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+  }
+
+
+
   async function restoreVersion(v: Version) {
     if (!item) return;
     if (!confirm(`Restore v${v.version_number}? This creates a new version with its contents.`)) return;
@@ -259,6 +391,7 @@ function LibraryDetail() {
         <div className="container-tight grid gap-8 py-10 md:grid-cols-3">
           <div className="md:col-span-2">
             {isAdmin ? (
+              <>
               <form onSubmit={saveVersion} className="space-y-4">
                 <div className="eyebrow">Edit</div>
                 <label className="block">
@@ -326,12 +459,128 @@ function LibraryDetail() {
                   Every save creates a new version. Only <strong>published</strong> items are visible to assigned clients.
                 </p>
               </form>
+
+              <div className="mt-8 space-y-4 rounded-md border border-rule bg-card p-5">
+                <div className="eyebrow">Attachment</div>
+                <p className="text-xs text-muted-foreground">
+                  A link and a file are independent — you can set either, both, or neither. Saving here
+                  updates the item straight away and does not create a new version.
+                </p>
+
+                <label className="block">
+                  <span className="eyebrow">Link (optional)</span>
+                  <input
+                    className={`${inp} mt-1.5`}
+                    type="url"
+                    placeholder="https://…"
+                    value={attachmentUrl}
+                    onChange={(e) => setAttachmentUrl(e.target.value)}
+                  />
+                </label>
+                <div className="flex flex-wrap items-center gap-3">
+                  <button type="button" onClick={saveAttachmentLink} disabled={attachBusy} className="btn-outline">
+                    Save link
+                  </button>
+                  {item.attachment_url && (
+                    <button
+                      type="button"
+                      onClick={removeLink}
+                      disabled={attachBusy}
+                      className="text-xs text-muted-foreground hover:text-destructive"
+                    >
+                      Remove link
+                    </button>
+                  )}
+                  {item.attachment_url && (
+                    <a
+                      href={item.attachment_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs underline underline-offset-4"
+                    >
+                      Open link
+                    </a>
+                  )}
+                </div>
+
+                <label className="block">
+                  <span className="eyebrow">File (optional)</span>
+                  <input
+                    ref={fileRef}
+                    className={`${inp} mt-1.5`}
+                    type="file"
+                    disabled={attachBusy}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) uploadAttachment(f);
+                    }}
+                  />
+                </label>
+                {item.attachment_storage_path ? (
+                  <div className="flex flex-wrap items-center gap-3 text-sm">
+                    <span className="mono text-xs break-all">
+                      {item.attachment_file_name ?? item.attachment_storage_path}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={openAttachmentFile}
+                      disabled={attachBusy}
+                      className="text-xs underline underline-offset-4"
+                    >
+                      Download file
+                    </button>
+                    <button
+                      type="button"
+                      onClick={removeFile}
+                      disabled={attachBusy}
+                      className="text-xs text-muted-foreground hover:text-destructive"
+                    >
+                      Remove file
+                    </button>
+                  </div>
+                ) : (
+                  <p className="text-xs text-muted-foreground">No file uploaded.</p>
+                )}
+
+                {attachMsg && <p className="text-xs text-muted-foreground">{attachMsg}</p>}
+                {attachBusy && <p className="text-xs text-muted-foreground">Working…</p>}
+              </div>
+              </>
             ) : (
               <div>
                 <div className="eyebrow">Body</div>
                 <pre className="mt-3 whitespace-pre-wrap rounded-md border border-rule bg-card p-5 font-mono text-sm leading-relaxed">
                   {item.body || "(empty)"}
                 </pre>
+
+                {(item.attachment_url || item.attachment_storage_path) && (
+                  <div className="mt-6 rounded-md border border-rule bg-card p-5">
+                    <div className="eyebrow">Attachment</div>
+                    <div className="mt-3 flex flex-wrap items-center gap-3">
+                      {item.attachment_url && (
+                        <a
+                          href={item.attachment_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-outline"
+                        >
+                          Open link
+                        </a>
+                      )}
+                      {item.attachment_storage_path && (
+                        <button type="button" onClick={openAttachmentFile} className="btn-outline">
+                          Download file
+                        </button>
+                      )}
+                      {item.attachment_file_name && (
+                        <span className="mono text-xs text-muted-foreground break-all">
+                          {item.attachment_file_name}
+                        </span>
+                      )}
+                    </div>
+                    {attachMsg && <p className="mt-2 text-xs text-destructive">{attachMsg}</p>}
+                  </div>
+                )}
               </div>
             )}
           </div>
