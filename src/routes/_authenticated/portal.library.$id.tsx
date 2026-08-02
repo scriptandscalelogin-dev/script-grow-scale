@@ -78,7 +78,9 @@ function LibraryDetail() {
 
     const { data: it } = await supabase
       .from("content_items")
-      .select("id,kind,title,summary,body,status,current_version")
+      .select(
+        "id,kind,title,summary,body,status,current_version,attachment_url,attachment_storage_path,attachment_file_name,attachment_mime_type",
+      )
       .eq("id", id)
       .maybeSingle();
     if (!it) {
@@ -86,6 +88,7 @@ function LibraryDetail() {
       return;
     }
     setItem(it as Item);
+    setAttachmentUrl((it as Item).attachment_url ?? "");
 
     const [{ data: vs }, { data: asg }] = await Promise.all([
       supabase
