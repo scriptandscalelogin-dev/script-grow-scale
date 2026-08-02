@@ -13,6 +13,10 @@ type Item = {
   body: string;
   status: ContentStatus;
   current_version: number;
+  attachment_url: string | null;
+  attachment_storage_path: string | null;
+  attachment_file_name: string | null;
+  attachment_mime_type: string | null;
 };
 
 type Version = {
