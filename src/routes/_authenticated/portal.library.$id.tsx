@@ -58,6 +58,10 @@ function LibraryDetail() {
   const [changeNotes, setChangeNotes] = useState("");
   const [assignClientId, setAssignClientId] = useState("");
   const [notFound, setNotFound] = useState(false);
+  const [attachmentUrl, setAttachmentUrl] = useState("");
+  const [attachBusy, setAttachBusy] = useState(false);
+  const [attachMsg, setAttachMsg] = useState<string | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
   const viewLoggedRef = useRef(false);
 
   async function load() {
