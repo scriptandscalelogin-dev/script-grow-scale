@@ -391,6 +391,7 @@ function LibraryDetail() {
         <div className="container-tight grid gap-8 py-10 md:grid-cols-3">
           <div className="md:col-span-2">
             {isAdmin ? (
+              <>
               <form onSubmit={saveVersion} className="space-y-4">
                 <div className="eyebrow">Edit</div>
                 <label className="block">
