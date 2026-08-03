@@ -60,9 +60,27 @@ function About() {
             <div className="eyebrow">The founder</div>
           </div>
           <div className="md:col-span-8 space-y-4 text-base">
-            <p className="text-muted-foreground">
-              [Founder bio placeholder: swap this out with your real background: years in sales,
-              industries you sold in, notable outcomes if any. No fabricated stats.]
+            <p>
+              Built Script & Scale because I kept watching founders solve their sales problem the
+              same expensive way: hire a rep, wait three months for them to ramp, and still end up
+              closing the big deals yourself while they figure it out. There's a faster fix. The
+              people who already understand your product, your engineers, your existing staff, can
+              be trained to sell it properly. That's what this is.
+            </p>
+            <p>
+              Over a decade in B2B sales across SaaS, telecoms, and enterprise. Closed SaaS deals
+              from £12k to £180k ARR, ranked top 5% across five territories. Most recently, closed a
+              deal worth £60k a month.
+            </p>
+            <p>
+              Built and led sales teams using live roleplay, objection handling drills, and
+              structured discovery, the same approach behind this program, lifting close rates by
+              25% and cutting onboarding errors by 40%.
+            </p>
+            <p>
+              Also hold Foundation-level certifications in ITIL4, PRINCE2 Agile, DevOps, and
+              TOGAF. So when we sit down to build your script, I'm not learning what an MSP or ITSM
+              provider does from scratch.
             </p>
           </div>
         </div>
