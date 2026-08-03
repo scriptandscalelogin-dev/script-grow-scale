@@ -6,7 +6,7 @@ import { PageShell } from "@/components/site-shell";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Script & Scale" },
+      { title: "Sign in · Script & Scale" },
       { name: "description", content: "Client portal sign-in for Script & Scale." },
       { name: "robots", content: "noindex" },
     ],

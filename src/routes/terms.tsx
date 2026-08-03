@@ -4,9 +4,9 @@ import { PageShell } from "@/components/site-shell";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms of Service — Script & Scale" },
+      { title: "Terms of Service · Script & Scale" },
       { name: "description", content: "The terms that govern Script & Scale subscriptions, the guarantee, and portal use." },
-      { property: "og:title", content: "Terms of Service — Script & Scale" },
+      { property: "og:title", content: "Terms of Service · Script & Scale" },
       { property: "og:description", content: "The terms that govern Script & Scale subscriptions, the guarantee, and portal use." },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },
@@ -45,9 +45,9 @@ function Terms() {
               A revenue enablement subscription with three tiers:
             </p>
             <ul className="list-disc space-y-2 pl-5">
-              <li><strong>Starter — £500/mo:</strong> one 30–45 min workshop per month, core script, top-10 objection library, recorded workshops.</li>
-              <li><strong>Growth — £1,000/mo:</strong> everything in Starter, plus biweekly workshops, follow-up SOPs, weekly-relevant roleplay drills.</li>
-              <li><strong>Scale — £2,000/mo:</strong> everything in Growth, plus weekly workshops, tonality coaching on real recordings, live call review.</li>
+              <li><strong>Starter, £500/mo:</strong> one 30–45 min workshop per month, core script, top-10 objection library, recorded workshops.</li>
+              <li><strong>Growth, £1,000/mo:</strong> everything in Starter, plus biweekly workshops, follow-up SOPs, weekly-relevant roleplay drills.</li>
+              <li><strong>Scale, £2,000/mo:</strong> everything in Growth, plus weekly workshops, tonality coaching on real recordings, live call review.</li>
             </ul>
             <p>
               Fees are quoted in GBP, exclusive of VAT where applicable.
@@ -156,7 +156,7 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
 function Disclaimer() {
   return (
     <div className="rounded-md border border-highlight/40 bg-card p-4 text-sm">
-      <div className="eyebrow text-highlight">Draft — not legal advice</div>
+      <div className="eyebrow text-highlight">Draft · not legal advice</div>
       <p className="mt-2">
         This is a plain-language template based on the offer already described on the Pricing and Guarantee pages.
         It is <strong>not</strong> a finished legal contract. Have a UK solicitor review it before you rely on it publicly

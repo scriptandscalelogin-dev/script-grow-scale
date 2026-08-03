@@ -4,9 +4,9 @@ import { PageShell } from "@/components/site-shell";
 export const Route = createFileRoute("/guarantee")({
   head: () => ({
     meta: [
-      { title: "The guarantee — Script & Scale" },
+      { title: "The guarantee · Script & Scale" },
       { name: "description", content: "Fee-recovery guarantee on the first three months. Attendance required. No cash refund. The mechanic, in plain English." },
-      { property: "og:title", content: "The guarantee — Script & Scale" },
+      { property: "og:title", content: "The guarantee · Script & Scale" },
       { property: "og:description", content: "If closed deal value across your first three months doesn't cover fees paid, month four is free until it does." },
     ],
   }),
@@ -37,7 +37,7 @@ function Guarantee() {
               </p>
               <ol className="mono list-decimal space-y-2 pl-6 text-sm">
                 <li>Fees you paid Script &amp; Scale (subscription + onboarding).</li>
-                <li>Closed deal value — deals that signed and started paying you — during those three months.</li>
+                <li>Closed deal value: deals that signed and started paying you, during those three months.</li>
               </ol>
               <p>
                 If the fees are higher than the closed deal value, month four is free.
@@ -67,7 +67,7 @@ function Guarantee() {
               <ul className="space-y-3 text-sm">
                 <li className="flex gap-3"><span className="mono text-highlight">·</span> Attend the workshops. Missing more than one in the three-month window voids it.</li>
                 <li className="flex gap-3"><span className="mono text-highlight">·</span> Use the scripts and SOPs on real calls. Not read once and filed away.</li>
-                <li className="flex gap-3"><span className="mono text-highlight">·</span> Log pipeline honestly in the portal — opportunities, deal values, outcomes.</li>
+                <li className="flex gap-3"><span className="mono text-highlight">·</span> Log pipeline honestly in the portal: opportunities, deal values, outcomes.</li>
                 <li className="flex gap-3"><span className="mono text-highlight">·</span> Actually be selling. If you paused business development for three months, the guarantee doesn’t apply.</li>
               </ul>
               <p className="text-muted-foreground">

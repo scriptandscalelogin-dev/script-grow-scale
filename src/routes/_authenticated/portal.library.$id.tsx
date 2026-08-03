@@ -38,7 +38,7 @@ type ClientRow = {
 type Assignment = { id: string; profile_id: string; assigned_at: string };
 
 export const Route = createFileRoute("/_authenticated/portal/library/$id")({
-  head: () => ({ meta: [{ title: "Library item — Portal" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Library item · Portal" }, { name: "robots", content: "noindex" }] }),
   beforeLoad: async () => {
     const { data: u } = await supabase.auth.getUser();
     if (!u.user) throw redirect({ to: "/auth" });
@@ -463,7 +463,7 @@ function LibraryDetail() {
               <div className="mt-8 space-y-4 rounded-md border border-rule bg-card p-5">
                 <div className="eyebrow">Attachment</div>
                 <p className="text-xs text-muted-foreground">
-                  A link and a file are independent — you can set either, both, or neither. Saving here
+                  A link and a file are independent. You can set either, both, or neither. Saving here
                   updates the item straight away and does not create a new version.
                 </p>
 

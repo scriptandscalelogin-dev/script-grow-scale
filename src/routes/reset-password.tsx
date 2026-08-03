@@ -6,7 +6,7 @@ import { PageShell } from "@/components/site-shell";
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: "Set your password — Script & Scale" },
+      { title: "Set your password · Script & Scale" },
       { name: "description", content: "Set or reset your Script & Scale portal password." },
       { name: "robots", content: "noindex" },
     ],

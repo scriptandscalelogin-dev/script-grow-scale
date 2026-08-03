@@ -19,7 +19,7 @@ function Home() {
               You’re still the only one who can close a deal.
             </h1>
             <p className="mt-7 max-w-2xl text-lg text-muted-foreground">
-              MSPs, ITSM providers, consultancies — the pattern is the same. Founder-led sales, no
+              MSPs, ITSM providers, consultancies. The pattern is the same. Founder-led sales, no
               real process, deals dying in follow-up, quotes sent into silence. Script &amp; Scale
               is a subscription that fixes that with weekly reps, not a course.
             </p>
@@ -31,10 +31,10 @@ function Home() {
           <aside className="md:col-span-4 md:border-l md:border-rule md:pl-8">
             <div className="eyebrow">What you get, weekly</div>
             <ul className="mt-4 space-y-3 text-sm">
-              <li>— A script that fits how you actually talk</li>
-              <li>— Objection responses drilled until they’re automatic</li>
-              <li>— Follow-up SOPs so nothing sits in your inbox</li>
-              <li>— Live call review at the top tier</li>
+              <li>A script that fits how you actually talk</li>
+              <li>Objection responses drilled until they’re automatic</li>
+              <li>Follow-up SOPs so nothing sits in your inbox</li>
+              <li>Live call review at the top tier</li>
             </ul>
           </aside>
         </div>

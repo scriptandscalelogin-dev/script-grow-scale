@@ -5,7 +5,7 @@ import { TIERS } from "@/lib/tiers";
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
     meta: [
-      { title: "How it works — Script & Scale" },
+      { title: "How it works · Script & Scale" },
       { name: "description", content: "The cadence, what you get per tier, how a workshop actually runs." },
       { property: "og:title", content: "How Script & Scale works" },
       { property: "og:description", content: "Weekly, biweekly or monthly workshops. Scripts, SOPs, roleplay, call review." },

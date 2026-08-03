@@ -15,7 +15,7 @@ type Submission = {
 };
 
 export const Route = createFileRoute("/_authenticated/portal/inbox")({
-  head: () => ({ meta: [{ title: "Inbox — Portal" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Inbox · Portal" }, { name: "robots", content: "noindex" }] }),
   beforeLoad: async () => {
     const { data: u } = await supabase.auth.getUser();
     if (!u.user) throw redirect({ to: "/auth" });

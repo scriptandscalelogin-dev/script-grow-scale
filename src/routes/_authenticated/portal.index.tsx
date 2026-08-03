@@ -25,7 +25,7 @@ type Deal = { id: string; title: string; value_gbp: number; closed_at: string };
 export const Route = createFileRoute("/_authenticated/portal/")({
   head: () => ({
     meta: [
-      { title: "Portal — Script & Scale" },
+      { title: "Portal · Script & Scale" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -288,7 +288,7 @@ function ClientHome({
               <span className="text-base text-muted-foreground">of £{target.toLocaleString()}</span>
             </div>
             <div className="mono text-xs text-muted-foreground">
-              {profile.tier ? profile.tier.toUpperCase() : "—"} · £{fee.toLocaleString()}/mo · 3-month window
+              {profile.tier ? profile.tier.toUpperCase() : "-"} · £{fee.toLocaleString()}/mo · 3-month window
             </div>
           </div>
           <div className="mt-4 h-2 w-full overflow-hidden rounded-full border border-rule bg-background">
@@ -300,7 +300,7 @@ function ClientHome({
           <p className="mt-3 text-sm text-muted-foreground">
             {start
               ? met
-                ? "Deal value has covered fees — guarantee cleared."
+                ? "Deal value has covered fees. Guarantee cleared."
                 : `Window runs from ${start.toLocaleDateString("en-GB")} to ${windowEnd?.toLocaleDateString("en-GB")}. If fees aren’t covered by then, month 4 is on us.`
               : "Start date not set. We’ll set it at your first workshop."}
           </p>
@@ -312,7 +312,7 @@ function ClientHome({
           <div className="eyebrow">Deals logged</div>
           {deals.length === 0 ? (
             <p className="mt-3 text-sm text-muted-foreground">
-              No deals logged yet. Send closed deal value to your Script &amp; Scale contact — it appears here.
+              No deals logged yet. Send closed deal value to your Script &amp; Scale contact. It appears here.
             </p>
           ) : (
             <ul className="mt-4 divide-y divide-rule rounded-md border border-rule bg-card">

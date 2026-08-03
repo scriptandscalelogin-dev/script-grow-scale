@@ -17,7 +17,7 @@ type Row = {
 };
 
 export const Route = createFileRoute("/_authenticated/portal/library/")({
-  head: () => ({ meta: [{ title: "Library — Portal" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Library · Portal" }, { name: "robots", content: "noindex" }] }),
   beforeLoad: async () => {
     const { data: u } = await supabase.auth.getUser();
     if (!u.user) throw redirect({ to: "/auth" });
