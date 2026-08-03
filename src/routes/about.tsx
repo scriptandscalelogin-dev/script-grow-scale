@@ -4,7 +4,7 @@ import { PageShell } from "@/components/site-shell";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Script & Scale" },
+      { title: "About · Script & Scale" },
       { name: "description", content: "Why Script & Scale exists, who it's for, and who's on the other end of the workshops." },
       { property: "og:title", content: "About Script & Scale" },
       { property: "og:description", content: "Founder-led, built for UK small businesses without a sales process." },
@@ -48,7 +48,7 @@ function About() {
             <div className="eyebrow">The approach</div>
           </div>
           <div className="md:col-span-8 space-y-4 text-base">
-            <p>No frameworks with acronyms. No "seven habits". The workshops are working sessions on your actual pipeline — the script gets written from your real calls, the objection library from objections you’re actually hearing.</p>
+            <p>No frameworks with acronyms. No "seven habits". The workshops are working sessions on your actual pipeline. The script gets written from your real calls, the objection library from objections you’re actually hearing.</p>
             <p>Small caseload on purpose. This isn’t a course you buy and consume alone.</p>
           </div>
         </div>
@@ -61,7 +61,7 @@ function About() {
           </div>
           <div className="md:col-span-8 space-y-4 text-base">
             <p className="text-muted-foreground">
-              [Founder bio placeholder — swap this out with your real background: years in sales,
+              [Founder bio placeholder: swap this out with your real background: years in sales,
               industries you sold in, notable outcomes if any. No fabricated stats.]
             </p>
           </div>

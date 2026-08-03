@@ -64,14 +64,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Script & Scale — Revenue Enablement for UK founder-led firms" },
+      { title: "Script & Scale · Revenue Enablement for UK founder-led firms" },
       {
         name: "description",
         content:
           "A subscription for UK small businesses without a sales process. Weekly, biweekly or monthly workshops. Scripts, follow-up SOPs, live call review. Guarantee: your first three months pay for themselves.",
       },
       { name: "author", content: "Script & Scale" },
-      { property: "og:title", content: "Script & Scale — Revenue Enablement" },
+      { property: "og:title", content: "Script & Scale · Revenue Enablement" },
       {
         property: "og:description",
         content:

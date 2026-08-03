@@ -4,9 +4,9 @@ import { PageShell } from "@/components/site-shell";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Script & Scale" },
+      { title: "Privacy Policy · Script & Scale" },
       { name: "description", content: "How Script & Scale collects, stores, and handles your data." },
-      { property: "og:title", content: "Privacy Policy — Script & Scale" },
+      { property: "og:title", content: "Privacy Policy · Script & Scale" },
       { property: "og:description", content: "How Script & Scale collects, stores, and handles your data." },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },
@@ -141,7 +141,7 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
 function Disclaimer() {
   return (
     <div className="rounded-md border border-highlight/40 bg-card p-4 text-sm">
-      <div className="eyebrow text-highlight">Draft — not legal advice</div>
+      <div className="eyebrow text-highlight">Draft · not legal advice</div>
       <p className="mt-2">
         This is a plain-language template written from what the app actually collects. It is <strong>not</strong> a
         finished legal document and should be reviewed by a UK solicitor before you rely on it publicly.

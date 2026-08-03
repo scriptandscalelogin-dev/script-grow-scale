@@ -5,9 +5,9 @@ import { TIERS } from "@/lib/tiers";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Script & Scale" },
+      { title: "Pricing · Script & Scale" },
       { name: "description", content: "Three tiers: £500, £1,000 or £2,000/month. £250 onboarding. 3-month minimum, monthly rolling after." },
-      { property: "og:title", content: "Pricing — Script & Scale" },
+      { property: "og:title", content: "Pricing · Script & Scale" },
       { property: "og:description", content: "Starter, Growth, Scale. Clear terms, guarantee on the first three months." },
     ],
   }),
@@ -70,7 +70,7 @@ function Pricing() {
               <div className="eyebrow">Terms, plainly</div>
               <ul className="mt-5 space-y-4 text-sm">
                 <li><strong className="font-medium">£250 onboarding fee.</strong> One-off. Covers the initial deep-dive: your offer, ICP, current pipeline, existing collateral.</li>
-                <li><strong className="font-medium">3-month minimum.</strong> Real change doesn’t happen in a single session. After month three it’s monthly rolling — cancel any time with 30 days’ notice.</li>
+                <li><strong className="font-medium">3-month minimum.</strong> Real change doesn’t happen in a single session. After month three it’s monthly rolling. Cancel any time with 30 days’ notice.</li>
                 <li><strong className="font-medium">No long contracts.</strong> No auto-escalating price tiers. What you sign is what you pay.</li>
               </ul>
             </div>

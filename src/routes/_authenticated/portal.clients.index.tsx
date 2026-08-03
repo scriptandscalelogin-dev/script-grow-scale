@@ -18,7 +18,7 @@ type Row = {
 };
 
 export const Route = createFileRoute("/_authenticated/portal/clients/")({
-  head: () => ({ meta: [{ title: "Clients — Portal" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Clients · Portal" }, { name: "robots", content: "noindex" }] }),
   beforeLoad: async () => {
     const { data: u } = await supabase.auth.getUser();
     if (!u.user) throw redirect({ to: "/auth" });
@@ -181,7 +181,7 @@ function ClientsList() {
               <Field label="Tier">
                 <select className={inp} value={form.tier}
                   onChange={(e) => pickTier(e.target.value as "" | "starter" | "growth" | "scale")}>
-                  <option value="">—</option>
+                  <option value="">-</option>
                   {TIERS.map((t) => (
                     <option key={t.id} value={t.id}>{t.name} (£{t.price})</option>
                   ))}
@@ -232,7 +232,7 @@ function ClientsList() {
           <div className="container-tight py-5 text-sm">
             {createdInfo.mode === "password" && createdInfo.tempPassword ? (
               <>
-                <div className="eyebrow text-highlight">Copy this now — it won&apos;t be shown again</div>
+                <div className="eyebrow text-highlight">Copy this now, it won&apos;t be shown again</div>
                 <div className="mt-2">
                   Login for <strong>{createdInfo.email}</strong>:{" "}
                   <code className="mono rounded bg-background px-2 py-1">{createdInfo.tempPassword}</code>
@@ -291,14 +291,14 @@ function ClientsList() {
                   {rows.map((r) => (
                     <tr key={r.id} className="border-t border-rule">
                       <Td>
-                        <div>{r.full_name || "—"}</div>
+                        <div>{r.full_name || "-"}</div>
                         <div className="mono text-xs text-muted-foreground">{r.email}</div>
                       </Td>
-                      <Td>{r.company || "—"}</Td>
-                      <Td className="uppercase mono text-xs">{r.tier || "—"}</Td>
-                      <Td>{r.monthly_fee ? `£${Number(r.monthly_fee).toLocaleString()}` : "—"}</Td>
+                      <Td>{r.company || "-"}</Td>
+                      <Td className="uppercase mono text-xs">{r.tier || "-"}</Td>
+                      <Td>{r.monthly_fee ? `£${Number(r.monthly_fee).toLocaleString()}` : "-"}</Td>
                       <Td>{r.status}</Td>
-                      <Td>{r.start_date ? new Date(r.start_date).toLocaleDateString("en-GB") : "—"}</Td>
+                      <Td>{r.start_date ? new Date(r.start_date).toLocaleDateString("en-GB") : "-"}</Td>
                       <Td>
                         <Link
                           to="/portal/clients/$id"

@@ -7,9 +7,9 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Book a discovery call — Script & Scale" },
+      { title: "Book a discovery call · Script & Scale" },
       { name: "description", content: "Tell us about your last five deals. 30-minute call, no pitch deck, no obligation." },
-      { property: "og:title", content: "Book a discovery call — Script & Scale" },
+      { property: "og:title", content: "Book a discovery call · Script & Scale" },
       { property: "og:description", content: "30 minutes. If it isn't a fit, I'll say so." },
     ],
   }),
@@ -127,10 +127,10 @@ function Contact() {
           <aside className="md:col-span-5 md:border-l md:border-rule md:pl-10">
             <div className="eyebrow">What happens next</div>
             <ol className="mono mt-4 space-y-4 text-sm">
-              <li><span className="text-highlight">01</span> — I read your note.</li>
-              <li><span className="text-highlight">02</span> — Reply within a working day with two or three times.</li>
-              <li><span className="text-highlight">03</span> — 30-minute call. No slide deck.</li>
-              <li><span className="text-highlight">04</span> — If we work together, onboarding starts the week after.</li>
+              <li><span className="text-highlight">01</span>. I read your note.</li>
+              <li><span className="text-highlight">02</span>. Reply within a working day with two or three times.</li>
+              <li><span className="text-highlight">03</span>. 30-minute call. No slide deck.</li>
+              <li><span className="text-highlight">04</span>. If we work together, onboarding starts the week after.</li>
             </ol>
           </aside>
         </div>

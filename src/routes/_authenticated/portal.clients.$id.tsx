@@ -53,7 +53,7 @@ type Kpi = {
 };
 
 export const Route = createFileRoute("/_authenticated/portal/clients/$id")({
-  head: () => ({ meta: [{ title: "Client — Portal" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Client · Portal" }, { name: "robots", content: "noindex" }] }),
   beforeLoad: async () => {
     const { data: u } = await supabase.auth.getUser();
     if (!u.user) throw redirect({ to: "/auth" });
@@ -245,7 +245,7 @@ function ClientDetail() {
                   value={profile.tier ?? ""}
                   onChange={(e) => applyTierDefault(e.target.value as "starter" | "growth" | "scale")}
                 >
-                  <option value="">—</option>
+                  <option value="">-</option>
                   {TIERS.map((t) => (
                     <option key={t.id} value={t.id}>{t.name} (£{t.price})</option>
                   ))}
@@ -484,7 +484,7 @@ function ActivityPanel({ clientId }: { clientId: string }) {
             <div className="eyebrow">Last content view</div>
             <div className="mt-2 font-serif text-xl break-words">
               {lastView
-                ? `${lastView.target_kind ?? "content"}: ${(lastView.metadata?.title as string) ?? "—"}`
+                ? `${lastView.target_kind ?? "content"}: ${(lastView.metadata?.title as string) ?? "-"}`
                 : "None yet"}
             </div>
             <div className="mono mt-1 text-xs text-muted-foreground">
@@ -735,7 +735,7 @@ export function RoleplaysPanel({
               </Field>
               <Field label="Session (optional)">
                 <select className={inp} value={sessionId} onChange={(e) => setSessionId(e.target.value)}>
-                  <option value="">—</option>
+                  <option value="">-</option>
                   {sessions.map((s) => (
                     <option key={s.id} value={s.id}>
                       {new Date(s.session_date).toLocaleDateString("en-GB")}
