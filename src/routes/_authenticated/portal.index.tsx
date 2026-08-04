@@ -125,17 +125,21 @@ function Portal() {
       setIsAdmin(admin);
 
       if (admin) {
-        const [{ count: cCount }, { count: pCount }] = await Promise.all([
-          supabase
-            .from("contact_submissions")
-            .select("id", { count: "exact", head: true })
-            .eq("handled", false),
-          supabase
-            .from("profiles")
-            .select("id", { count: "exact", head: true }),
-        ]);
-        setOpenContacts(cCount ?? 0);
-        setClientCount((pCount ?? 1) - 1);
+        const [{ count: cCount }, { data: adminRoles }, { count: pCount }] = await Promise.all([
+      supabase
+        .from("contact_submissions")
+        .select("id", { count: "exact", head: true })
+        .eq("handled", false),
+      supabase
+        .from("user_roles")
+        .select("user_id")
+        .eq("role", "admin"),
+      supabase
+        .from("profiles")
+        .select("id", { count: "exact", head: true }),
+    ]);
+    setOpenContacts(cCount ?? 0);
+    setClientCount((pCount ?? 0) - (adminRoles?.length ?? 0));
       } else {
         await loadClient(user.id);
       }
