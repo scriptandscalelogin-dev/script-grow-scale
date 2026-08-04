@@ -45,7 +45,12 @@ export function SiteHeader() {
             </Link>
           )}
         </nav>
-        <Link to="/contact" className="btn-primary md:hidden">Book</Link>
+        <Link
+          to={signedIn ? "/portal" : "/auth"}
+          className="btn-primary md:hidden"
+        >
+          Portal
+        </Link>
       </div>
     </header>
   );
