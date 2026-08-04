@@ -218,10 +218,7 @@ function LibraryIndex() {
                         )}
                         {(r.attachment_url || r.attachment_storage_path) && (
                           <div className="mono mt-1 text-[10px] uppercase text-muted-foreground">
-                            {[r.attachment_url ? "link" : null, r.attachment_storage_path ? "file" : null]
-                              .filter(Boolean)
-                              .join(" + ")}{" "}
-                            attached
+                            {r.attachment_storage_path ? "file" : "link"} attached
                           </div>
                         )}
                       </Td>

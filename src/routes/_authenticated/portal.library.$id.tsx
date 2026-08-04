@@ -59,6 +59,7 @@ function LibraryDetail() {
   const [assignClientId, setAssignClientId] = useState("");
   const [notFound, setNotFound] = useState(false);
   const [attachmentUrl, setAttachmentUrl] = useState("");
+  const [attachMode, setAttachMode] = useState<"link" | "file">("link");
   const [attachBusy, setAttachBusy] = useState(false);
   const [attachMsg, setAttachMsg] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -89,6 +90,8 @@ function LibraryDetail() {
     }
     setItem(it as Item);
     setAttachmentUrl((it as Item).attachment_url ?? "");
+    setAttachMode((it as Item).attachment_storage_path ? "file" : "link");
+
 
     const [{ data: vs }, { data: asg }] = await Promise.all([
       supabase
@@ -192,27 +195,36 @@ function LibraryDetail() {
     if (!item) return;
     setAttachMsg(null);
     const trimmed = attachmentUrl.trim();
-    if (trimmed) {
-      try {
-        const u = new URL(trimmed);
-        if (u.protocol !== "http:" && u.protocol !== "https:") throw new Error("bad protocol");
-      } catch {
-        setAttachMsg("Enter a valid link starting with http:// or https://");
-        return;
-      }
+    if (!trimmed) {
+      setAttachMsg("Enter a link, or switch to File upload.");
+      return;
+    }
+    try {
+      const u = new URL(trimmed);
+      if (u.protocol !== "http:" && u.protocol !== "https:") throw new Error("bad protocol");
+    } catch {
+      setAttachMsg("Enter a valid link starting with http:// or https://");
+      return;
     }
     setAttachBusy(true);
-    const { error } = await supabase
-      .from("content_items")
-      .update({ attachment_url: trimmed || null })
-      .eq("id", item.id);
+    // One attachment per item: saving a link clears any uploaded file.
+    if (item.attachment_storage_path) {
+      await supabase.storage.from("content-attachments").remove([item.attachment_storage_path]);
+    }
+    const patch = {
+      attachment_url: trimmed,
+      attachment_storage_path: null,
+      attachment_file_name: null,
+      attachment_mime_type: null,
+    };
+    const { error } = await supabase.from("content_items").update(patch).eq("id", item.id);
     setAttachBusy(false);
     if (error) {
       setAttachMsg(error.message);
       return;
     }
-    setItem({ ...item, attachment_url: trimmed || null });
-    setAttachMsg(trimmed ? "Link saved." : "Link removed.");
+    setItem({ ...item, ...patch });
+    setAttachMsg("Link saved.");
   }
 
   async function removeLink() {
@@ -235,8 +247,14 @@ function LibraryDetail() {
 
   async function uploadAttachment(file: File) {
     if (!item) return;
-    setAttachBusy(true);
     setAttachMsg(null);
+    const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
+    if (!ALLOWED_EXTS.includes(ext)) {
+      if (fileRef.current) fileRef.current.value = "";
+      setAttachMsg("Unsupported file type. Allowed: PDF, DOCX, XLSX, PNG, JPG.");
+      return;
+    }
+    setAttachBusy(true);
     if (item.attachment_storage_path) {
       await supabase.storage.from("content-attachments").remove([item.attachment_storage_path]);
     }
@@ -250,7 +268,9 @@ function LibraryDetail() {
       setAttachMsg(upErr.message);
       return;
     }
+    // One attachment per item: uploading a file clears any saved link.
     const patch = {
+      attachment_url: null,
       attachment_storage_path: path,
       attachment_file_name: file.name,
       attachment_mime_type: file.type || null,
@@ -263,6 +283,7 @@ function LibraryDetail() {
       return;
     }
     setItem({ ...item, ...patch });
+    setAttachmentUrl("");
     setAttachMsg("File uploaded.");
   }
 
@@ -463,84 +484,119 @@ function LibraryDetail() {
               <div className="mt-8 space-y-4 rounded-md border border-rule bg-card p-5">
                 <div className="eyebrow">Attachment</div>
                 <p className="text-xs text-muted-foreground">
-                  A link and a file are independent. You can set either, both, or neither. Saving here
-                  updates the item straight away and does not create a new version.
+                  One attachment per item: either a link or an uploaded file. Setting one replaces the
+                  other. Saving here updates the item straight away and does not create a new version.
                 </p>
 
-                <label className="block">
-                  <span className="eyebrow">Link (optional)</span>
-                  <input
-                    className={`${inp} mt-1.5`}
-                    type="url"
-                    placeholder="https://…"
-                    value={attachmentUrl}
-                    onChange={(e) => setAttachmentUrl(e.target.value)}
-                  />
-                </label>
-                <div className="flex flex-wrap items-center gap-3">
-                  <button type="button" onClick={saveAttachmentLink} disabled={attachBusy} className="btn-outline">
-                    Save link
+                <div className="flex gap-2 text-xs">
+                  <button
+                    type="button"
+                    className={filterPill(attachMode === "link")}
+                    onClick={() => { setAttachMode("link"); setAttachMsg(null); }}
+                  >
+                    Link
                   </button>
-                  {item.attachment_url && (
-                    <button
-                      type="button"
-                      onClick={removeLink}
-                      disabled={attachBusy}
-                      className="text-xs text-muted-foreground hover:text-destructive"
-                    >
-                      Remove link
-                    </button>
-                  )}
-                  {item.attachment_url && (
-                    <a
-                      href={item.attachment_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs underline underline-offset-4"
-                    >
-                      Open link
-                    </a>
-                  )}
+                  <button
+                    type="button"
+                    className={filterPill(attachMode === "file")}
+                    onClick={() => { setAttachMode("file"); setAttachMsg(null); }}
+                  >
+                    File upload
+                  </button>
                 </div>
 
-                <label className="block">
-                  <span className="eyebrow">File (optional)</span>
-                  <input
-                    ref={fileRef}
-                    className={`${inp} mt-1.5`}
-                    type="file"
-                    disabled={attachBusy}
-                    onChange={(e) => {
-                      const f = e.target.files?.[0];
-                      if (f) uploadAttachment(f);
-                    }}
-                  />
-                </label>
-                {item.attachment_storage_path ? (
-                  <div className="flex flex-wrap items-center gap-3 text-sm">
-                    <span className="mono text-xs break-all">
-                      {item.attachment_file_name ?? item.attachment_storage_path}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={openAttachmentFile}
-                      disabled={attachBusy}
-                      className="text-xs underline underline-offset-4"
-                    >
-                      Download file
-                    </button>
-                    <button
-                      type="button"
-                      onClick={removeFile}
-                      disabled={attachBusy}
-                      className="text-xs text-muted-foreground hover:text-destructive"
-                    >
-                      Remove file
-                    </button>
-                  </div>
+                {attachMode === "link" ? (
+                  <>
+                    <label className="block">
+                      <span className="eyebrow">Link</span>
+                      <input
+                        className={`${inp} mt-1.5`}
+                        type="url"
+                        placeholder="https://…"
+                        value={attachmentUrl}
+                        onChange={(e) => setAttachmentUrl(e.target.value)}
+                      />
+                    </label>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <button type="button" onClick={saveAttachmentLink} disabled={attachBusy} className="btn-outline">
+                        Save link
+                      </button>
+                      {item.attachment_url && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={removeLink}
+                            disabled={attachBusy}
+                            className="text-xs text-muted-foreground hover:text-destructive"
+                          >
+                            Remove link
+                          </button>
+                          <a
+                            href={item.attachment_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs underline underline-offset-4"
+                          >
+                            View resource
+                          </a>
+                        </>
+                      )}
+                    </div>
+                    {item.attachment_storage_path && (
+                      <p className="text-xs text-muted-foreground">
+                        This item currently has an uploaded file. Saving a link will remove it.
+                      </p>
+                    )}
+                  </>
                 ) : (
-                  <p className="text-xs text-muted-foreground">No file uploaded.</p>
+                  <>
+                    <label className="block">
+                      <span className="eyebrow">File (PDF, DOCX, XLSX, PNG, JPG)</span>
+                      <input
+                        ref={fileRef}
+                        className={`${inp} mt-1.5`}
+                        type="file"
+                        accept={ACCEPT_ATTR}
+                        disabled={attachBusy}
+                        onChange={(e) => {
+                          const f = e.target.files?.[0];
+                          if (f) uploadAttachment(f);
+                        }}
+                      />
+                    </label>
+                    {item.attachment_storage_path ? (
+                      <div className="flex flex-wrap items-center gap-3 text-sm">
+                        <span className="mono text-xs break-all">
+                          {item.attachment_file_name ?? item.attachment_storage_path}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={openAttachmentFile}
+                          disabled={attachBusy}
+                          className="text-xs underline underline-offset-4"
+                        >
+                          Download file
+                        </button>
+                        <button
+                          type="button"
+                          onClick={removeFile}
+                          disabled={attachBusy}
+                          className="text-xs text-muted-foreground hover:text-destructive"
+                        >
+                          Remove file
+                        </button>
+                      </div>
+                    ) : (
+                      <p className="text-xs text-muted-foreground">No file uploaded.</p>
+                    )}
+                    {item.attachment_url && (
+                      <p className="text-xs text-muted-foreground">
+                        This item currently has a link. Uploading a file will remove it.
+                      </p>
+                    )}
+                  </>
                 )}
+
 
                 {attachMsg && <p className="text-xs text-muted-foreground">{attachMsg}</p>}
                 {attachBusy && <p className="text-xs text-muted-foreground">Working…</p>}
@@ -564,7 +620,7 @@ function LibraryDetail() {
                           rel="noopener noreferrer"
                           className="btn-outline"
                         >
-                          Open link
+                          View resource
                         </a>
                       )}
                       {item.attachment_storage_path && (
@@ -667,3 +723,13 @@ function LibraryDetail() {
 
 const inp =
   "w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:border-ring focus:outline-none";
+
+const ALLOWED_EXTS = ["pdf", "docx", "xlsx", "png", "jpg", "jpeg"];
+const ACCEPT_ATTR =
+  ".pdf,.docx,.xlsx,.png,.jpg,.jpeg,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,image/png,image/jpeg";
+
+function filterPill(active: boolean) {
+  return `rounded-full border px-3 py-1 ${
+    active ? "border-highlight text-highlight" : "border-rule text-muted-foreground hover:text-foreground"
+  }`;
+}
