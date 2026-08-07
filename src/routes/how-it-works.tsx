@@ -20,23 +20,26 @@ function HowItWorks() {
       <section className="rule-b">
         <div className="container-tight py-20">
           <div className="eyebrow">How it works</div>
-          <h1 className="mt-4 font-serif text-5xl md:text-6xl">A weekly rep, not a course.</h1>
+          <h1 className="mt-4 font-serif text-5xl md:text-6xl">
+            Here’s exactly what happens in a workshop
+          </h1>
           <p className="mt-6 max-w-2xl text-muted-foreground">
-            Workshops are 30–45 minutes. They’re working sessions. We look at your live pipeline, build the script or SOP you need this week, roleplay the objection you got yesterday.
-            You leave with something you can use on your next call.
+            30 to 45 minutes. Not a lecture, a working session. We look at your live pipeline, build
+            the script or SOP you need this week, and roleplay the objection you got yesterday. You
+            leave with something you can use on your next call, not a slide deck you’ll never open
+            again.
           </p>
         </div>
       </section>
 
       <section className="rule-b">
         <div className="container-tight py-16">
-          <div className="eyebrow">A typical workshop</div>
-          <div className="mt-8 grid gap-8 md:grid-cols-4">
+          <div className="mt-2 grid gap-8 md:grid-cols-4">
             {[
-              ["0–5 min", "Pipeline review", "What moved, what stalled, what needs a nudge this week."],
-              ["5–20 min", "The work", "Write the script, draft the follow-up sequence, dissect a lost deal."],
-              ["20–35 min", "Roleplay", "Run the objection you keep hitting until the response is muscle memory."],
-              ["35–45 min", "Action items", "Three things you’ll do before we speak next. Logged in your portal."],
+              ["Minutes 0 to 5", "Pipeline review", "What moved, what stalled, what needs a nudge this week."],
+              ["Minutes 5 to 20", "The work", "Write the script, draft the follow-up sequence, dissect a lost deal."],
+              ["Minutes 20 to 35", "Roleplay", "Run the objection you keep hitting until the response is muscle memory."],
+              ["Minutes 35 to 45", "Action items", "Three things you’ll do before we speak next. Logged in your portal."],
             ].map(([time, title, body]) => (
               <div key={title}>
                 <div className="mono text-xs text-highlight">{time}</div>

@@ -3,6 +3,16 @@ import { PageShell } from "@/components/site-shell";
 import { TIERS } from "@/lib/tiers";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Script & Scale · Sales enablement for UK small businesses" },
+      { name: "description", content: "Weekly sales workshops, scripts, objection drills and follow-up SOPs for MSPs, ITSM providers and consultancies. Fee-recovery guarantee on the first three months." },
+      { property: "og:title", content: "Script & Scale · Revenue enablement, UK, subscription" },
+      { property: "og:description", content: "Founder-led sales without a process? Weekly reps, not a course. Three tiers from £500/month." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Home,
 });
 
@@ -16,12 +26,12 @@ function Home() {
             <div className="eyebrow">Revenue enablement · UK · Subscription</div>
             <h1 className="mt-5 font-serif text-5xl leading-[1.05] md:text-7xl">
               You built the business.<br />
-              You’re still the only one who can close a deal.
+              It still can’t close without you.
             </h1>
             <p className="mt-7 max-w-2xl text-lg text-muted-foreground">
-              MSPs, ITSM providers, consultancies. The pattern is the same. Founder-led sales, no
+              MSPs, ITSM providers, consultancies. Same pattern every time: founder-led sales, no
               real process, deals dying in follow-up, quotes sent into silence. Script &amp; Scale
-              is a subscription that fixes that with weekly reps, not a course.
+              fixes that with weekly reps, not a course.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Link to="/contact" className="btn-primary">Book a discovery call</Link>
@@ -29,7 +39,7 @@ function Home() {
             </div>
           </div>
           <aside className="md:col-span-4 md:border-l md:border-rule md:pl-8">
-            <div className="eyebrow">What you get, weekly</div>
+            <div className="eyebrow">Every week, you leave with</div>
             <ul className="mt-4 space-y-3 text-sm">
               <li>A script that fits how you actually talk</li>
               <li>Objection responses drilled until they’re automatic</li>
@@ -40,20 +50,32 @@ function Home() {
         </div>
       </section>
 
+      {/* RISK LINE */}
+      <section className="rule-b">
+        <div className="container-tight py-8">
+          <p className="font-serif text-xl md:text-2xl">
+            First three months don’t pay for themselves, next month is free. That’s the whole risk
+            you’re taking.
+          </p>
+        </div>
+      </section>
+
       {/* PROBLEM */}
       <section className="rule-b bg-secondary/40">
-        <div className="container-tight grid gap-10 py-20 md:grid-cols-3">
-          {[
-            { n: "01", t: "No process.", b: "Every deal handled from memory. What worked last month doesn’t repeat, because nothing was written down." },
-            { n: "02", t: "Follow-up is where deals die.", b: "You send the proposal, they go quiet, you don’t know when or how to push. So you don’t. So it closes lost." },
-            { n: "03", t: "You can’t hand it off.", b: "There’s no script, no playbook, no SOP. A hire would take a year to be useful. You keep doing it yourself." },
-          ].map((c) => (
-            <div key={c.n}>
-              <div className="mono text-xs text-highlight">{c.n}</div>
-              <div className="mt-2 font-serif text-2xl">{c.t}</div>
-              <p className="mt-2 text-sm text-muted-foreground">{c.b}</p>
-            </div>
-          ))}
+        <div className="container-tight py-20">
+          <div className="eyebrow">What breaks first</div>
+          <div className="mt-8 grid gap-10 md:grid-cols-3">
+            {[
+              { t: "No process.", b: "Every deal handled from memory. What worked last month doesn’t repeat, because nothing was written down." },
+              { t: "Follow-up is where deals die.", b: "You send the proposal, they go quiet, you don’t know when or how to push. So you don’t. So it closes lost." },
+              { t: "You can’t hand it off.", b: "No script, no playbook, no SOP. A hire would take a year to be useful. You keep doing it yourself." },
+            ].map((c) => (
+              <div key={c.t}>
+                <div className="font-serif text-2xl">{c.t}</div>
+                <p className="mt-2 text-sm text-muted-foreground">{c.b}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

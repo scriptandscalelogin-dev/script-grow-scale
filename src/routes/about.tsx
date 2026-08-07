@@ -61,11 +61,13 @@ function About() {
           </div>
           <div className="md:col-span-8 space-y-4 text-base">
             <p>
-              Built Script & Scale because I kept watching founders solve their sales problem the
-              same expensive way: hire a rep, wait three months for them to ramp, and still end up
-              closing the big deals yourself while they figure it out. There's a faster fix. The
-              people who already understand your product, your engineers, your existing staff, can
-              be trained to sell it properly. That's what this is.
+              Built Script &amp; Scale because I kept watching founders solve their sales problem
+              the same expensive way: hire a rep, wait three months for them to ramp, and still end
+              up closing the big deals yourself while they figure it out.
+            </p>
+            <p>
+              The people who already understand your product, your engineers, your existing staff,
+              can be trained to sell it properly. That’s the entire premise.
             </p>
             <p>
               Over a decade in B2B sales across SaaS, telecoms, and enterprise. Closed SaaS deals
@@ -78,9 +80,9 @@ function About() {
               25% and cutting onboarding errors by 40%.
             </p>
             <p>
-              Also hold Foundation-level certifications in ITIL4, PRINCE2 Agile, DevOps, and
-              TOGAF. So when we sit down to build your script, I'm not learning what an MSP or ITSM
-              provider does from scratch.
+              Foundation-level certified in ITIL4, PRINCE2 Agile, DevOps, and TOGAF. So when we sit
+              down to build your script, I’m not learning what an MSP or ITSM provider does from
+              scratch. I already speak the language your prospects speak.
             </p>
           </div>
         </div>

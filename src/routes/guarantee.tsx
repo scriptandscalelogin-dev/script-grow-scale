@@ -22,6 +22,10 @@ function Guarantee() {
           <h1 className="mt-4 font-serif text-5xl md:text-6xl">
             Your first three months pay for themselves. Or the next ones are on us.
           </h1>
+          <p className="mt-6 max-w-2xl text-muted-foreground">
+            Most sales training sells you hope. We sell you a number. If the numbers don’t move, you
+            don’t keep paying for nothing, you keep getting workshops until they do.
+          </p>
         </div>
       </section>
 
