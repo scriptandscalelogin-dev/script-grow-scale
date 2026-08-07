@@ -67,7 +67,7 @@ function Pricing() {
         <div className="container-tight py-16">
           <div className="grid gap-10 md:grid-cols-2">
             <div>
-              <div className="eyebrow">Terms, plainly</div>
+              <div className="eyebrow">What you’re actually signing up for</div>
               <ul className="mt-5 space-y-4 text-sm">
                 <li><strong className="font-medium">£250 onboarding fee.</strong> One-off. Covers the initial deep-dive: your offer, ICP, current pipeline, existing collateral.</li>
                 <li><strong className="font-medium">3-month minimum.</strong> Real change doesn’t happen in a single session. After month three it’s monthly rolling. Cancel any time with 30 days’ notice.</li>
