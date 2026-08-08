@@ -50,16 +50,6 @@ function Home() {
         </div>
       </section>
 
-      {/* RISK LINE */}
-      <section className="rule-b">
-        <div className="container-tight py-8">
-          <p className="font-serif text-xl md:text-2xl">
-            First three months don’t pay for themselves, next month is free. That’s the whole risk
-            you’re taking.
-          </p>
-        </div>
-      </section>
-
       {/* PROBLEM */}
       <section className="rule-b bg-secondary/40">
         <div className="container-tight py-20">
@@ -76,6 +66,16 @@ function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* RISK LINE */}
+      <section className="rule-b">
+        <div className="container-tight py-10 text-center">
+          <p className="font-serif text-2xl md:text-3xl">
+            First three months don’t pay for themselves, next month is free. That’s the whole risk
+            you’re taking.
+          </p>
         </div>
       </section>
 
@@ -145,6 +145,60 @@ function Home() {
               Read the full mechanic →
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* COMPARISON */}
+      <section className="rule-b">
+        <div className="container-tight py-20">
+          <div className="eyebrow">What founders usually try first</div>
+          <p className="mt-4 max-w-2xl text-sm text-muted-foreground">
+            Typical UK market rates by category, not quotes from any named competitor.
+          </p>
+          <div className="mt-8 divide-y divide-rule border-y border-rule">
+            {[
+              {
+                name: "Business coach",
+                price: "£150 to £3,500 a month",
+                shape: "Ongoing 1:1 sessions",
+                note: "Advice and accountability. No scripts, no SOPs. Coaching is unregulated in the UK, so quality varies a lot at every price point.",
+              },
+              {
+                name: "Fractional head of sales",
+                price: "£1,500 to £5,000 a month",
+                shape: "One to two days a week",
+                note: "Senior strategic oversight. Not hands-on scripting, roleplay, or workshop cadence.",
+              },
+              {
+                name: "Sales training firm",
+                price: "£5,000 to £20,000",
+                shape: "One-off program, not a subscription",
+                note: "Structured content delivered once. No ongoing pipeline work after the program ends.",
+              },
+              {
+                name: "Outbound or lead-gen agency",
+                price: "£1,500 to £8,000 a month",
+                shape: "Retainer",
+                note: "Fixes how many leads arrive. Doesn’t touch what happens once a lead becomes a live deal, which is where deals actually die.",
+              },
+              {
+                name: "Script & Scale",
+                price: "£500 to £2,000 a month",
+                shape: "Weekly to monthly workshops",
+                note: "Scripts, SOPs, live roleplay, and a guarantee tied to fees recovered.",
+              },
+            ].map((row) => (
+              <div key={row.name} className="grid gap-3 py-6 md:grid-cols-12">
+                <div className="md:col-span-3 font-serif text-xl">{row.name}</div>
+                <div className="mono md:col-span-3 text-sm text-muted-foreground">{row.price}</div>
+                <div className="md:col-span-2 text-sm text-muted-foreground">{row.shape}</div>
+                <p className="md:col-span-4 text-sm">{row.note}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm text-muted-foreground">
+            Most of these solve a different problem than the one that’s actually costing you deals.
+          </p>
         </div>
       </section>
 
