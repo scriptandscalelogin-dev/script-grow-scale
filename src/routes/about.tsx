@@ -70,10 +70,15 @@ function About() {
               can be trained to sell it properly. That’s the entire premise.
             </p>
             <p>
-              Over a decade in B2B sales across SaaS, telecoms, and enterprise. Closed SaaS deals
-              from £12k to £180k ARR, ranked top 5% across five territories. Most recently, closed a
-              deal worth £60k a month.
+              I’ve spent over 10 years in B2B sales. SaaS, telecoms, enterprise. Closed deals from
+              £12k up to £180k ARR, ranked top 5% across five territories. During my most recent
+              role before founding Script &amp; Scale, I closed complex deals worth £60k a month.
             </p>
+            <p>
+              This isn’t coaching. It isn’t training. It’s showing you how to deliver value and
+              produce results. Easy. Consistent. Methodical.
+            </p>
+
             <p>
               Built and led sales teams using live roleplay, objection handling drills, and
               structured discovery, the same approach behind this program, lifting close rates by

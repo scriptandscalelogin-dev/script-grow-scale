@@ -45,9 +45,9 @@ function Terms() {
               A revenue enablement subscription with three tiers:
             </p>
             <ul className="list-disc space-y-2 pl-5">
-              <li><strong>Starter, £500/mo:</strong> one 30–45 min workshop per month, core script, top-10 objection library, recorded workshops.</li>
-              <li><strong>Growth, £1,000/mo:</strong> everything in Starter, plus biweekly workshops, follow-up SOPs, weekly-relevant roleplay drills.</li>
-              <li><strong>Scale, £2,000/mo:</strong> everything in Growth, plus weekly workshops, tonality coaching on real recordings, live call review.</li>
+              <li><strong>Starter, £525/mo:</strong> one 30–45 min workshop per month, core script, top-10 objection library, recorded workshops.</li>
+              <li><strong>Growth, £1,050/mo:</strong> everything in Starter, plus biweekly workshops, follow-up SOPs, weekly-relevant roleplay drills.</li>
+              <li><strong>Scale, £2,100/mo:</strong> everything in Growth, plus weekly workshops, tonality coaching on real recordings, live call review.</li>
             </ul>
             <p>
               Fees are quoted in GBP, exclusive of VAT where applicable.

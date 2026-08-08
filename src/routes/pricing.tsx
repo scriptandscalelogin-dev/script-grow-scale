@@ -6,7 +6,7 @@ export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
       { title: "Pricing · Script & Scale" },
-      { name: "description", content: "Three tiers: £500, £1,000 or £2,000/month. £250 onboarding. 3-month minimum, monthly rolling after." },
+      { name: "description", content: "Three tiers: £525, £1,050 or £2,100/month. £250 onboarding. 3-month minimum, monthly rolling after." },
       { property: "og:title", content: "Pricing · Script & Scale" },
       { property: "og:description", content: "Starter, Growth, Scale. Clear terms, guarantee on the first three months." },
     ],

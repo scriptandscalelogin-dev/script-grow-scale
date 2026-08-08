@@ -12,7 +12,7 @@ export const TIERS: Tier[] = [
   {
     id: "starter",
     name: "Starter",
-    price: 500,
+    price: 525,
     cadence: "Monthly workshop",
     tagline: "Core process, in place.",
     includes: [
@@ -25,7 +25,7 @@ export const TIERS: Tier[] = [
   {
     id: "growth",
     name: "Growth",
-    price: 1000,
+    price: 1050,
     cadence: "Biweekly workshop",
     tagline: "Follow-up stops leaking.",
     includes: [
@@ -39,7 +39,7 @@ export const TIERS: Tier[] = [
   {
     id: "scale",
     name: "Scale",
-    price: 2000,
+    price: 2100,
     cadence: "Weekly workshop",
     tagline: "Reps, review, tonality.",
     includes: [
