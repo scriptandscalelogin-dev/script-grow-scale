@@ -50,15 +50,7 @@ function Home() {
         </div>
       </section>
 
-      {/* RISK LINE */}
-      <section className="rule-b">
-        <div className="container-tight py-8">
-          <p className="font-serif text-xl md:text-2xl">
-            First three months don’t pay for themselves, next month is free. That’s the whole risk
-            you’re taking.
-          </p>
-        </div>
-      </section>
+      {/* PROBLEM */}
 
       {/* PROBLEM */}
       <section className="rule-b bg-secondary/40">
