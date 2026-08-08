@@ -51,8 +51,6 @@ function Home() {
       </section>
 
       {/* PROBLEM */}
-
-      {/* PROBLEM */}
       <section className="rule-b bg-secondary/40">
         <div className="container-tight py-20">
           <div className="eyebrow">What breaks first</div>
