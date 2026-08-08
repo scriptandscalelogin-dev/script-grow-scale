@@ -8,7 +8,7 @@ export const Route = createFileRoute("/")({
       { title: "Script & Scale · Sales enablement for UK small businesses" },
       { name: "description", content: "Weekly sales workshops, scripts, objection drills and follow-up SOPs for MSPs, ITSM providers and consultancies. Fee-recovery guarantee on the first three months." },
       { property: "og:title", content: "Script & Scale · Revenue enablement, UK, subscription" },
-      { property: "og:description", content: "Founder-led sales without a process? Weekly reps, not a course. Three tiers from £500/month." },
+      { property: "og:description", content: "Founder-led sales without a process? Weekly reps, not a course. Three tiers from £525/month." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -183,7 +183,7 @@ function Home() {
               },
               {
                 name: "Script & Scale",
-                price: "£500 to £2,000 a month",
+                price: "£525 to £2,100 a month",
                 shape: "Weekly to monthly workshops",
                 note: "Scripts, SOPs, live roleplay, and a guarantee tied to fees recovered.",
               },
