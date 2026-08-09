@@ -20,7 +20,7 @@ type RevealProps = {
 
 export function Reveal({ children, className, delay = 0, as = "div" }: RevealProps) {
   const reduced = useReducedMotion();
-  const Comp = motion[as];
+  const Comp = motion[as] as typeof motion.div;
 
   if (reduced) {
     const Plain = as as React.ElementType;
@@ -76,26 +76,6 @@ export function CountUp({ to, prefix = "", suffix = "", duration = 1, className 
 }
 
 /* ---------------- Magnetic primary CTA ---------------- */
-
-type MagneticCtaProps = {
-  children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
-} & { [key: string]: unknown };
-
-export function MagneticButton({
-  children,
-  className,
-  render,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  render: (props: { className: string }) => React.ReactNode;
-}) {
-  void children;
-  void className;
-  return <>{render({ className: "" })}</>;
-}
 
 /**
  * Wraps a single interactive element (link/button) and nudges it toward the
