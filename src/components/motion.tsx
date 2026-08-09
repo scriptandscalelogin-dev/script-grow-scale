@@ -1,13 +1,22 @@
-import {
-  motion,
-  useInView,
-  useReducedMotion,
-  useMotionValue,
-  useSpring,
-  animate,
-} from "framer-motion";
+import { motion, useInView, useMotionValue, useSpring, animate } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+
+/**
+ * Hydration-safe reduced-motion flag. Always false on the server and during the
+ * first client render, so SSR markup and client markup match exactly.
+ */
+function useReducedMotionSafe() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return reduced;
+}
 
 /* ---------------- Reveal: fade + rise, once ---------------- */
 
@@ -19,13 +28,8 @@ type RevealProps = {
 };
 
 export function Reveal({ children, className, delay = 0, as = "div" }: RevealProps) {
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotionSafe();
   const Comp = motion[as] as typeof motion.div;
-
-  if (reduced) {
-    const Plain = as as React.ElementType;
-    return <Plain className={className}>{children}</Plain>;
-  }
 
   return (
     <Comp
@@ -33,7 +37,9 @@ export function Reveal({ children, className, delay = 0, as = "div" }: RevealPro
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1], delay }}
+      transition={
+        reduced ? { duration: 0 } : { duration: 0.26, ease: [0.16, 1, 0.3, 1], delay }
+      }
     >
       {children}
     </Comp>
@@ -51,13 +57,17 @@ type CountUpProps = {
 };
 
 export function CountUp({ to, prefix = "", suffix = "", duration = 1, className }: CountUpProps) {
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotionSafe();
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
-  const [value, setValue] = useState(reduced ? to : 0);
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (reduced || !inView) return;
+    if (!inView) return;
+    if (reduced) {
+      setValue(to);
+      return;
+    }
     const controls = animate(0, to, {
       duration,
       ease: [0.16, 1, 0.3, 1],
@@ -78,11 +88,10 @@ export function CountUp({ to, prefix = "", suffix = "", duration = 1, className 
 /* ---------------- Magnetic primary CTA ---------------- */
 
 /**
- * Wraps a single interactive element (link/button) and nudges it toward the
- * pointer. No-ops for touch devices and reduced-motion users.
+ * Nudges a single interactive element toward the pointer. No-op on touch
+ * devices and for reduced-motion users.
  */
 export function Magnetic({ children, className }: { children: React.ReactNode; className?: string }) {
-  const reduced = useReducedMotion();
   const ref = useRef<HTMLSpanElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -91,13 +100,17 @@ export function Magnetic({ children, className }: { children: React.ReactNode; c
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    if (reduced) return;
-    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const update = () => setEnabled(mq.matches);
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setEnabled(fine.matches && !reduce.matches);
     update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, [reduced]);
+    fine.addEventListener("change", update);
+    reduce.addEventListener("change", update);
+    return () => {
+      fine.removeEventListener("change", update);
+      reduce.removeEventListener("change", update);
+    };
+  }, []);
 
   useEffect(() => {
     if (!enabled) return;
@@ -123,17 +136,15 @@ export function Magnetic({ children, className }: { children: React.ReactNode; c
       y.set(Math.max(-MAX, Math.min(MAX, (e.clientY - cy) * 0.35)));
     };
     window.addEventListener("pointermove", onMove, { passive: true });
-    return () => window.removeEventListener("pointermove", onMove);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      x.set(0);
+      y.set(0);
+    };
   }, [enabled, x, y]);
 
-  if (reduced) return <span className={className}>{children}</span>;
-
   return (
-    <motion.span
-      ref={ref}
-      className={cn("inline-block", className)}
-      style={enabled ? { x: sx, y: sy } : undefined}
-    >
+    <motion.span ref={ref} className={cn("inline-block", className)} style={{ x: sx, y: sy }}>
       {children}
     </motion.span>
   );
