@@ -28,7 +28,7 @@ function About() {
             for the technical founder of a 4-person MSP who took a call at 9am, quoted at lunchtime,
             and hasn’t heard back in a week.
           </p>
-        </div>
+        </Reveal>
       </section>
 
       <section className="rule-b">
