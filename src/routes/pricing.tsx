@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site-shell";
 import { TIERS } from "@/lib/tiers";
+import { Reveal } from "@/components/motion";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
@@ -31,9 +32,10 @@ function Pricing() {
       <section className="rule-b">
         <div className="container-tight py-16">
           <div className="grid gap-6 md:grid-cols-3">
-            {TIERS.map((t) => (
-              <div
+            {TIERS.map((t, i) => (
+              <Reveal
                 key={t.id}
+                delay={i * 0.1}
                 className={`flex flex-col rounded-md border p-7 ${
                   t.highlight ? "border-ink bg-card" : "border-rule bg-card/60"
                 }`}
@@ -57,7 +59,7 @@ function Pricing() {
                   ))}
                 </ul>
                 <Link to="/contact" className="btn-primary mt-6">Book a call</Link>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -65,7 +67,7 @@ function Pricing() {
 
       <section className="rule-b">
         <div className="container-tight py-16">
-          <div className="grid gap-10 md:grid-cols-2">
+          <Reveal className="grid gap-10 md:grid-cols-2">
             <div>
               <div className="eyebrow">What you’re actually signing up for</div>
               <ul className="mt-5 space-y-4 text-sm">
@@ -87,7 +89,7 @@ function Pricing() {
                 Full mechanic →
               </Link>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </PageShell>

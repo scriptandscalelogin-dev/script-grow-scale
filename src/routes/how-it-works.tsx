@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site-shell";
 import { TIERS } from "@/lib/tiers";
+import { Reveal } from "@/components/motion";
 
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
@@ -40,12 +41,12 @@ function HowItWorks() {
               ["Minutes 5 to 20", "The work", "Write the script, draft the follow-up sequence, dissect a lost deal."],
               ["Minutes 20 to 35", "Roleplay", "Run the objection you keep hitting until the response is muscle memory."],
               ["Minutes 35 to 45", "Action items", "Three things you’ll do before we speak next. Logged in your portal."],
-            ].map(([time, title, body]) => (
-              <div key={title}>
+            ].map(([time, title, body], i) => (
+              <Reveal key={title} delay={i * 0.17}>
                 <div className="mono text-xs text-highlight">{time}</div>
                 <div className="mt-2 font-serif text-xl">{title}</div>
                 <p className="mt-2 text-sm text-muted-foreground">{body}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -55,8 +56,8 @@ function HowItWorks() {
         <div className="container-tight py-16">
           <div className="eyebrow">By tier</div>
           <div className="mt-8 divide-y divide-rule border-y border-rule">
-            {TIERS.map((t) => (
-              <div key={t.id} className="grid gap-6 py-8 md:grid-cols-12">
+            {TIERS.map((t, i) => (
+              <Reveal key={t.id} delay={i * 0.08} className="grid gap-6 py-8 md:grid-cols-12">
                 <div className="md:col-span-3">
                   <div className="font-serif text-2xl">{t.name}</div>
                   <div className="mono mt-1 text-sm text-muted-foreground">£{t.price}/mo · {t.cadence}</div>
@@ -69,7 +70,7 @@ function HowItWorks() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

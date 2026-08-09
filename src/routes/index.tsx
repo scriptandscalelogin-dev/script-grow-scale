@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site-shell";
 import { TIERS } from "@/lib/tiers";
+import { Reveal, Magnetic } from "@/components/motion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -21,7 +22,7 @@ function Home() {
     <PageShell>
       {/* HERO */}
       <section className="rule-b">
-        <div className="container-tight grid gap-14 py-20 md:grid-cols-12 md:py-28">
+        <Reveal className="container-tight grid gap-14 py-20 md:grid-cols-12 md:py-28">
           <div className="md:col-span-8">
             <div className="eyebrow">Revenue enablement · UK · Subscription</div>
             <h1 className="mt-5 font-serif text-5xl leading-[1.05] md:text-7xl">
@@ -34,7 +35,9 @@ function Home() {
               fixes that with weekly reps, not a course.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+              <Magnetic>
+                <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+              </Magnetic>
               <Link to="/how-it-works" className="btn-outline">See how it works</Link>
             </div>
           </div>
@@ -47,7 +50,7 @@ function Home() {
               <li>Live call review at the top tier</li>
             </ul>
           </aside>
-        </div>
+        </Reveal>
       </section>
 
       {/* PROBLEM */}
@@ -59,11 +62,11 @@ function Home() {
               { t: "No process.", b: "Every deal handled from memory. What worked last month doesn’t repeat, because nothing was written down." },
               { t: "Follow-up is where deals die.", b: "You send the proposal, they go quiet, you don’t know when or how to push. So you don’t. So it closes lost." },
               { t: "You can’t hand it off.", b: "No script, no playbook, no SOP. A hire would take a year to be useful. You keep doing it yourself." },
-            ].map((c) => (
-              <div key={c.t}>
+            ].map((c, i) => (
+              <Reveal key={c.t} delay={i * 0.12}>
                 <div className="font-serif text-2xl">{c.t}</div>
                 <p className="mt-2 text-sm text-muted-foreground">{c.b}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -71,12 +74,12 @@ function Home() {
 
       {/* RISK LINE */}
       <section className="rule-b">
-        <div className="container-tight py-10 text-center">
+        <Reveal className="container-tight py-10 text-center">
           <p className="font-serif text-2xl md:text-3xl">
             First three months don’t pay for themselves, next month is free. That’s the whole risk
             you’re taking.
           </p>
-        </div>
+        </Reveal>
       </section>
 
       {/* TIERS */}
@@ -92,9 +95,10 @@ function Home() {
             </Link>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {TIERS.map((t) => (
-              <div
+            {TIERS.map((t, i) => (
+              <Reveal
                 key={t.id}
+                delay={i * 0.1}
                 className={`flex flex-col rounded-md border p-6 ${
                   t.highlight ? "border-ink bg-card" : "border-rule bg-card/60"
                 }`}
@@ -117,7 +121,7 @@ function Home() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Reveal>
             ))}
           </div>
           <p className="mt-6 text-xs text-muted-foreground">
@@ -128,7 +132,7 @@ function Home() {
 
       {/* GUARANTEE */}
       <section className="rule-b">
-        <div className="container-tight grid gap-10 py-20 md:grid-cols-12">
+        <Reveal className="container-tight grid gap-10 py-20 md:grid-cols-12">
           <div className="md:col-span-5">
             <div className="eyebrow">The guarantee</div>
             <h2 className="mt-3 font-serif text-4xl">Your first three months pay for themselves.</h2>
@@ -145,7 +149,7 @@ function Home() {
               Read the full mechanic →
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* COMPARISON */}
@@ -188,7 +192,14 @@ function Home() {
                 note: "Scripts, SOPs, live roleplay, and a guarantee tied to fees recovered.",
               },
             ].map((row) => (
-              <div key={row.name} className="grid gap-3 py-6 md:grid-cols-12">
+              <div
+                key={row.name}
+                className={`grid gap-3 py-6 px-3 -mx-3 transition-colors duration-200 md:grid-cols-12 ${
+                  row.name === "Script & Scale"
+                    ? "bg-secondary/60 border-l-2 border-highlight hover:bg-secondary"
+                    : "hover:bg-secondary/40"
+                }`}
+              >
                 <div className="md:col-span-3 font-serif text-xl">{row.name}</div>
                 <div className="mono md:col-span-3 text-sm text-muted-foreground">{row.price}</div>
                 <div className="md:col-span-2 text-sm text-muted-foreground">{row.shape}</div>
@@ -204,15 +215,17 @@ function Home() {
 
       {/* CTA */}
       <section>
-        <div className="container-tight py-20 text-center">
+        <Reveal className="container-tight py-20 text-center">
           <h2 className="font-serif text-4xl md:text-5xl">30-minute call. No pitch deck.</h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
             Tell me what your last five deals looked like. If it isn’t a fit, I’ll say so.
           </p>
           <div className="mt-8">
-            <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+            <Magnetic>
+              <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+            </Magnetic>
           </div>
-        </div>
+        </Reveal>
       </section>
     </PageShell>
   );
