@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site-shell";
+import { Reveal, Magnetic, CountUp } from "@/components/motion";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -17,7 +18,7 @@ function About() {
   return (
     <PageShell>
       <section className="rule-b">
-        <div className="container-tight py-20">
+        <Reveal className="container-tight py-20">
           <div className="eyebrow">About</div>
           <h1 className="mt-4 font-serif text-5xl md:text-6xl">
             Built for the founder still sending every proposal.
@@ -27,11 +28,11 @@ function About() {
             for the technical founder of a 4-person MSP who took a call at 9am, quoted at lunchtime,
             and hasn’t heard back in a week.
           </p>
-        </div>
+        </Reveal>
       </section>
 
       <section className="rule-b">
-        <div className="container-tight grid gap-10 py-16 md:grid-cols-12">
+        <Reveal className="container-tight grid gap-10 py-16 md:grid-cols-12">
           <div className="md:col-span-4">
             <div className="eyebrow">Who it’s for</div>
           </div>
@@ -39,11 +40,11 @@ function About() {
             <p>UK small businesses, roughly 2–20 people, where sales is still whoever founded the company.</p>
             <p>Typical clients: managed service providers, ITSM consultancies, technical services firms, boutique consultancies. The kind of business where the offer is real and the delivery is good, and the missing piece is a repeatable way to move deals forward.</p>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="rule-b">
-        <div className="container-tight grid gap-10 py-16 md:grid-cols-12">
+        <Reveal className="container-tight grid gap-10 py-16 md:grid-cols-12">
           <div className="md:col-span-4">
             <div className="eyebrow">The approach</div>
           </div>
@@ -51,11 +52,11 @@ function About() {
             <p>No frameworks with acronyms. No "seven habits". The workshops are working sessions on your actual pipeline. The script gets written from your real calls, the objection library from objections you’re actually hearing.</p>
             <p>Small caseload on purpose. This isn’t a course you buy and consume alone.</p>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="rule-b">
-        <div className="container-tight grid gap-10 py-16 md:grid-cols-12">
+        <Reveal className="container-tight grid gap-10 py-16 md:grid-cols-12">
           <div className="md:col-span-4">
             <div className="eyebrow">The founder</div>
           </div>
@@ -71,8 +72,9 @@ function About() {
             </p>
             <p>
               I’ve spent over 10 years in B2B sales. SaaS, telecoms, enterprise. Closed deals from
-              £12k up to £180k ARR, ranked top 5% across five territories. During my most recent
-              role before founding Script &amp; Scale, I closed complex deals worth £60k a month.
+              £<CountUp to={12} suffix="k" /> up to £<CountUp to={180} suffix="k" /> ARR, ranked top{" "}
+              <CountUp to={5} suffix="%" /> across five territories. During my most recent
+              role before founding Script &amp; Scale, I closed complex deals worth £<CountUp to={60} suffix="k" /> a month.
             </p>
             <p>
               This isn’t coaching. It isn’t training. It’s showing you how to deliver value and
@@ -81,8 +83,8 @@ function About() {
 
             <p>
               Built and led sales teams using live roleplay, objection handling drills, and
-              structured discovery, the same approach behind this program, lifting close rates by
-              25% and cutting onboarding errors by 40%.
+              structured discovery, the same approach behind this program, lifting close rates by{" "}
+              <CountUp to={25} suffix="%" /> and cutting onboarding errors by <CountUp to={40} suffix="%" />.
             </p>
             <p>
               Foundation-level certified in ITIL4, PRINCE2 Agile, DevOps, and TOGAF. So when we sit
@@ -90,12 +92,14 @@ function About() {
               scratch. I already speak the language your prospects speak.
             </p>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section>
         <div className="container-tight py-16 text-center">
-          <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+          <Magnetic>
+            <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+          </Magnetic>
         </div>
       </section>
     </PageShell>

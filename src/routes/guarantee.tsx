@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site-shell";
+import { Reveal, Magnetic } from "@/components/motion";
 
 export const Route = createFileRoute("/guarantee")({
   head: () => ({
@@ -31,7 +32,7 @@ function Guarantee() {
 
       <section className="rule-b">
         <div className="container-tight py-16">
-          <div className="grid gap-10 md:grid-cols-12">
+          <Reveal className="grid gap-10 md:grid-cols-12">
             <div className="md:col-span-4">
               <div className="eyebrow">The mechanic</div>
             </div>
@@ -54,13 +55,13 @@ function Guarantee() {
                 No cash changes hands back. It’s time recovered, not money refunded. That’s deliberate. A cash refund lets both sides off the hook. Free months mean we keep working until it works.
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="rule-b">
         <div className="container-tight py-16">
-          <div className="grid gap-10 md:grid-cols-12">
+          <Reveal className="grid gap-10 md:grid-cols-12">
             <div className="md:col-span-4">
               <div className="eyebrow">What we ask</div>
             </div>
@@ -79,7 +80,7 @@ function Guarantee() {
                 land inside three months. The guarantee exists for the cases where they don’t.
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -87,7 +88,9 @@ function Guarantee() {
         <div className="container-tight py-16 text-center">
           <h2 className="font-serif text-3xl">Fair enough?</h2>
           <div className="mt-6">
-            <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+            <Magnetic>
+              <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+            </Magnetic>
           </div>
         </div>
       </section>
