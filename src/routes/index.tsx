@@ -140,9 +140,10 @@ function Home() {
       {/* TESTIMONIALS */}
       <section className="rule-b bg-secondary/40">
         <div className="container-tight py-20">
-<div className="eyebrow">What clients say</div>
-<h2 className="mt-3 font-serif text-4xl md:text-5xl">No script for this part.</h2>
-<p className="mt-3 text-sm text-muted-foreground">Collected by email and call follow-ups, unedited beyond trimming for length.</p>
+          <div className="eyebrow">What clients say</div>
+          <h2 className="mt-3 font-serif text-4xl md:text-5xl">No script for this part.</h2>
+          <p className="mt-3 text-sm text-muted-foreground">Collected by email and call follow-ups, unedited beyond trimming for length.</p>
+          <div className="mt-10 -mx-6 flex snap-x gap-5 overflow-x-auto px-6 pb-4">
             {[
               { name: "Euan M.", loc: "Edinburgh", industry: "Legal Consultancy", quote: "The cadence drills are tough but effective. Our solicitors now handle fee objections with confidence instead of hesitation. It's become part of our rhythm, not just a one-off training." },
               { name: "Rebecca M.", loc: "London", industry: "ITSM Provider", quote: "The scripts they built were spot-on. No fluff, just practical objection handling that matched our offers. We closed £120k in new business last quarter." },
