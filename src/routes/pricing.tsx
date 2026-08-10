@@ -51,10 +51,6 @@ function Pricing() {
                   <span className="mono text-4xl"><CountUp to={t.price} prefix="£" duration={2} /></span>
                   <span className="text-sm text-muted-foreground"> / month</span>
                 </div>
-                <div className="mt-3">
-                  <span className="mono text-4xl">£{t.price.toLocaleString()}</span>
-                  <span className="text-sm text-muted-foreground"> / month</span>
-                </div>
                 <div className="mt-1 text-sm text-muted-foreground">{t.cadence}</div>
                 <p className="mt-4 text-sm">{t.tagline}</p>
                 <ul className="mt-6 flex-1 space-y-2 text-sm">
