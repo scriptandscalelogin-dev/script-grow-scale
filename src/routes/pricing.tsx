@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site-shell";
 import { TIERS } from "@/lib/tiers";
-import { Reveal } from "@/components/motion";
+import { Reveal, CountUp, ShineOnce } from "@/components/motion";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
@@ -35,14 +35,21 @@ function Pricing() {
             {TIERS.map((t, i) => (
               <Reveal
                 key={t.id}
-                delay={i * 0.1}
-                className={`flex flex-col rounded-md border p-7 ${
-                  t.highlight ? "border-ink bg-card" : "border-rule bg-card/60"
+                delay={i * 0.22}
+                hoverLift
+                className={`flex flex-col rounded-md border p-7 transition-shadow ${
+                  t.highlight ? "border-2 border-highlight bg-card" : "border-rule bg-card/60"
                 }`}
               >
                 <div className="flex items-baseline justify-between">
                   <div className="font-serif text-2xl">{t.name}</div>
-                  {t.highlight && <div className="eyebrow text-highlight">Most pick this</div>}
+                  {t.highlight && (
+                    <ShineOnce className="eyebrow text-highlight">Most pick this</ShineOnce>
+                  )}
+                </div>
+                <div className="mt-3">
+                  <span className="mono text-4xl"><CountUp to={t.price} prefix="£" duration={2} /></span>
+                  <span className="text-sm text-muted-foreground"> / month</span>
                 </div>
                 <div className="mt-3">
                   <span className="mono text-4xl">£{t.price.toLocaleString()}</span>
