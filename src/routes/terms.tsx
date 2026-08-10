@@ -162,6 +162,10 @@ function Disclaimer() {
         It is <strong>not</strong> a finished legal contract. Have a UK solicitor review it before you rely on it publicly
         or ask clients to sign it.
       </p>
+      <p className="mt-2">
+        Before starting a subscription, we'll send you a signed service agreement covering these terms in full.
+        This page is for reference only.
+      </p>
     </div>
   );
 }
