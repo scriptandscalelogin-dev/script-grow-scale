@@ -97,34 +97,28 @@ function Home() {
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {TIERS.map((t, i) => (
               <Reveal
-                key={t.id}
-                delay={i * 0.22}
-                hoverLift
-                className={`flex flex-col rounded-md border p-6 transition-shadow ${
-                  t.highlight ? "border-2 border-highlight bg-card" : "border-rule bg-card/60"
-                }`}
-              >
-                <div className="flex items-baseline justify-between">
-                  <div className="font-serif text-2xl">{t.name}</div>
-                  {t.highlight && (
-                    <ShineOnce className="eyebrow text-highlight">Most pick this</ShineOnce>
-                  )}
-                </div>
-                <div className="mt-3 flex items-baseline gap-1">
-                  <span className="mono text-3xl"><CountUp to={t.price} prefix="£" duration={2} /></span>
-                  <span className="text-sm text-muted-foreground">/ month</span>
-                </div>
-                <div className="mt-1 text-sm text-muted-foreground">{t.cadence}</div>
-                <p className="mt-4 text-sm">{t.tagline}</p>
-                <ul className="mt-5 space-y-2 text-sm">
-                  {t.includes.map((i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="mt-[0.3rem] block h-1 w-3 shrink-0 bg-highlight" />
-                      <span>{i}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
+  key={t.id}
+  delay={i * 0.22}
+  hoverLift
+  className={`flex flex-col rounded-md border p-6 transition-all duration-200 ease-out hover:scale-[1.02] ${
+    t.highlight ? "border-2 border-highlight bg-card" : "border-rule bg-card/60 hover:border-highlight"
+  }`}
+>
+  <div className="flex items-baseline justify-between">
+    <div className="font-serif text-2xl">{t.name}</div>
+    {t.highlight && (
+      <ShineOnce className="eyebrow text-highlight">Most pick this</ShineOnce>
+    )}
+  </div>
+  <div className="mt-3 flex items-baseline gap-1">
+    <span className="mono text-3xl relative inline-block">
+      <CountUp to={t.price} prefix="£" duration={2} />
+      <span className="pointer-events-none absolute left-0 -bottom-1 h-px w-full origin-left scale-x-0 bg-highlight transition-transform duration-300 group-hover:scale-x-100" />
+    </span>
+    <span className="text-sm text-muted-foreground">/ month</span>
+  </div>
+  ...
+</Reveal>
             ))}
           </div>
           <p className="mt-6 text-xs text-muted-foreground">
