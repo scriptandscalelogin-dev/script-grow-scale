@@ -38,6 +38,7 @@ export function Reveal({ children, className, delay = 0, as = "div", hoverLift =
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
+      whileHover={hoverLift && !reduced ? { scale: 1.02 } : undefined}
       transition={
         reduced ? { duration: 0 } : { duration: 0.26, ease: [0.16, 1, 0.3, 1], delay }
       }

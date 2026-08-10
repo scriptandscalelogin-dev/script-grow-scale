@@ -100,9 +100,9 @@ function Home() {
   key={t.id}
   delay={i * 0.22}
   hoverLift
-  className={`flex flex-col rounded-md border p-6 transition-all duration-200 ease-out hover:scale-[1.02] ${
-    t.highlight ? "border-2 border-highlight bg-card" : "border-rule bg-card/60 hover:border-highlight"
-  }`}
+  className={`flex flex-col rounded-md border p-6 transition-colors duration-200 ease-out ${
+  t.highlight ? "border-2 border-highlight bg-card" : "border-rule bg-card/60 hover:border-highlight"
+}`}
 >
   <div className="flex items-baseline justify-between">
     <div className="font-serif text-2xl">{t.name}</div>
