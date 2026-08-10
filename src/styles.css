@@ -37,16 +37,18 @@
   --color-paper: var(--paper);
   --color-rule: var(--rule);
   --color-highlight: var(--highlight);
+  --color-heading: var(--heading);
 }
 
 :root {
   --radius: 0.375rem;
 
-  /* Paper: warm off-white. Ink: near-black. Accent: deep oxblood. */
+  /* Paper: warm off-white. Ink: near-black. Accent: Warm Brass. Heading: Midnight Navy. */
   --paper: oklch(0.972 0.008 85);
   --ink: oklch(0.16 0.015 60);
   --rule: oklch(0.86 0.012 75);
-  --highlight: oklch(0.44 0.16 27);
+  --highlight: oklch(0.72 0.10 85);
+  --heading: oklch(0.24 0.045 255);
 
   --background: var(--paper);
   --foreground: var(--ink);
@@ -73,7 +75,8 @@
   --paper: oklch(0.16 0.015 60);
   --ink: oklch(0.96 0.008 85);
   --rule: oklch(0.28 0.012 60);
-  --highlight: oklch(0.62 0.19 27);
+  --highlight: oklch(0.75 0.11 85);
+  --heading: oklch(0.88 0.02 255);
 
   --background: var(--paper);
   --foreground: var(--ink);
@@ -113,6 +116,7 @@
     font-family: var(--font-serif);
     font-weight: 400;
     letter-spacing: -0.01em;
+    color: var(--color-heading);
   }
   .num, .mono {
     font-family: var(--font-mono);
