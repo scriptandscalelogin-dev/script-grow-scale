@@ -146,7 +146,7 @@ function Home() {
           <div className="mt-10 -mx-6 flex snap-x gap-5 overflow-x-auto px-6 pb-4">
             {[
               { name: "Euan M.", loc: "Edinburgh", industry: "Legal Consultancy", quote: "The cadence drills are tough but effective. Our solicitors now handle fee objections with confidence instead of hesitation. It's become part of our rhythm, not just a one-off training." },
-              { name: "Rebecca M.", loc: "London", industry: "ITSM Provider", quote: "The scripts they built were spot-on. No fluff, just practical objection handling that matched our offers. We closed £120k in new business last quarter." },
+              { name: "Rebecca M.", loc: "London", industry: "ITSM Provider", quote: "The scripts they built were spot-on. No fluff, just practical objection handling that matched our offers. We closed £35k in new business last quarter." },
               { name: "Imran K.", loc: "Manchester", industry: "BPO Services", quote: "We'd been losing deals at the objection stage for months. Within a quarter, we closed £110k in new business. My team finally feels confident instead of scrambling." },
               { name: "David C.", loc: "Bristol", industry: "MSP", quote: "Short and sweet: pipeline yield up 18%, fewer deals slipping away. Worth it." },
               { name: "Sarah K.", loc: "Leeds", industry: "Accounting Consultancy", quote: "They mapped our leaks live, built scripts around our actual objections, and kept us sharp with cadence workshops. Prospects notice the difference, especially when fees come up." },
