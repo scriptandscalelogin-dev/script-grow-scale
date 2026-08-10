@@ -146,13 +146,13 @@ function Home() {
           <div className="mt-10 -mx-6 flex snap-x gap-5 overflow-x-auto px-6 pb-4">
             {[
               { name: "Euan M.", loc: "Edinburgh", industry: "Legal Consultancy", quote: "The cadence drills are tough but effective. Our solicitors now handle fee objections with confidence instead of hesitation. It's become part of our rhythm, not just a one-off training." },
-              { name: "Rebecca M.", loc: "London", industry: "ITSM Provider", quote: "The scripts they built were spot-on. No fluff, just practical objection handling that matched our offers. We closed £35k in new business last quarter." },
-              { name: "Imran K.", loc: "Manchester", industry: "BPO Services", quote: "We'd been losing deals at the objection stage for months. Within a quarter, we closed £110k in new business. My team finally feels confident instead of scrambling." },
+              { name: "Rebecca M.", loc: "London", industry: "ITSM Provider", quote: "The scripts Arno built were spot-on. No fluff, just practical objection handling that matched our offers. We closed £35k in new business last quarter." },
+              { name: "Imran K.", loc: "Manchester", industry: "BPO Services", quote: "We'd been losing deals at the objection stage for months. Within a quarter, we closed £110k in new business. My team finally feels confident and prepared instead of scrambling." },
               { name: "David C.", loc: "Bristol", industry: "MSP", quote: "Short and sweet: pipeline yield up 18%, fewer deals slipping away. Worth it." },
-              { name: "Sarah K.", loc: "Leeds", industry: "Accounting Consultancy", quote: "They mapped our leaks live, built scripts around our actual objections, and kept us sharp with cadence workshops. Prospects notice the difference, especially when fees come up." },
+              { name: "Sarah K.", loc: "Leeds", industry: "Accounting Consultancy", quote: "Arno mapped our leaks live, built scripts around our actual objections, and kept us sharp with cadence workshops. Prospects notice the difference, especially when fees come up." },
               { name: "Tom B.", loc: "Glasgow", industry: "Management Consultancy", quote: "The diagnosis session was a wake-up call. Fixing our follow-up alone lifted our close rate by 22% in two months." },
               { name: "Emily R.", loc: "Liverpool", industry: "BPO Services", quote: "We closed two enterprise deals worth £95k after implementing their follow-up sequences. That alone paid for the service." },
-              { name: "Michael H.", loc: "Sheffield", industry: "Manufacturing Consultancy", quote: "They didn't just tell us what was wrong, they showed us. Seeing the leaks mapped out in real time was invaluable." },
+              { name: "Michael H.", loc: "Sheffield", industry: "Manufacturing Consultancy", quote: "Arno didn't just tell us what was wrong, he showed us. Seeing the leaks mapped out in real time was invaluable." },
               { name: "Charlotte E.", loc: "Newcastle", industry: "HR Consultancy", quote: "Script & Scale gave us a playbook every recruiter follows. Our win rates are up 20%, and I don't have to worry about rogue messaging anymore." },
               { name: "Oliver G.", loc: "Nottingham", industry: "IT Consultancy", quote: "The tonality coaching was a game-changer. Our consultants sound more confident, and prospects respond differently." },
             ].map((t) => (
