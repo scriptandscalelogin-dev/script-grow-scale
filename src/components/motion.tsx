@@ -1,235 +1,151 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { PageShell } from "@/components/site-shell";
-import { TIERS } from "@/lib/tiers";
-import { Reveal, Magnetic, CountUp, ShineOnce } from "@/components/motion";
+import { motion, useInView, useMotionValue, useSpring, animate } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Script & Scale · Sales enablement for UK small businesses" },
-      { name: "description", content: "Weekly sales workshops, scripts, objection drills and follow-up SOPs for MSPs, ITSM providers and consultancies. Fee-recovery guarantee on the first three months." },
-      { property: "og:title", content: "Script & Scale · Revenue enablement, UK, subscription" },
-      { property: "og:description", content: "Founder-led sales without a process? Weekly reps, not a course. Three tiers from £525/month." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Home,
-});
+/**
+ * Hydration-safe reduced-motion flag. Always false on the server and during the
+ * first client render, so SSR markup and client markup match exactly.
+ */
+function useReducedMotionSafe() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return reduced;
+}
 
-function Home() {
+/* ---------------- Reveal: fade + rise, once ---------------- */
+
+type RevealProps = {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  as?: "div" | "section" | "li" | "aside" | "footer";
+};
+
+export function Reveal({ children, className, delay = 0, as = "div" }: RevealProps) {
+  const reduced = useReducedMotionSafe();
+  const Comp = motion[as] as typeof motion.div;
+
   return (
-    <PageShell>
-      {/* HERO */}
-      <section className="rule-b">
-        <Reveal className="container-tight grid gap-14 py-20 md:grid-cols-12 md:py-28">
-          <div className="md:col-span-8">
-            <div className="eyebrow">Revenue enablement · UK · Subscription</div>
-            <h1 className="mt-5 font-serif text-5xl leading-[1.05] md:text-7xl">
-              You built the business.<br />
-              It still can’t close without you.
-            </h1>
-            <p className="mt-7 max-w-2xl text-lg text-muted-foreground">
-              MSPs, ITSM providers, consultancies. Same pattern every time: founder-led sales, no
-              real process, deals dying in follow-up, quotes sent into silence. Script &amp; Scale
-              fixes that with weekly reps, not a course.
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Magnetic>
-                <Link to="/contact" className="btn-primary">Book a discovery call</Link>
-              </Magnetic>
-              <Link to="/how-it-works" className="btn-outline">See how it works</Link>
-            </div>
-          </div>
-          <aside className="md:col-span-4 md:border-l md:border-rule md:pl-8">
-            <div className="eyebrow">Every week, you leave with</div>
-            <ul className="mt-4 space-y-3 text-sm">
-              <li>A script that fits how you actually talk</li>
-              <li>Objection responses drilled until they’re automatic</li>
-              <li>Follow-up SOPs so nothing sits in your inbox</li>
-              <li>Live call review at the top tier</li>
-            </ul>
-          </aside>
-        </Reveal>
-      </section>
+    <Comp
+      className={className}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={
+        reduced ? { duration: 0 } : { duration: 0.26, ease: [0.16, 1, 0.3, 1], delay }
+      }
+    >
+      {children}
+    </Comp>
+  );
+}
 
-      {/* PROBLEM */}
-      <section className="rule-b bg-secondary/40">
-        <div className="container-tight py-20">
-          <div className="eyebrow">What breaks first</div>
-          <div className="mt-8 grid gap-10 md:grid-cols-3">
-            {[
-              { t: "No process.", b: "Every deal handled from memory. What worked last month doesn’t repeat, because nothing was written down." },
-              { t: "Follow-up is where deals die.", b: "You send the proposal, they go quiet, you don’t know when or how to push. So you don’t. So it closes lost." },
-              { t: "You can’t hand it off.", b: "No script, no playbook, no SOP. A hire would take a year to be useful. You keep doing it yourself." },
-            ].map((c, i) => (
-              <Reveal key={c.t} delay={i * 0.24}>
-                <div className="font-serif text-2xl">{c.t}</div>
-                <p className="mt-2 text-sm text-muted-foreground">{c.b}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+/* ---------------- CountUp ---------------- */
 
-      {/* RISK LINE */}
-      <section className="rule-b">
-        <Reveal className="container-tight py-10 text-center">
-          <p className="font-serif text-2xl md:text-3xl">
-            First three months don’t pay for themselves, next month is free. That’s the whole risk
-            you’re taking.
-          </p>
-        </Reveal>
-      </section>
+type CountUpProps = {
+  to: number;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+  className?: string;
+};
 
-      {/* TIERS */}
-      <section className="rule-b">
-        <div className="container-tight py-20">
-          <div className="flex items-end justify-between gap-8">
-            <div>
-              <div className="eyebrow">Three tiers</div>
-              <h2 className="mt-3 font-serif text-4xl md:text-5xl">Pick the cadence you can actually keep.</h2>
-            </div>
-            <Link to="/pricing" className="hidden text-sm underline-offset-4 hover:underline md:inline">
-              Full pricing →
-            </Link>
-          </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {TIERS.map((t, i) => (
-              <Reveal
-                key={t.id}
-                delay={i * 0.22}
-                hoverLift
-                className={`flex flex-col rounded-md border p-6 transition-shadow ${
-                  t.highlight ? "border-2 border-highlight bg-card" : "border-rule bg-card/60"
-                }`}
-              >
-                <div className="flex items-baseline justify-between">
-                  <div className="font-serif text-2xl">{t.name}</div>
-                  {t.highlight && (
-                    <ShineOnce className="eyebrow text-highlight">Most pick this</ShineOnce>
-                  )}
-                </div>
-                <div className="mt-3 flex items-baseline gap-1">
-                  <span className="mono text-3xl"><CountUp to={t.price} prefix="£" duration={2} /></span>
-                  <span className="text-sm text-muted-foreground">/ month</span>
-                </div>
-                <div className="mt-1 text-sm text-muted-foreground">{t.cadence}</div>
-                <p className="mt-4 text-sm">{t.tagline}</p>
-                <ul className="mt-5 space-y-2 text-sm">
-                  {t.includes.map((i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="mt-[0.3rem] block h-1 w-3 shrink-0 bg-highlight" />
-                      <span>{i}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            ))}
-          </div>
-          <p className="mt-6 text-xs text-muted-foreground">
-            £250 onboarding fee. 3-month minimum. Monthly rolling after that.
-          </p>
-        </div>
-      </section>
+export function CountUp({ to, prefix = "", suffix = "", duration = 1, className }: CountUpProps) {
+  const reduced = useReducedMotionSafe();
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const [value, setValue] = useState(0);
 
-      {/* GUARANTEE */}
-      <section className="rule-b">
-        <Reveal className="container-tight grid gap-10 py-20 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <div className="eyebrow">The guarantee</div>
-            <h2 className="mt-3 font-serif text-4xl">Your first three months pay for themselves.</h2>
-          </div>
-          <div className="md:col-span-7">
-            <p className="text-base">
-              If closed deal value across your first three months doesn’t cover the fees you paid, and
-              you attended the workshops and ran the program, month four is free. Every month after that too, until we’re square.
-            </p>
-            <p className="mt-4 text-sm text-muted-foreground">
-              No cash refund. Attendance is required. It’s a real guarantee, not a marketing one. It works because both sides show up.
-            </p>
-            <Link to="/guarantee" className="mt-6 inline-block text-sm underline-offset-4 hover:underline">
-              Read the full mechanic →
-            </Link>
-          </div>
-        </Reveal>
-      </section>
+  useEffect(() => {
+    if (reduced) {
+      setValue(to);
+      return;
+    }
+    if (!inView) return;
+    const controls = animate(0, to, {
+      duration,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => setValue(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [inView, reduced, to, duration]);
 
-      {/* COMPARISON */}
-      <section className="rule-b">
-        <div className="container-tight py-20">
-          <div className="eyebrow">What founders usually try first</div>
-          <p className="mt-4 max-w-2xl text-sm text-muted-foreground">
-            Typical UK market rates by category, not quotes from any named competitor.
-          </p>
-          <div className="mt-8 divide-y divide-rule border-y border-rule">
-            {[
-              {
-                name: "Business coach",
-                price: "£150 to £3,500 a month",
-                shape: "Ongoing 1:1 sessions",
-                note: "Advice and accountability. No scripts, no SOPs. Coaching is unregulated in the UK, so quality varies a lot at every price point.",
-              },
-              {
-                name: "Fractional head of sales",
-                price: "£1,500 to £5,000 a month",
-                shape: "One to two days a week",
-                note: "Senior strategic oversight. Not hands-on scripting, roleplay, or workshop cadence.",
-              },
-              {
-                name: "Sales training firm",
-                price: "£5,000 to £20,000",
-                shape: "One-off program, not a subscription",
-                note: "Structured content delivered once. No ongoing pipeline work after the program ends.",
-              },
-              {
-                name: "Outbound or lead-gen agency",
-                price: "£1,500 to £8,000 a month",
-                shape: "Retainer",
-                note: "Fixes how many leads arrive. Doesn’t touch what happens once a lead becomes a live deal, which is where deals actually die.",
-              },
-              {
-                name: "Script & Scale",
-                price: "£525 to £2,100 a month",
-                shape: "Weekly to monthly workshops",
-                note: "Scripts, SOPs, live roleplay, and a guarantee tied to fees recovered.",
-              },
-            ].map((row) => (
-              <div
-                key={row.name}
-                className={`grid gap-3 py-6 px-3 -mx-3 transition-colors duration-200 md:grid-cols-12 ${
-                  row.name === "Script & Scale"
-                    ? "bg-secondary/60 border-l-2 border-highlight hover:bg-secondary font-medium py-7"
-                    : "hover:bg-secondary/40"
-                }`}
-              >
-                <div className="md:col-span-3 font-serif text-xl">{row.name}</div>
-                <div className="mono md:col-span-3 text-sm text-muted-foreground">{row.price}</div>
-                <div className="md:col-span-2 text-sm text-muted-foreground">{row.shape}</div>
-                <p className="md:col-span-4 text-sm">{row.note}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-6 text-sm text-muted-foreground">
-            Most of these solve a different problem than the one that’s actually costing you deals.
-          </p>
-        </div>
-      </section>
+  return (
+    <span ref={ref} className={cn("tabular-nums", className)}>
+      {prefix}
+      {value.toLocaleString()}
+      {suffix}
+    </span>
+  );
+}
 
-      {/* CTA */}
-      <section>
-        <Reveal className="container-tight py-20 text-center">
-          <h2 className="font-serif text-4xl md:text-5xl">30-minute call. <em className="italic">No pitch deck.</em></h2>
-          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Tell me what your last five deals looked like. If it isn’t a fit, I’ll say so.
-          </p>
-          <div className="mt-8">
-            <Magnetic>
-              <Link to="/contact" className="btn-primary">Book a discovery call</Link>
-            </Magnetic>
-          </div>
-        </Reveal>
-      </section>
-    </PageShell>
+/* ---------------- Magnetic primary CTA ---------------- */
+
+/**
+ * Nudges a single interactive element toward the pointer. No-op on touch
+ * devices and for reduced-motion users.
+ */
+export function Magnetic({ children, className }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 260, damping: 20, mass: 0.4 });
+  const sy = useSpring(y, { stiffness: 260, damping: 20, mass: 0.4 });
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setEnabled(fine.matches && !reduce.matches);
+    update();
+    fine.addEventListener("change", update);
+    reduce.addEventListener("change", update);
+    return () => {
+      fine.removeEventListener("change", update);
+      reduce.removeEventListener("change", update);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
+    const PAD = 24;
+    const MAX = 6;
+    const onMove = (e: PointerEvent) => {
+      const el = ref.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const within =
+        e.clientX >= r.left - PAD &&
+        e.clientX <= r.right + PAD &&
+        e.clientY >= r.top - PAD &&
+        e.clientY <= r.bottom + PAD;
+      if (!within) {
+        x.set(0);
+        y.set(0);
+        return;
+      }
+      x.set(Math.max(-MAX, Math.min(MAX, (e.clientX - cx) * 0.25)));
+      y.set(Math.max(-MAX, Math.min(MAX, (e.clientY - cy) * 0.35)));
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      x.set(0);
+      y.set(0);
+    };
+  }, [enabled, x, y]);
+
+  return (
+    <motion.span ref={ref} className={cn("inline-block", className)} style={{ x: sx, y: sy }}>
+      {children}
+    </motion.span>
   );
 }
