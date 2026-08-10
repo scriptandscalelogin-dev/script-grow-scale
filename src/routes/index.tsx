@@ -109,6 +109,7 @@ function Home() {
                   {t.highlight && (
                     <ShineOnce className="eyebrow text-highlight">Most pick this</ShineOnce>
                   )}
+                </div>
                 <div className="mt-3 flex items-baseline gap-1">
                   <span className="mono text-3xl"><CountUp to={t.price} prefix="£" duration={2} /></span>
                   <span className="text-sm text-muted-foreground">/ month</span>
