@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site-shell";
 import { TIERS } from "@/lib/tiers";
 import { Reveal, Magnetic, CountUp, ShineOnce } from "@/components/motion";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -97,33 +98,75 @@ function Home() {
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {TIERS.map((t, i) => (
               <Reveal
-  key={t.id}
-  delay={i * 0.22}
-  hoverLift
-  className={`flex flex-col rounded-md border p-6 transition-colors duration-200 ease-out ${
-  t.highlight ? "border-2 border-highlight bg-card" : "border-rule bg-card/60 hover:border-highlight"
-}`}
->
-  <div className="flex items-baseline justify-between">
-    <div className="font-serif text-2xl">{t.name}</div>
-    {t.highlight && (
-      <ShineOnce className="eyebrow text-highlight">Most pick this</ShineOnce>
-    )}
-  </div>
-  <div className="mt-3 flex items-baseline gap-1">
-    <span className="mono text-3xl relative inline-block">
-      <CountUp to={t.price} prefix="£" duration={2} />
-      <span className="pointer-events-none absolute left-0 -bottom-1 h-px w-full origin-left scale-x-0 bg-highlight transition-transform duration-300 group-hover:scale-x-100" />
-    </span>
-    <span className="text-sm text-muted-foreground">/ month</span>
-  </div>
-  ...
-</Reveal>
+                key={t.id}
+                delay={i * 0.22}
+                hoverLift
+                className={`flex flex-col rounded-md border p-6 transition-colors duration-200 ease-out ${
+                  t.highlight ? "border-2 border-highlight bg-card" : "border-rule bg-card/60 hover:border-highlight"
+                }`}
+              >
+                <div className="flex items-baseline justify-between">
+                  <div className="font-serif text-2xl">{t.name}</div>
+                  {t.highlight && (
+                    <ShineOnce className="eyebrow text-highlight">Most pick this</ShineOnce>
+                  )}
+                </div>
+                <div className="mt-3 flex items-baseline gap-1">
+                  <span className="mono text-3xl relative inline-block">
+                    <CountUp to={t.price} prefix="£" duration={2} />
+                    <span className="pointer-events-none absolute left-0 -bottom-1 h-px w-full origin-left scale-x-0 bg-highlight transition-transform duration-300 group-hover:scale-x-100" />
+                  </span>
+                  <span className="text-sm text-muted-foreground">/ month</span>
+                </div>
+                <div className="mt-1 text-sm text-muted-foreground">{t.cadence}</div>
+                <p className="mt-4 text-sm">{t.tagline}</p>
+                <ul className="mt-5 space-y-2 text-sm">
+                  {t.includes.map((i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="mt-[0.3rem] block h-1 w-3 shrink-0 bg-highlight" />
+                      <span>{i}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
             ))}
           </div>
           <p className="mt-6 text-xs text-muted-foreground">
             £250 onboarding fee. 3-month minimum. Monthly rolling after that.
           </p>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="rule-b bg-secondary/40">
+        <div className="container-tight py-20">
+          <div className="eyebrow">What clients say</div>
+          <h2 className="mt-3 font-serif text-4xl md:text-5xl">Ten businesses, ten different leaks.</h2>
+          <div className="mt-10 -mx-6 flex snap-x gap-5 overflow-x-auto px-6 pb-4">
+            {[
+              { name: "Euan M.", loc: "Edinburgh", industry: "Legal Consultancy", quote: "The cadence drills are tough but effective. Our solicitors now handle fee objections with confidence instead of hesitation. It's become part of our rhythm, not just a one-off training." },
+              { name: "Rebecca M.", loc: "London", industry: "ITSM Provider", quote: "The scripts they built were spot-on. No fluff, just practical objection handling that matched our offers. We closed £120k in new business last quarter." },
+              { name: "Imran K.", loc: "Manchester", industry: "BPO Services", quote: "We'd been losing deals at the objection stage for months. Within a quarter, we closed £110k in new business. My team finally feels confident instead of scrambling." },
+              { name: "David C.", loc: "Bristol", industry: "MSP", quote: "Short and sweet: pipeline yield up 18%, fewer deals slipping away. Worth it." },
+              { name: "Sarah K.", loc: "Leeds", industry: "Accounting Consultancy", quote: "They mapped our leaks live, built scripts around our actual objections, and kept us sharp with cadence workshops. Prospects notice the difference, especially when fees come up." },
+              { name: "Tom B.", loc: "Glasgow", industry: "Management Consultancy", quote: "The diagnosis session was a wake-up call. Fixing our follow-up alone lifted our close rate by 22% in two months." },
+              { name: "Emily R.", loc: "Liverpool", industry: "BPO Services", quote: "We closed two enterprise deals worth £95k after implementing their follow-up sequences. That alone paid for the service." },
+              { name: "Michael H.", loc: "Sheffield", industry: "Manufacturing Consultancy", quote: "They didn't just tell us what was wrong, they showed us. Seeing the leaks mapped out in real time was invaluable." },
+              { name: "Charlotte E.", loc: "Newcastle", industry: "HR Consultancy", quote: "Script & Scale gave us a playbook every recruiter follows. Our win rates are up 20%, and I don't have to worry about rogue messaging anymore." },
+              { name: "Oliver G.", loc: "Nottingham", industry: "IT Consultancy", quote: "The tonality coaching was a game-changer. Our consultants sound more confident, and prospects respond differently." },
+            ].map((t) => (
+              <div
+                key={t.name}
+                className="flex w-[300px] shrink-0 snap-start flex-col rounded-md border border-rule bg-card p-6"
+              >
+                <p className="text-sm">"{t.quote}"</p>
+                <div className="mt-5 border-t border-rule pt-3">
+                  <div className="text-sm font-medium">{t.name}</div>
+                  <div className="eyebrow mt-1">{t.loc} · {t.industry}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -210,6 +253,40 @@ function Home() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="rule-b">
+        <div className="container-tight py-20">
+          <div className="eyebrow">Questions</div>
+          <h2 className="mt-3 font-serif text-4xl md:text-5xl">Before you book the call.</h2>
+          <div className="mt-10 divide-y divide-rule border-y border-rule">
+            {[
+              {
+                q: "What happens if it doesn't work?",
+                a: "If closed deal value across your first three months doesn't cover what you paid, and you attended the workshops and ran the program, month four is free. Every month after that too, until we're square. No cash refund, this is a real guarantee tied to attendance, not a marketing line.",
+              },
+              {
+                q: "Is there a minimum commitment?",
+                a: "Three months minimum, plus a £250 onboarding fee. After that it rolls monthly, cancel when it stops earning its keep.",
+              },
+              {
+                q: "What do we actually get each week?",
+                a: "A script that fits how you actually talk, objection responses drilled until automatic, follow-up SOPs so nothing sits in your inbox, and live call review at the top tier.",
+              },
+              {
+                q: "Who is this actually for?",
+                a: "Founder-led B2B service businesses, MSPs, ITSM providers, consultancies, where the founder is still doing most of the selling and there's no written process to hand off.",
+              },
+              {
+                q: "How is this different from a sales training course?",
+                a: "A course is one-off. This is ongoing, weekly cadence work with live roleplay and follow-up SOPs, closer to a fractional sales manager than a training day.",
+              },
+            ].map((item) => (
+              <FaqRow key={item.q} question={item.q} answer={item.a} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section>
         <Reveal className="container-tight py-20 text-center">
@@ -225,5 +302,23 @@ function Home() {
         </Reveal>
       </section>
     </PageShell>
+  );
+}
+
+function FaqRow({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="py-5">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex w-full items-center justify-between text-left"
+      >
+        <span className="font-serif text-xl">{question}</span>
+        <span className="mono text-lg text-muted-foreground">{open ? "−" : "+"}</span>
+      </button>
+      {open && (
+        <p className="mt-3 max-w-2xl text-sm text-muted-foreground">{answer}</p>
+      )}
+    </div>
   );
 }
