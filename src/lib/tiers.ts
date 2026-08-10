@@ -10,8 +10,8 @@ type Tier = {
 
 export const TIERS: Tier[] = [
   {
-    id: "starter",
-    name: "Starter",
+    id: "opener",
+    name: "Opener",
     price: 525,
     cadence: "Monthly workshop",
     tagline: "Core process, in place.",
@@ -23,13 +23,13 @@ export const TIERS: Tier[] = [
     ],
   },
   {
-    id: "growth",
-    name: "Growth",
+    id: "closer",
+    name: "Closer",
     price: 1050,
     cadence: "Biweekly workshop",
     tagline: "Follow-up stops leaking.",
     includes: [
-      "Everything in Starter",
+      "Everything in Opener",
       "Biweekly cadence: two workshops a month",
       "Follow-up SOPs (email, LinkedIn, phone)",
       "Roleplay drills against objections you hit last week",
@@ -37,13 +37,13 @@ export const TIERS: Tier[] = [
     highlight: true,
   },
   {
-    id: "scale",
-    name: "Scale",
+    id: "rainmaker",
+    name: "Rainmaker",
     price: 2100,
     cadence: "Weekly workshop",
     tagline: "Reps, review, tonality.",
     includes: [
-      "Everything in Growth",
+      "Everything in Closer",
       "Weekly cadence: four workshops a month",
       "Tonality coaching on real recordings",
       "Live call review. I sit on your calls, we debrief after.",
