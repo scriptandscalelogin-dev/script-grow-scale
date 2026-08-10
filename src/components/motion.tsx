@@ -25,9 +25,10 @@ type RevealProps = {
   className?: string;
   delay?: number;
   as?: "div" | "section" | "li" | "aside" | "footer";
+  hoverLift?: boolean;
 };
 
-export function Reveal({ children, className, delay = 0, as = "div" }: RevealProps) {
+export function Reveal({ children, className, delay = 0, as = "div", hoverLift = false }: RevealProps) {
   const reduced = useReducedMotionSafe();
   const Comp = motion[as] as typeof motion.div;
 
@@ -37,6 +38,7 @@ export function Reveal({ children, className, delay = 0, as = "div" }: RevealPro
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
+      whileHover={hoverLift && !reduced ? { y: -4 } : undefined}
       transition={
         reduced ? { duration: 0 } : { duration: 0.26, ease: [0.16, 1, 0.3, 1], delay }
       }
@@ -87,10 +89,6 @@ export function CountUp({ to, prefix = "", suffix = "", duration = 1, className 
 
 /* ---------------- Magnetic primary CTA ---------------- */
 
-/**
- * Nudges a single interactive element toward the pointer. No-op on touch
- * devices and for reduced-motion users.
- */
 export function Magnetic({ children, className }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const x = useMotionValue(0);
@@ -147,5 +145,32 @@ export function Magnetic({ children, className }: { children: React.ReactNode; c
     <motion.span ref={ref} className={cn("inline-block", className)} style={{ x: sx, y: sy }}>
       {children}
     </motion.span>
+  );
+}
+
+/* ---------------- ShineOnce: one-time shimmer badge ---------------- */
+
+export function ShineOnce({ children, className }: { children: React.ReactNode; className?: string }) {
+  const reduced = useReducedMotionSafe();
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+
+  return (
+    <span ref={ref} className={cn("relative inline-block overflow-hidden", className)}>
+      {children}
+      {!reduced && (
+        <motion.span
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.5) 45%, transparent 90%)",
+          }}
+          initial={{ x: "-120%" }}
+          animate={inView ? { x: "120%" } : { x: "-120%" }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+        />
+      )}
+    </span>
   );
 }
