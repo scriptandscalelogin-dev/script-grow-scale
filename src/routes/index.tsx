@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site-shell";
 import { TIERS } from "@/lib/tiers";
-import { Reveal, Magnetic } from "@/components/motion";
+import { Reveal, Magnetic, CountUp, ShineOnce } from "@/components/motion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -63,7 +63,7 @@ function Home() {
               { t: "Follow-up is where deals die.", b: "You send the proposal, they go quiet, you don’t know when or how to push. So you don’t. So it closes lost." },
               { t: "You can’t hand it off.", b: "No script, no playbook, no SOP. A hire would take a year to be useful. You keep doing it yourself." },
             ].map((c, i) => (
-              <Reveal key={c.t} delay={i * 0.12}>
+              <Reveal key={c.t} delay={i * 0.24}>
                 <div className="font-serif text-2xl">{c.t}</div>
                 <p className="mt-2 text-sm text-muted-foreground">{c.b}</p>
               </Reveal>
@@ -98,17 +98,19 @@ function Home() {
             {TIERS.map((t, i) => (
               <Reveal
                 key={t.id}
-                delay={i * 0.1}
-                className={`flex flex-col rounded-md border p-6 ${
-                  t.highlight ? "border-ink bg-card" : "border-rule bg-card/60"
+                delay={i * 0.22}
+                hoverLift
+                className={`flex flex-col rounded-md border p-6 transition-shadow ${
+                  t.highlight ? "border-2 border-highlight bg-card" : "border-rule bg-card/60"
                 }`}
               >
                 <div className="flex items-baseline justify-between">
                   <div className="font-serif text-2xl">{t.name}</div>
-                  {t.highlight && <div className="eyebrow text-highlight">Most pick this</div>}
-                </div>
+                  {t.highlight && (
+                    <ShineOnce className="eyebrow text-highlight">Most pick this</ShineOnce>
+                  )}
                 <div className="mt-3 flex items-baseline gap-1">
-                  <span className="mono text-3xl">£{t.price.toLocaleString()}</span>
+                  <span className="mono text-3xl"><CountUp to={t.price} prefix="£" duration={2} /></span>
                   <span className="text-sm text-muted-foreground">/ month</span>
                 </div>
                 <div className="mt-1 text-sm text-muted-foreground">{t.cadence}</div>
@@ -196,7 +198,7 @@ function Home() {
                 key={row.name}
                 className={`grid gap-3 py-6 px-3 -mx-3 transition-colors duration-200 md:grid-cols-12 ${
                   row.name === "Script & Scale"
-                    ? "bg-secondary/60 border-l-2 border-highlight hover:bg-secondary"
+                    ? "bg-secondary/60 border-l-2 border-highlight hover:bg-secondary font-medium py-7"
                     : "hover:bg-secondary/40"
                 }`}
               >
@@ -216,7 +218,7 @@ function Home() {
       {/* CTA */}
       <section>
         <Reveal className="container-tight py-20 text-center">
-          <h2 className="font-serif text-4xl md:text-5xl">30-minute call. No pitch deck.</h2>
+          <h2 className="font-serif text-4xl md:text-5xl">30-minute call. <em className="italic">No pitch deck.</em></h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
             Tell me what your last five deals looked like. If it isn’t a fit, I’ll say so.
           </p>
