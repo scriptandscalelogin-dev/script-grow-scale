@@ -48,7 +48,7 @@ function Contact() {
     const { error } = await supabase.from("contact_submissions").insert(parsed.data);
     if (error) {
       setStatus("error");
-      setErrorMsg("Something went wrong. Email hello@scriptandscale.co instead.");
+      setErrorMsg("Something went wrong. Email hello@scriptandscale.co.uk instead.");
       return;
     }
     setStatus("sent");
