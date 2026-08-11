@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { PageShell } from "@/components/site-shell";
 
-export const Route = createFileRoute("/pay")({
+export const Route = createFileRoute("/pay/$tier")({
   head: () => ({
     meta: [
       { title: "Complete payment · Script & Scale" },
@@ -26,20 +26,29 @@ declare global {
   }
 }
 
-type Status = "loading" | "ready" | "missing-price" | "error";
+// Map friendly tier names to their real Paddle price IDs.
+const PRICE_IDS: Record<string, string> = {
+  opener: "pri_01kzs4rhm5v6z1bthv2zvgkrph",
+  closer: "pri_01kzs56qrz9d9rktnyyk0az6nq",
+  rainmaker: "pri_01kzs596zms04gqq4p084626q6",
+  onboarding: "pri_01kzs5crgzmwn2es5m1wk94z2r",
+};
+
+type Status = "loading" | "ready" | "unknown-tier" | "error";
 
 function Pay() {
+  const { tier } = Route.useParams();
   const [status, setStatus] = useState<Status>("loading");
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const priceId = params.get("price");
-    const email = params.get("email") ?? undefined;
-
+    const priceId = PRICE_IDS[tier];
     if (!priceId) {
-      setStatus("missing-price");
+      setStatus("unknown-tier");
       return;
     }
+
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get("email") ?? undefined;
 
     const token = import.meta.env.VITE_PADDLE_CLIENT_TOKEN as string | undefined;
     if (!token) {
@@ -56,7 +65,7 @@ function Pay() {
       }
       window.Paddle.Initialize({ token: token! });
       window.Paddle.Checkout.open({
-        items: [{ priceId: priceId!, quantity: 1 }],
+        items: [{ priceId, quantity: 1 }],
         ...(email ? { customer: { email } } : {}),
       });
       setStatus("ready");
@@ -74,7 +83,7 @@ function Pay() {
     script.onload = openCheckout;
     script.onerror = () => setStatus("error");
     document.body.appendChild(script);
-  }, []);
+  }, [tier]);
 
   return (
     <PageShell>
@@ -89,10 +98,10 @@ function Pay() {
               appeared, check your pop-up blocker.
             </p>
           )}
-          {status === "missing-price" && (
+          {status === "unknown-tier" && (
             <p className="text-destructive">
-              No price specified. This link should include a{" "}
-              <code>?price=</code> parameter.
+              We couldn't find that plan. Please check the link or contact{" "}
+              hello@scriptandscale.co.uk.
             </p>
           )}
           {status === "error" && (
