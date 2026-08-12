@@ -82,6 +82,7 @@ function Privacy() {
               <li>Supabase (database, auth, storage)</li>
               <li>Our email provider, when you receive a portal invite or password reset link</li>
               <li>Our payment processor, if you are on a paid subscription</li>
+              <li>Cal.com (booking/scheduling): processes your name, email, and meeting details when you book a call. Cal.com is US-hosted; transfers from the UK are covered by Cal.com&rsquo;s Data Processing Agreement and Standard Contractual Clauses.</li>
             </ul>
             <p>
               We do not share your data with third-party marketers, analytics networks, or data brokers.
