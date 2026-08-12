@@ -83,15 +83,13 @@ export function SiteFooter() {
             <li className="text-muted-foreground">Accounts created by Script &amp; Scale.</li>
             <li className="pt-2"><Link to="/privacy" className="hover:text-highlight">Privacy policy</Link></li>
             <li><Link to="/terms" className="hover:text-highlight">Terms of service</Link></li>
-            <li className="pt-2"><Link to="/privacy" className="hover:text-highlight">Privacy policy</Link></li>
-            <li><Link to="/terms" className="hover:text-highlight">Terms of service</Link></li>
             <li><Link to="/refund-policy" className="hover:text-highlight">Refund policy</Link></li>
           </ul>
         </div>
       </div>
       <div className="rule-t">
         <div className="container-tight flex flex-col items-start justify-between gap-2 py-5 text-xs text-muted-foreground md:flex-row md:items-center">
-          <div>© {new Date().getFullYear()} Script &amp; Scale Ltd.</div>
+          <div>© {new Date().getFullYear()} Arno de Meyer, trading as Script &amp; Scale.</div>
           <div className="mono">Direct sales, weekly reps, no fluff.</div>
         </div>
       </div>

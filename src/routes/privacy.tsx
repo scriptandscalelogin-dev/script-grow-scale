@@ -34,7 +34,7 @@ function Privacy() {
 
           <Block title="Who we are">
             <p>
-              Script &amp; Scale Ltd (&ldquo;we&rdquo;, &ldquo;us&rdquo;) provides a revenue enablement
+              Arno de Meyer, trading as Script &amp; Scale (&ldquo;we&rdquo;, &ldquo;us&rdquo;) provides a revenue enablement
               subscription to UK small businesses. This policy explains what data we collect when you
               use our website (<span className="mono">scriptandscale.co.uk</span>) and the client portal.
             </p>
