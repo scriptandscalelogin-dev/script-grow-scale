@@ -25,7 +25,7 @@ const schema = z.object({
 });
 
 function Contact() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -51,8 +51,8 @@ function Contact() {
       setErrorMsg("Something went wrong. Email hello@scriptandscale.co.uk instead.");
       return;
     }
-    setStatus("sent");
     (e.target as HTMLFormElement).reset();
+    window.location.href = `https://cal.com/arno-script-scale/chat-with-me?name=${encodeURIComponent(parsed.data.name)}&email=${encodeURIComponent(parsed.data.email)}`;
   }
 
   return (
@@ -71,64 +71,54 @@ function Contact() {
       <section>
         <div className="container-tight grid gap-12 py-16 md:grid-cols-12">
           <div className="md:col-span-7">
-            {status === "sent" ? (
-              <div className="rounded-md border border-rule bg-card p-8">
-                <div className="eyebrow text-highlight">Sent</div>
-                <h2 className="mt-3 font-serif text-2xl">Got it. I’ll come back within a working day.</h2>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  Usually much sooner. Check spam if you don’t see a reply.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={onSubmit} className="space-y-5">
-                <Field name="name" label="Your name" required autoComplete="name" />
-                <Field name="email" type="email" label="Email" required autoComplete="email" />
-                <Field name="company" label="Company" required autoComplete="organization" />
-                <div>
-                  <label htmlFor="company_type" className="eyebrow">Company type</label>
-                  <select
-                    id="company_type"
-                    name="company_type"
-                    className="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm focus:border-ring focus:outline-none"
-                  >
-                    <option value="">Select one</option>
-                    <option>MSP</option>
-                    <option>ITSM provider</option>
-                    <option>Consultancy</option>
-                    <option>Technical services</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="message" className="eyebrow">
-                    What are your last five deals looking like?
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={6}
-                    maxLength={2000}
-                    className="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm focus:border-ring focus:outline-none"
-                    placeholder="Rough shape of your pipeline, where deals stall, what you've tried."
-                  />
-                </div>
-                {errorMsg && <p className="text-sm text-destructive">{errorMsg}</p>}
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  className="btn-primary"
+            <form onSubmit={onSubmit} className="space-y-5">
+              <Field name="name" label="Your name" required autoComplete="name" />
+              <Field name="email" type="email" label="Email" required autoComplete="email" />
+              <Field name="company" label="Company" required autoComplete="organization" />
+              <div>
+                <label htmlFor="company_type" className="eyebrow">Company type</label>
+                <select
+                  id="company_type"
+                  name="company_type"
+                  className="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm focus:border-ring focus:outline-none"
                 >
-                  {status === "sending" ? "Sending…" : "Send"}
-                </button>
-              </form>
-            )}
+                  <option value="">Select one</option>
+                  <option>MSP</option>
+                  <option>ITSM provider</option>
+                  <option>Consultancy</option>
+                  <option>Technical services</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="message" className="eyebrow">
+                  What are your last five deals looking like?
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={6}
+                  maxLength={2000}
+                  className="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm focus:border-ring focus:outline-none"
+                  placeholder="Rough shape of your pipeline, where deals stall, what you've tried."
+                />
+              </div>
+              {errorMsg && <p className="text-sm text-destructive">{errorMsg}</p>}
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="btn-primary"
+              >
+                {status === "sending" ? "Sending…" : "Continue to booking"}
+              </button>
+            </form>
           </div>
           <aside className="md:col-span-5 md:border-l md:border-rule md:pl-10">
             <div className="eyebrow">What happens next</div>
             <ol className="mono mt-4 space-y-4 text-sm list-none">
               <li><span className="text-highlight">01</span>. I read your note.</li>
-              <li><span className="text-highlight">02</span>. Reply within a working day with two or three times.</li>
+              <li><span className="text-highlight">02</span>. You'll be taken straight to my calendar to pick a time.</li>
               <li><span className="text-highlight">03</span>. 30-minute call. No slide deck.</li>
               <li><span className="text-highlight">04</span>. If we work together, onboarding starts the week after.</li>
             </ol>
