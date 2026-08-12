@@ -126,7 +126,7 @@ function Contact() {
           </div>
           <aside className="md:col-span-5 md:border-l md:border-rule md:pl-10">
             <div className="eyebrow">What happens next</div>
-            <ol className="mono mt-4 space-y-4 text-sm">
+            <ol className="mono mt-4 space-y-4 text-sm list-none">
               <li><span className="text-highlight">01</span>. I read your note.</li>
               <li><span className="text-highlight">02</span>. Reply within a working day with two or three times.</li>
               <li><span className="text-highlight">03</span>. 30-minute call. No slide deck.</li>

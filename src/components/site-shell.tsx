@@ -83,6 +83,9 @@ export function SiteFooter() {
             <li className="text-muted-foreground">Accounts created by Script &amp; Scale.</li>
             <li className="pt-2"><Link to="/privacy" className="hover:text-highlight">Privacy policy</Link></li>
             <li><Link to="/terms" className="hover:text-highlight">Terms of service</Link></li>
+            <li className="pt-2"><Link to="/privacy" className="hover:text-highlight">Privacy policy</Link></li>
+            <li><Link to="/terms" className="hover:text-highlight">Terms of service</Link></li>
+            <li><Link to="/refund-policy" className="hover:text-highlight">Refund policy</Link></li>
           </ul>
         </div>
       </div>
