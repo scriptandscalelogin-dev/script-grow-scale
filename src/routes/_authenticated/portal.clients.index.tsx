@@ -11,7 +11,7 @@ type Row = {
   email: string | null;
   full_name: string | null;
   company: string | null;
-  tier: "starter" | "growth" | "scale" | null;
+  tier: "opener" | "closer" | "rainmaker" | null;
   monthly_fee: number | null;
   status: "active" | "paused" | "ended";
   start_date: string | null;
@@ -46,7 +46,7 @@ function ClientsList() {
     full_name: "",
     company: "",
     phone: "",
-    tier: "" as "" | "starter" | "growth" | "scale",
+    tier: "" as "" | "opener" | "closer" | "rainmaker",
     monthly_fee: "" as string,
     start_date: new Date().toISOString().slice(0, 10),
     password: "",
@@ -77,7 +77,7 @@ function ClientsList() {
     load();
   }, []);
 
-  function pickTier(t: "" | "starter" | "growth" | "scale") {
+  function pickTier(t: "" | "opener" | "closer" | "rainmaker") {
     const preset = TIERS.find((x) => x.id === t);
     setForm((f) => ({
       ...f,
@@ -180,7 +180,7 @@ function ClientsList() {
               </Field>
               <Field label="Tier">
                 <select className={inp} value={form.tier}
-                  onChange={(e) => pickTier(e.target.value as "" | "starter" | "growth" | "scale")}>
+                  onChange={(e) => pickTier(e.target.value as "" | "opener" | "closer" | "rainmaker")}>
                   <option value="">-</option>
                   {TIERS.map((t) => (
                     <option key={t.id} value={t.id}>{t.name} (£{t.price})</option>

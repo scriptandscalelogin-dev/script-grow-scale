@@ -7,7 +7,7 @@ const createClientSchema = z.object({
   full_name: z.string().min(1),
   company: z.string().optional().nullable(),
   phone: z.string().optional().nullable(),
-  tier: z.enum(["starter", "growth", "scale"]).optional().nullable(),
+  tier: z.enum(["opener", "closer", "rainmaker"]).optional().nullable(),
   monthly_fee: z.number().nonnegative().optional().nullable(),
   start_date: z.string().optional().nullable(),
   password: z.string().min(8).optional().nullable(),

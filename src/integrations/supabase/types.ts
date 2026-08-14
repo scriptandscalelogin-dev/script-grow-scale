@@ -472,7 +472,7 @@ export type Database = {
       client_status: "active" | "paused" | "ended"
       content_kind: "script" | "sop" | "objection"
       content_status: "draft" | "published" | "archived"
-      tier: "starter" | "growth" | "scale"
+      tier: "opener" | "closer" | "rainmaker"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -604,7 +604,7 @@ export const Constants = {
       client_status: ["active", "paused", "ended"],
       content_kind: ["script", "sop", "objection"],
       content_status: ["draft", "published", "archived"],
-      tier: ["starter", "growth", "scale"],
+      tier: ["opener", "closer", "rainmaker"],
     },
   },
 } as const

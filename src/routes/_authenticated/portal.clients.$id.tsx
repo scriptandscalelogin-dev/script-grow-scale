@@ -13,7 +13,7 @@ type Profile = {
   full_name: string | null;
   company: string | null;
   phone: string | null;
-  tier: "starter" | "growth" | "scale" | null;
+  tier: "opener" | "closer" | "rainmaker" | null;
   monthly_fee: number | null;
   start_date: string | null;
   status: "active" | "paused" | "ended";
@@ -169,7 +169,7 @@ function ClientDetail() {
     load();
   }
 
-  function applyTierDefault(tierId: "starter" | "growth" | "scale") {
+  function applyTierDefault(tierId: "opener" | "closer" | "rainmaker") {
     const t = TIERS.find((x) => x.id === tierId);
     setProfile((p) => (p ? { ...p, tier: tierId, monthly_fee: t?.price ?? p.monthly_fee } : p));
   }
@@ -243,7 +243,7 @@ function ClientDetail() {
                 <select
                   className={inp}
                   value={profile.tier ?? ""}
-                  onChange={(e) => applyTierDefault(e.target.value as "starter" | "growth" | "scale")}
+                  onChange={(e) => applyTierDefault(e.target.value as "opener" | "closer" | "rainmaker")}
                 >
                   <option value="">-</option>
                   {TIERS.map((t) => (

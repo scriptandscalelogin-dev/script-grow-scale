@@ -14,7 +14,7 @@ type Profile = {
   email: string | null;
   full_name: string | null;
   company: string | null;
-  tier: "starter" | "growth" | "scale" | null;
+  tier: "opener" | "closer" | "rainmaker" | null;
   monthly_fee: number | null;
   start_date: string | null;
   status: "active" | "paused" | "ended";
