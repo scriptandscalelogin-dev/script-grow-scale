@@ -8,6 +8,7 @@ import {
   KpisPanel,
 } from "./portal.clients.$id";
 import { DiagnosticWizard } from "@/components/diagnostic-wizard";
+import { CallScriptRunner } from "@/components/call-script-runner";
 
 
 type Profile = {
@@ -240,23 +241,24 @@ function AdminHome({ openContacts, clientCount }: { openContacts: number; client
           </Link>
         </div>
       </section>
-      <AdminDiagnosticPanel />
+      <AdminCallScriptPanel />
     </>
   );
 }
 
-function AdminDiagnosticPanel() {
-  const [rows, setRows] = useState<{ id: string; submitted_at: string; answers: Record<string, string> }[]>([]);
+function AdminCallScriptPanel() {
+  const [rows, setRows] = useState<
+    { id: string; created_at: string; prospect_name: string | null; answers: Record<string, string>; rep_notes: Record<string, string>; tier_confirmed: string | null; start_date_confirmed: string | null; attendance_commitment_confirmed: boolean }[]
+  >([]);
   const [loading, setLoading] = useState(true);
 
   async function load() {
     const { data } = await supabase
-      .from("diagnostic_submissions")
-      .select("id,submitted_at,answers")
-      .is("client_id", null)
-      .order("submitted_at", { ascending: false })
+      .from("call_script_runs")
+      .select("id,created_at,prospect_name,answers,rep_notes,tier_confirmed,start_date_confirmed,attendance_commitment_confirmed")
+      .order("created_at", { ascending: false })
       .limit(10);
-    setRows((data ?? []) as { id: string; submitted_at: string; answers: Record<string, string> }[]);
+    setRows((data ?? []) as typeof rows);
     setLoading(false);
   }
 
@@ -267,16 +269,17 @@ function AdminDiagnosticPanel() {
   return (
     <section className="rule-t">
       <div className="container-tight py-10">
-        <div className="eyebrow">Sales diagnostic</div>
+        <div className="eyebrow">Sales call script</div>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          Run this live on your own calls with a new prospect who isn&rsquo;t a client yet.
+          The full click-through: intake, recap, pitch, offer, objections, and close. Use it live on
+          your own calls with a new prospect.
         </p>
         <div className="mt-4 max-w-xl">
-          <DiagnosticWizard clientId={null} onSubmitted={load} />
+          <CallScriptRunner onSaved={load} />
         </div>
 
         <div className="mt-6">
-          <div className="eyebrow">Recent unattached runs ({rows.length})</div>
+          <div className="eyebrow">Recent calls ({rows.length})</div>
           {loading ? (
             <p className="mt-2 text-sm text-muted-foreground">Loading…</p>
           ) : rows.length === 0 ? (
@@ -285,17 +288,30 @@ function AdminDiagnosticPanel() {
             <ul className="mt-3 space-y-3">
               {rows.map((r) => (
                 <li key={r.id} className="rounded-md border border-rule bg-card p-4 text-sm">
-                  <div className="mono text-xs text-muted-foreground">
-                    {new Date(r.submitted_at).toLocaleString("en-GB")}
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="font-medium">{r.prospect_name || "Unnamed prospect"}</div>
+                    <div className="mono text-xs text-muted-foreground">
+                      {new Date(r.created_at).toLocaleString("en-GB")}
+                    </div>
                   </div>
-                  <dl className="mt-2 space-y-2">
-                    {Object.entries(r.answers).map(([q, a]) => (
-                      <div key={q}>
-                        <dt className="text-xs text-muted-foreground">{q}</dt>
-                        <dd className="whitespace-pre-wrap break-words">{a || "—"}</dd>
-                      </div>
-                    ))}
-                  </dl>
+                  <div className="mt-1 text-xs text-muted-foreground">
+                    {r.tier_confirmed ? `Tier: ${r.tier_confirmed}` : "No tier confirmed"}
+                    {r.start_date_confirmed ? ` · Start: ${r.start_date_confirmed}` : ""}
+                    {r.attendance_commitment_confirmed ? " · Attendance confirmed" : ""}
+                  </div>
+                  <details className="mt-2">
+                    <summary className="cursor-pointer text-xs text-muted-foreground hover:text-foreground">
+                      View answers &amp; notes
+                    </summary>
+                    <dl className="mt-2 space-y-2">
+                      {Object.entries(r.answers).map(([q, a]) => (
+                        <div key={q}>
+                          <dt className="text-xs text-muted-foreground">{q}</dt>
+                          <dd className="whitespace-pre-wrap break-words">{a || "—"}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </details>
                 </li>
               ))}
             </ul>
