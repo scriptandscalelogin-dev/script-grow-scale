@@ -398,6 +398,7 @@ function ClientDetail() {
         isAdmin={true}
       />
       <KpisPanel clientId={id} kpis={kpis} reload={load} isAdmin={true} />
+      <DiagnosticPanel clientId={id} />
       <ActivityPanel clientId={id} />
     </PageShell>
   );
@@ -438,7 +439,65 @@ function SendResetButton({ email }: { email: string }) {
   );
 }
 
-/* ------------------------- Activity feed ------------------------- */
+/* ------------------------- Sales diagnostic ------------------------- */
+
+type DiagnosticSubmission = {
+  id: string;
+  submitted_at: string;
+  answers: Record<string, string>;
+};
+
+function DiagnosticPanel({ clientId }: { clientId: string }) {
+  const [rows, setRows] = useState<DiagnosticSubmission[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from("diagnostic_submissions")
+        .select("id,submitted_at,answers")
+        .eq("client_id", clientId)
+        .order("submitted_at", { ascending: false });
+      setRows((data ?? []) as DiagnosticSubmission[]);
+      setLoading(false);
+    })();
+  }, [clientId]);
+
+  return (
+    <section className="rule-t">
+      <div className="container-tight py-10">
+        <div className="eyebrow">Sales diagnostic</div>
+        {loading ? (
+          <p className="mt-3 text-sm text-muted-foreground">Loading…</p>
+        ) : rows.length === 0 ? (
+          <p className="mt-3 text-sm text-muted-foreground">
+            No diagnostic submissions yet. They can run this themselves from their own portal home.
+          </p>
+        ) : (
+          <ul className="mt-3 space-y-3">
+            {rows.map((r) => (
+              <li key={r.id} className="rounded-md border border-rule bg-card p-4 text-sm">
+                <div className="mono text-xs text-muted-foreground">
+                  {new Date(r.submitted_at).toLocaleString("en-GB")}
+                </div>
+                <dl className="mt-2 space-y-2">
+                  {Object.entries(r.answers).map(([q, a]) => (
+                    <div key={q}>
+                      <dt className="text-xs text-muted-foreground">{q}</dt>
+                      <dd className="whitespace-pre-wrap break-words">{a || "—"}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------- Activity ------------------------- */
 
 type ActivityRow = {
   id: string;

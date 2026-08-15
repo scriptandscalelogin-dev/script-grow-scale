@@ -7,6 +7,7 @@ import {
   RoleplaysPanel,
   KpisPanel,
 } from "./portal.clients.$id";
+import { DiagnosticWizard } from "@/components/diagnostic-wizard";
 
 
 type Profile = {
@@ -202,40 +203,104 @@ function Portal() {
 
 function AdminHome({ openContacts, clientCount }: { openContacts: number; clientCount: number }) {
   return (
-    <section>
-      <div className="container-tight grid gap-6 py-12 md:grid-cols-3">
-        <Link
-          to="/portal/clients"
-          className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
-        >
-          <div className="eyebrow">Clients</div>
-          <div className="mt-2 font-serif text-2xl">{clientCount}</div>
-          <p className="mt-2 text-sm text-muted-foreground">
-            View, edit tier, log deal value against guarantee.
-          </p>
-        </Link>
-        <Link
-          to="/portal/library"
-          className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
-        >
-          <div className="eyebrow">Library</div>
-          <div className="mt-2 font-serif text-2xl">Scripts · SOPs · Objections</div>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Author versioned content and assign to clients.
-          </p>
-        </Link>
-        <Link
-          to="/portal/inbox"
-          className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
-        >
-          <div className="eyebrow">Contact inbox</div>
-          <div className="mt-2 font-serif text-2xl">
-            {openContacts} <span className="text-sm text-muted-foreground">unhandled</span>
-          </div>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Manual follow-up. Mark handled when replied.
-          </p>
-        </Link>
+    <>
+      <section>
+        <div className="container-tight grid gap-6 py-12 md:grid-cols-3">
+          <Link
+            to="/portal/clients"
+            className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
+          >
+            <div className="eyebrow">Clients</div>
+            <div className="mt-2 font-serif text-2xl">{clientCount}</div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              View, edit tier, log deal value against guarantee.
+            </p>
+          </Link>
+          <Link
+            to="/portal/library"
+            className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
+          >
+            <div className="eyebrow">Library</div>
+            <div className="mt-2 font-serif text-2xl">Scripts · SOPs · Objections</div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Author versioned content and assign to clients.
+            </p>
+          </Link>
+          <Link
+            to="/portal/inbox"
+            className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
+          >
+            <div className="eyebrow">Contact inbox</div>
+            <div className="mt-2 font-serif text-2xl">
+              {openContacts} <span className="text-sm text-muted-foreground">unhandled</span>
+            </div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Manual follow-up. Mark handled when replied.
+            </p>
+          </Link>
+        </div>
+      </section>
+      <AdminDiagnosticPanel />
+    </>
+  );
+}
+
+function AdminDiagnosticPanel() {
+  const [rows, setRows] = useState<{ id: string; submitted_at: string; answers: Record<string, string> }[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  async function load() {
+    const { data } = await supabase
+      .from("diagnostic_submissions")
+      .select("id,submitted_at,answers")
+      .is("client_id", null)
+      .order("submitted_at", { ascending: false })
+      .limit(10);
+    setRows((data ?? []) as { id: string; submitted_at: string; answers: Record<string, string> }[]);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  return (
+    <section className="rule-t">
+      <div className="container-tight py-10">
+        <div className="eyebrow">Sales diagnostic</div>
+        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+          Run this live on your own calls with a new prospect who isn&rsquo;t a client yet.
+        </p>
+        <div className="mt-4 max-w-xl">
+          <DiagnosticWizard clientId={null} onSubmitted={load} />
+        </div>
+
+        <div className="mt-6">
+          <div className="eyebrow">Recent unattached runs ({rows.length})</div>
+          {loading ? (
+            <p className="mt-2 text-sm text-muted-foreground">Loading…</p>
+          ) : rows.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">None yet.</p>
+          ) : (
+            <ul className="mt-3 space-y-3">
+              {rows.map((r) => (
+                <li key={r.id} className="rounded-md border border-rule bg-card p-4 text-sm">
+                  <div className="mono text-xs text-muted-foreground">
+                    {new Date(r.submitted_at).toLocaleString("en-GB")}
+                  </div>
+                  <dl className="mt-2 space-y-2">
+                    {Object.entries(r.answers).map(([q, a]) => (
+                      <div key={q}>
+                        <dt className="text-xs text-muted-foreground">{q}</dt>
+                        <dd className="whitespace-pre-wrap break-words">{a || "—"}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </section>
   );
@@ -362,9 +427,71 @@ function ClientHome({
             isAdmin={false}
           />
           <KpisPanel clientId={userId} kpis={kpis} reload={reload} isAdmin={false} />
+          <DiagnosticFormPanel clientId={userId} />
         </>
       )}
     </>
+  );
+}
+
+function DiagnosticFormPanel({ clientId }: { clientId: string }) {
+  const [rows, setRows] = useState<{ id: string; submitted_at: string; answers: Record<string, string> }[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  async function load() {
+    const { data } = await supabase
+      .from("diagnostic_submissions")
+      .select("id,submitted_at,answers")
+      .eq("client_id", clientId)
+      .order("submitted_at", { ascending: false });
+    setRows((data ?? []) as { id: string; submitted_at: string; answers: Record<string, string> }[]);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    load();
+  }, [clientId]);
+
+  return (
+    <section className="rule-t">
+      <div className="container-tight py-10">
+        <div className="eyebrow">Sales diagnostic</div>
+        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+          Run this live on a call with your own prospect, it&rsquo;s built from the same framework
+          we use with you.
+        </p>
+        <div className="mt-4">
+          <DiagnosticWizard clientId={clientId} onSubmitted={load} />
+        </div>
+
+        <div className="mt-6">
+          <div className="eyebrow">Your past diagnostics ({rows.length})</div>
+          {loading ? (
+            <p className="mt-2 text-sm text-muted-foreground">Loading…</p>
+          ) : rows.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">None run yet, they&rsquo;ll appear here once submitted.</p>
+          ) : (
+            <ul className="mt-3 space-y-3">
+              {rows.map((r) => (
+                <li key={r.id} className="rounded-md border border-rule bg-card p-4 text-sm">
+                  <div className="mono text-xs text-muted-foreground">
+                    {new Date(r.submitted_at).toLocaleString("en-GB")}
+                  </div>
+                  <dl className="mt-2 space-y-2">
+                    {Object.entries(r.answers).map(([q, a]) => (
+                      <div key={q}>
+                        <dt className="text-xs text-muted-foreground">{q}</dt>
+                        <dd className="whitespace-pre-wrap break-words">{a || "—"}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }
 
