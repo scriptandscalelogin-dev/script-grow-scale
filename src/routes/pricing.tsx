@@ -21,8 +21,8 @@ function Pricing() {
       <section className="rule-b">
         <div className="container-tight py-20">
           <div className="eyebrow">Pricing</div>
-          <h1 className="mt-4 font-serif text-5xl md:text-6xl">Three tiers. Same guarantee.</h1>
-          <p className="mt-5 max-w-2xl text-muted-foreground">
+          <h1 className="mt-4 font-serif text-5xl sm:text-6xl tracking-tight md:text-7xl">Three tiers. Same guarantee.</h1>
+          <p className="mt-5 max-w-2xl text-sm text-muted-foreground">
             Pick the cadence you’ll actually keep. You can move up a tier at any time; you can move
             down after the first three months.
           </p>
@@ -61,7 +61,7 @@ function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <Link to="/contact" className="btn-primary mt-6">Book a call</Link>
+                <Link to="/contact" className="btn-cta mt-6">Book a call</Link>
               </Reveal>
             ))}
           </div>

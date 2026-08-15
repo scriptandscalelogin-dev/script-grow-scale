@@ -17,13 +17,13 @@ export const Route = createFileRoute("/guarantee")({
 function Guarantee() {
   return (
     <PageShell>
-      <section className="rule-b">
-        <div className="container-tight py-20">
+      <section className="border-y border-highlight/25 bg-highlight/8">
+        <div className="container-tight py-28">
           <div className="eyebrow">The guarantee</div>
-          <h1 className="mt-4 font-serif text-5xl md:text-6xl">
+          <h1 className="mt-4 font-serif text-5xl sm:text-6xl tracking-tight md:text-7xl">
             Your first three months pay for themselves. Or the next ones are on us.
           </h1>
-          <p className="mt-6 max-w-2xl text-muted-foreground">
+          <p className="mt-6 max-w-2xl text-sm text-muted-foreground">
             Most sales training sells you hope. We sell you a number. If the numbers don’t move, you
             don’t keep paying for nothing, you keep getting workshops until they do.
           </p>
@@ -89,7 +89,7 @@ function Guarantee() {
           <h2 className="font-serif text-3xl">Fair enough?</h2>
           <div className="mt-6">
             <Magnetic>
-              <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+              <Link to="/contact" className="btn-cta">Book a discovery call</Link>
             </Magnetic>
           </div>
         </div>

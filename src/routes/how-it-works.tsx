@@ -21,10 +21,10 @@ function HowItWorks() {
       <section className="rule-b">
         <div className="container-tight py-20">
           <div className="eyebrow">How it works</div>
-          <h1 className="mt-4 font-serif text-5xl md:text-6xl">
+          <h1 className="mt-4 font-serif text-5xl sm:text-6xl tracking-tight md:text-7xl">
             Here’s exactly what happens in a workshop
           </h1>
-          <p className="mt-6 max-w-2xl text-muted-foreground">
+          <p className="mt-6 max-w-2xl text-sm text-muted-foreground">
             30 to 45 minutes. Not a lecture, a working session. We look at your live pipeline, build
             the script or SOP you need this week, and roleplay the objection you got yesterday. You
             leave with something you can use on your next call, not a slide deck you’ll never open

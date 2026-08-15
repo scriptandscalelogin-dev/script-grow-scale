@@ -26,18 +26,18 @@ function Home() {
         <Reveal className="container-tight grid gap-14 py-20 md:grid-cols-12 md:py-28">
           <div className="md:col-span-8">
             <div className="eyebrow">Revenue enablement · UK · Subscription</div>
-            <h1 className="mt-5 font-serif text-5xl leading-[1.05] md:text-7xl">
+            <h1 className="mt-5 font-serif text-5xl leading-[1.05] tracking-[-0.015em] sm:text-6xl md:text-8xl md:leading-[1.02] md:tracking-[-0.02em]">
               You built the business.<br />
               It still can’t close without you.
             </h1>
-            <p className="mt-7 max-w-2xl text-lg text-muted-foreground">
+            <p className="mt-7 max-w-2xl text-base text-muted-foreground">
               MSPs, ITSM providers, consultancies. Same pattern every time: founder-led sales, no
               real process, deals dying in follow-up, quotes sent into silence. Script &amp; Scale
               fixes that with weekly reps, not a course.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Magnetic>
-                <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+                <Link to="/contact" className="btn-cta">Book a discovery call</Link>
               </Magnetic>
               <Link to="/how-it-works" className="btn-outline">See how it works</Link>
             </div>
@@ -58,13 +58,18 @@ function Home() {
       <section className="rule-b bg-secondary/40">
         <div className="container-tight py-20">
           <div className="eyebrow">What breaks first</div>
-          <div className="mt-8 grid gap-10 md:grid-cols-3">
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
               { t: "No process.", b: "Every deal handled from memory. What worked last month doesn’t repeat, because nothing was written down." },
               { t: "Follow-up is where deals die.", b: "You send the proposal, they go quiet, you don’t know when or how to push. So you don’t. So it closes lost." },
               { t: "You can’t hand it off.", b: "No script, no playbook, no SOP. A hire would take a year to be useful. You keep doing it yourself." },
             ].map((c, i) => (
-              <Reveal key={c.t} delay={i * 0.24}>
+              <Reveal
+                key={c.t}
+                delay={i * 0.24}
+                hoverLift
+                className="rounded-md border border-rule bg-card/60 p-6 shadow-sm transition-shadow duration-200 hover:shadow-md"
+              >
                 <div className="font-serif text-2xl">{c.t}</div>
                 <p className="mt-2 text-sm text-muted-foreground">{c.b}</p>
               </Reveal>
@@ -138,8 +143,8 @@ function Home() {
       </section>
 
       {/* GUARANTEE */}
-      <section className="rule-b">
-        <Reveal className="container-tight grid gap-10 py-20 md:grid-cols-12">
+      <section className="border-y border-highlight/25 bg-highlight/8">
+        <Reveal className="container-tight grid gap-10 py-28 md:grid-cols-12">
           <div className="md:col-span-5">
             <div className="eyebrow">The guarantee</div>
             <h2 className="mt-3 font-serif text-4xl">Your first three months pay for themselves.</h2>
@@ -263,7 +268,7 @@ function Home() {
           </p>
           <div className="mt-8">
             <Magnetic>
-              <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+              <Link to="/contact" className="btn-cta">Book a discovery call</Link>
             </Magnetic>
           </div>
         </Reveal>

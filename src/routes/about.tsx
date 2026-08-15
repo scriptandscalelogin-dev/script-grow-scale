@@ -20,10 +20,10 @@ function About() {
       <section className="rule-b">
         <Reveal className="container-tight py-20">
           <div className="eyebrow">About</div>
-          <h1 className="mt-4 font-serif text-5xl md:text-6xl">
+          <h1 className="mt-4 font-serif text-5xl sm:text-6xl tracking-tight md:text-7xl">
             Built for the founder still sending every proposal.
           </h1>
-          <p className="mt-6 max-w-2xl text-muted-foreground">
+          <p className="mt-6 max-w-2xl text-sm text-muted-foreground">
             Script &amp; Scale exists because most sales training is written for enterprise reps, not
             for the technical founder of a 4-person MSP who took a call at 9am, quoted at lunchtime,
             and hasn’t heard back in a week.
@@ -98,7 +98,7 @@ function About() {
       <section>
         <div className="container-tight py-16 text-center">
           <Magnetic>
-            <Link to="/contact" className="btn-primary">Book a discovery call</Link>
+            <Link to="/contact" className="btn-cta">Book a discovery call</Link>
           </Magnetic>
         </div>
       </section>

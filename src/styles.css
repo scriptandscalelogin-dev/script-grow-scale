@@ -162,6 +162,25 @@
   background: var(--color-highlight);
 }
 
+/* Primary marketing CTA ("Book a discovery call") — the one place btn-primary's
+   dark-ink treatment is swapped for the Warm Brass accent, per the brand's single-accent rule. */
+@utility btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-highlight);
+  color: var(--color-ink);
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: var(--radius);
+  transition: transform 120ms ease, filter 120ms ease;
+  &:hover {
+    filter: brightness(0.94);
+  }
+}
+
 @utility btn-outline {
   display: inline-flex;
   align-items: center;
