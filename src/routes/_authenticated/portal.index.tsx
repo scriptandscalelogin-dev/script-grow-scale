@@ -9,6 +9,7 @@ import {
 } from "./portal.clients.$id";
 import { DiagnosticWizard } from "@/components/diagnostic-wizard";
 import { CallScriptRunner } from "@/components/call-script-runner";
+import { AlumniPanel } from "@/components/alumni-panel";
 
 
 type Profile = {
@@ -391,6 +392,12 @@ function ClientHome({
           </p>
         </div>
       </section>
+
+      <AlumniPanel
+        startDate={profile.start_date}
+        monthlyFee={profile.monthly_fee}
+        closedDealValue={deals.reduce((s, d) => s + Number(d.value_gbp), 0)}
+      />
 
       <section>
         <div className="container-tight py-10">

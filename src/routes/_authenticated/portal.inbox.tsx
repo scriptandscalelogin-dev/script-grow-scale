@@ -14,6 +14,17 @@ type Submission = {
   created_at: string;
 };
 
+type MiniDiagnosticLead = {
+  id: string;
+  opportunities: number;
+  close_rate: number;
+  avg_deal_value: number;
+  why_deals_dont_close: string;
+  dead_pipeline_value: number;
+  email: string | null;
+  created_at: string;
+};
+
 export const Route = createFileRoute("/_authenticated/portal/inbox")({
   head: () => ({ meta: [{ title: "Inbox · Portal" }, { name: "robots", content: "noindex" }] }),
   beforeLoad: async () => {
@@ -34,6 +45,22 @@ function Inbox() {
   const [rows, setRows] = useState<Submission[]>([]);
   const [showHandled, setShowHandled] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [leads, setLeads] = useState<MiniDiagnosticLead[]>([]);
+  const [leadsLoading, setLeadsLoading] = useState(true);
+
+  async function loadLeads() {
+    const { data } = await supabase
+      .from("mini_diagnostic_leads")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(20);
+    setLeads((data ?? []) as MiniDiagnosticLead[]);
+    setLeadsLoading(false);
+  }
+
+  useEffect(() => {
+    loadLeads();
+  }, []);
 
   async function load() {
     setLoading(true);
@@ -113,6 +140,44 @@ function Inbox() {
                       {r.handled ? "Mark as unhandled" : "Mark as handled"}
                     </button>
                   </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </section>
+
+      <section className="rule-t">
+        <div className="container-tight py-10">
+          <div className="eyebrow">Website mini-diagnostic leads ({leads.length})</div>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Anyone who ran the four-question diagnostic on the homepage, most recent first.
+          </p>
+          {leadsLoading ? (
+            <p className="mt-4 text-sm text-muted-foreground">Loading…</p>
+          ) : leads.length === 0 ? (
+            <p className="mt-4 text-sm text-muted-foreground">None yet.</p>
+          ) : (
+            <ul className="mt-4 space-y-3">
+              {leads.map((l) => (
+                <li key={l.id} className="rounded-md border border-rule bg-card p-4 text-sm">
+                  <div className="flex flex-wrap items-baseline justify-between gap-3">
+                    <div className="font-medium">
+                      {l.email || "No email left"} · £{l.dead_pipeline_value.toLocaleString("en-GB")} pipeline
+                    </div>
+                    <div className="mono text-xs text-muted-foreground">
+                      {new Date(l.created_at).toLocaleString("en-GB")}
+                    </div>
+                  </div>
+                  <div className="mt-1 text-xs text-muted-foreground">
+                    {l.opportunities} opportunities/mo · {l.close_rate}% close rate · £{l.avg_deal_value.toLocaleString("en-GB")} avg deal
+                  </div>
+                  <p className="mt-2 whitespace-pre-wrap">{l.why_deals_dont_close}</p>
+                  {l.email && (
+                    <a href={`mailto:${l.email}`} className="btn-outline mt-3 inline-block text-xs">
+                      Reply by email
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

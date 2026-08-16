@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { TIERS } from "@/lib/tiers";
 import { sendPasswordResetForClient } from "@/lib/clients.functions";
 import { formatActivity } from "@/lib/activity";
+import { LeakLedger } from "@/components/leak-ledger";
 
 type Profile = {
   id: string;
@@ -928,6 +929,12 @@ export function KpisPanel({
 
   return (
     <section className="rule-t">
+      <div className="container-tight py-10">
+        <div className="eyebrow">The leak, month by month</div>
+        <div className="mt-4">
+          <LeakLedger kpis={kpis} />
+        </div>
+      </div>
       <div className="container-tight grid gap-8 py-10 md:grid-cols-2">
         <form onSubmit={save} className="space-y-3 rounded-md border border-rule bg-card p-5">
           <div className="eyebrow">Log monthly KPIs</div>

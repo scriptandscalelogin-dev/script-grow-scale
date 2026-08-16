@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site-shell";
 import { TIERS } from "@/lib/tiers";
 import { Reveal, Magnetic, CountUp, ShineOnce } from "@/components/motion";
+import { MiniDiagnostic } from "@/components/mini-diagnostic";
 import { useState } from "react";
 
 export const Route = createFileRoute("/")({
@@ -51,6 +52,23 @@ function Home() {
               <li>Live call review at the top tier</li>
             </ul>
           </aside>
+        </Reveal>
+      </section>
+
+      {/* MINI DIAGNOSTIC */}
+      <section className="rule-b">
+        <Reveal className="container-tight grid gap-10 py-16 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <div className="eyebrow">Before you book a call</div>
+            <h2 className="mt-3 font-serif text-3xl">Find your leak in four questions.</h2>
+            <p className="mt-4 text-sm text-muted-foreground">
+              No email required to see it. This is a rough read, not the real diagnosis, but it'll
+              tell you roughly what's sitting in your pipeline right now.
+            </p>
+          </div>
+          <div className="md:col-span-7">
+            <MiniDiagnostic />
+          </div>
         </Reveal>
       </section>
 
@@ -198,6 +216,12 @@ function Home() {
                 note: "Fixes how many leads arrive. Doesn’t touch what happens once a lead becomes a live deal, which is where deals actually die.",
               },
               {
+                name: "Community / cohort coaching",
+                price: "£200 to £2,500 a month",
+                shape: "Group calls, shared content library",
+                note: "Peer accountability and mindset coaching, built around a cohort, not your specific pipeline. No 1:1 roleplay against the objections you're actually hearing.",
+              },
+              {
                 name: "Script & Scale",
                 price: "£525 to £2,100 a month",
                 shape: "Weekly to monthly workshops",
@@ -220,7 +244,7 @@ function Home() {
             ))}
           </div>
           <p className="mt-6 text-sm text-muted-foreground">
-            Most of these solve a different problem than the one that’s actually costing you deals.
+            Most of these solve a different problem than the one actually costing you deals, and the ones that come close sell confidence, not a number. This is the one with a guarantee tied to fee recovery, not to how the workshops make you feel.
           </p>
         </div>
       </section>

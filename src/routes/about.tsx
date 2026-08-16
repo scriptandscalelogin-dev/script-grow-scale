@@ -50,7 +50,7 @@ function About() {
           </div>
           <div className="md:col-span-8 space-y-4 text-base">
             <p>No frameworks with acronyms. No "seven habits". The workshops are working sessions on your actual pipeline. The script gets written from your real calls, the objection library from objections you’re actually hearing.</p>
-            <p>Small caseload on purpose. This isn’t a course you buy and consume alone.</p>
+            <p>Small caseload on purpose. This isn’t a course you buy and consume alone, and it isn’t a cohort either. No community, no group calls with strangers’ pipelines, no mindset work. Just your numbers, your calls, and a guarantee that doesn’t care how the workshops made you feel.</p>
           </div>
         </Reveal>
       </section>
