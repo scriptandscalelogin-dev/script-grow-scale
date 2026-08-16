@@ -46,8 +46,9 @@ function PayOnResults() {
               get nothing. There's still a one-off £250 onboarding fee, that's it for anything fixed.
             </p>
             <p className="text-sm text-muted-foreground">
-              Starting point for that percentage: 8% of closed deal value across the engagement. This
-              is a conversation, not a rate card, adjust it with whoever sent you this link.
+              The percentage isn't published anywhere, it's a conversation. It depends on your deal
+              size, your close rate, and how much of the process you're handing over. Bring your
+              numbers and we'll land on something fair for both sides.
             </p>
           </div>
         </Reveal>
