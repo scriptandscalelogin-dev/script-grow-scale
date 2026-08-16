@@ -7,6 +7,7 @@ import { TIERS } from "@/lib/tiers";
 import { sendPasswordResetForClient } from "@/lib/clients.functions";
 import { formatActivity } from "@/lib/activity";
 import { LeakLedger } from "@/components/leak-ledger";
+import { ClientScriptEditor } from "@/components/client-script-editor";
 
 type Profile = {
   id: string;
@@ -399,6 +400,7 @@ function ClientDetail() {
         isAdmin={true}
       />
       <KpisPanel clientId={id} kpis={kpis} reload={load} isAdmin={true} />
+      <ClientScriptPanel clientId={id} />
       <DiagnosticPanel clientId={id} />
       <ActivityPanel clientId={id} />
     </PageShell>
@@ -437,6 +439,26 @@ function SendResetButton({ email }: { email: string }) {
       </button>
       {msg && <div className="mt-1 text-xs text-muted-foreground">{msg}</div>}
     </div>
+  );
+}
+
+/* ------------------------- Client's own script ------------------------- */
+
+function ClientScriptPanel({ clientId }: { clientId: string }) {
+  return (
+    <section className="rule-t">
+      <div className="container-tight py-10">
+        <div className="eyebrow">Their sales script</div>
+        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+          Configure this client's own pitch, offer, objections, and close. Once saved, it shows up
+          in their portal as their own version of the call script tool, with an export they keep
+          forever.
+        </p>
+        <div className="mt-4">
+          <ClientScriptEditor clientId={clientId} />
+        </div>
+      </div>
+    </section>
   );
 }
 

@@ -1,9 +1,20 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { CALL_SCRIPT } from "@/lib/call-script";
-import { TIERS } from "@/lib/tiers";
+import type { ScriptBlock } from "@/lib/call-script";
 
-export function CallScriptRunner({ onSaved }: { onSaved: () => void }) {
+export type TierOption = { id: string; name: string; price: number };
+
+export function CallScriptRunner({
+  blocks,
+  tierOptions,
+  clientId = null,
+  onSaved,
+}: {
+  blocks: ScriptBlock[];
+  tierOptions: TierOption[];
+  clientId?: string | null;
+  onSaved: () => void;
+}) {
   const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -15,8 +26,8 @@ export function CallScriptRunner({ onSaved }: { onSaved: () => void }) {
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
 
-  const total = CALL_SCRIPT.length;
-  const block = CALL_SCRIPT[step];
+  const total = blocks.length;
+  const block = blocks[step];
 
   function reset() {
     setStarted(false);
@@ -40,6 +51,7 @@ export function CallScriptRunner({ onSaved }: { onSaved: () => void }) {
       tier_confirmed: tierConfirmed || null,
       start_date_confirmed: startDate || null,
       attendance_commitment_confirmed: attendanceConfirmed,
+      client_id: clientId,
     });
     setSaving(false);
     if (err) {
@@ -119,6 +131,7 @@ export function CallScriptRunner({ onSaved }: { onSaved: () => void }) {
 
         {block.kind === "confirm" && (
           <ConfirmStep
+            tierOptions={tierOptions}
             tierConfirmed={tierConfirmed}
             setTierConfirmed={setTierConfirmed}
             startDate={startDate}
@@ -238,6 +251,7 @@ function ScriptStep({
 }
 
 function ConfirmStep({
+  tierOptions,
   tierConfirmed,
   setTierConfirmed,
   startDate,
@@ -245,6 +259,7 @@ function ConfirmStep({
   attendanceConfirmed,
   setAttendanceConfirmed,
 }: {
+  tierOptions: TierOption[];
   tierConfirmed: string;
   setTierConfirmed: (v: string) => void;
   startDate: string;
@@ -264,7 +279,7 @@ function ConfirmStep({
             className="mt-1 w-full rounded-md border border-rule bg-background p-3 text-sm focus:border-highlight focus:outline-none"
           >
             <option value="">Select tier…</option>
-            {TIERS.map((t) => (
+            {tierOptions.map((t) => (
               <option key={t.id} value={t.id}>
                 {t.name} — £{t.price.toLocaleString("en-GB")}/mo
               </option>

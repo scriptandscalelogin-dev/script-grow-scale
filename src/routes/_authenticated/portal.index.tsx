@@ -9,6 +9,9 @@ import {
 } from "./portal.clients.$id";
 import { DiagnosticWizard } from "@/components/diagnostic-wizard";
 import { CallScriptRunner } from "@/components/call-script-runner";
+import { CALL_SCRIPT, buildScriptBlocks, type ScriptConfig } from "@/lib/call-script";
+import { downloadScriptHtml } from "@/lib/export-script";
+import { TIERS } from "@/lib/tiers";
 import { AlumniPanel } from "@/components/alumni-panel";
 
 
@@ -276,7 +279,12 @@ function AdminCallScriptPanel() {
           your own calls with a new prospect.
         </p>
         <div className="mt-4 max-w-xl">
-          <CallScriptRunner onSaved={load} />
+          <CallScriptRunner
+            blocks={CALL_SCRIPT}
+            tierOptions={TIERS}
+            clientId={null}
+            onSaved={load}
+          />
         </div>
 
         <div className="mt-6">
@@ -450,10 +458,83 @@ function ClientHome({
             isAdmin={false}
           />
           <KpisPanel clientId={userId} kpis={kpis} reload={reload} isAdmin={false} />
+          <YourScriptPanel clientId={userId} />
           <DiagnosticFormPanel clientId={userId} />
         </>
       )}
     </>
+  );
+}
+
+function YourScriptPanel({ clientId }: { clientId: string }) {
+  const [config, setConfig] = useState<ScriptConfig | null>(null);
+  const [businessName, setBusinessName] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  async function load() {
+    const { data } = await supabase
+      .from("client_scripts")
+      .select("business_name,pitch_body,transition_body,offer,mechanic_body,objections,proof_body,risk_reversal_body,whats_included,close_body")
+      .eq("client_id", clientId)
+      .maybeSingle();
+    if (data) {
+      setBusinessName(data.business_name ?? "");
+      setConfig({
+        pitchBody: data.pitch_body,
+        transitionBody: data.transition_body,
+        offer: data.offer,
+        mechanicBody: data.mechanic_body,
+        objections: data.objections,
+        proofBody: data.proof_body,
+        riskReversalBody: data.risk_reversal_body,
+        whatsIncluded: data.whats_included,
+        closeBody: data.close_body,
+      });
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    load();
+  }, [clientId]);
+
+  return (
+    <section className="rule-t">
+      <div className="container-tight py-10">
+        <div className="eyebrow">Your sales script</div>
+        {loading ? (
+          <p className="mt-3 text-sm text-muted-foreground">Loading…</p>
+        ) : !config ? (
+          <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
+            Not set up yet, ask about it in your next workshop. Once it's ready, it shows up here as
+            your own click-through version of the call script, built around your own pitch and offer.
+          </p>
+        ) : (
+          <>
+            <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
+              <p className="max-w-xl text-sm text-muted-foreground">
+                Built around your own pitch, offer, and objections. This is yours, not ours, you can
+                export it and keep it even after your engagement ends.
+              </p>
+              <button
+                onClick={() => downloadScriptHtml(businessName, config)}
+                className="btn-outline shrink-0 text-xs"
+              >
+                Export my script
+              </button>
+            </div>
+            <div className="mt-4 max-w-xl">
+              <CallScriptRunner
+                blocks={buildScriptBlocks(config)}
+                tierOptions={config.offer.map((t, i) => ({ id: String(i), name: t.name, price: t.price }))}
+                clientId={clientId}
+                onSaved={() => {}}
+              />
+            </div>
+          </>
+        )}
+      </div>
+    </section>
   );
 }
 
