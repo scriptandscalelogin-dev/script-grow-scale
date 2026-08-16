@@ -13,7 +13,7 @@ function nl2p(text: string) {
 }
 
 export function exportScriptHtml(businessName: string, config: ScriptConfig): string {
-  const title = businessName ? `${businessName} — Sales Script` : "Sales Script";
+  const title = businessName ? `${businessName}: Sales Script` : "Sales Script";
   const questionLabels = INTAKE_QUESTIONS.filter((b) => b.kind === "question").map((b) =>
     b.kind === "question" ? b.label : "",
   );
@@ -60,7 +60,7 @@ export function exportScriptHtml(businessName: string, config: ScriptConfig): st
   ${config.offer
     .map(
       (t) =>
-        `<div class="tier"><b>${esc(t.name)} — £${Number(t.price).toLocaleString("en-GB")}/mo</b>${esc(t.cadence)}, ${esc(t.tagline)}</div>`,
+        `<div class="tier"><b>${esc(t.name)}: £${Number(t.price).toLocaleString("en-GB")}/mo</b>${esc(t.cadence)}, ${esc(t.tagline)}</div>`,
     )
     .join("\n  ")}
 

@@ -226,7 +226,7 @@ function ScriptStep({
         <div className="font-serif text-2xl leading-snug">{title}</div>
         {drafted && (
           <span className="rounded-full border border-highlight/40 bg-highlight/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground">
-            Drafted — review before using live
+            Drafted: review before using live
           </span>
         )}
       </div>
@@ -281,7 +281,7 @@ function ConfirmStep({
             <option value="">Select tier…</option>
             {tierOptions.map((t) => (
               <option key={t.id} value={t.id}>
-                {t.name} — £{t.price.toLocaleString("en-GB")}/mo
+                {t.name}: £{t.price.toLocaleString("en-GB")}/mo
               </option>
             ))}
           </select>

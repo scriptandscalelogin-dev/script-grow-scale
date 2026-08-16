@@ -39,7 +39,7 @@ export function money(n: number) {
 }
 
 function m(answers: Record<string, string>, key: string) {
-  return answers[key]?.trim() || "—";
+  return answers[key]?.trim() || "none given";
 }
 
 function nl2br(text: string) {
@@ -100,12 +100,12 @@ export const RECAP_BLOCK: ScriptBlock = {
   repNoteLabel: "Rep notes",
   body: (a) =>
     `So I've got tons of notes here based on what we've discussed, I won't recap all of it, but here's a quick summary of some of the things we've discussed.<br><br>` +
-    `<b>You booked a call with me today because</b> — ${m(a, "motivation")}<br><br>` +
-    `<b>I asked what you've tried on your own and you said</b> — ${m(a, "prior_attempts")}<br><br>` +
-    `<b>Your business does</b> — ${m(a, "business_description")}<br><br>` +
-    `<b>You said your dream client was the following</b> — ${m(a, "dream_client")}<br><br>` +
-    `<b>I asked why someone might choose you over your competition and you said</b> — ${m(a, "why_choose_you")}<br><br>` +
-    `<b>Per customer you estimated you make</b> — ${m(a, "avg_client_value")}<br><br>` +
+    `<b>You booked a call with me today because</b>: ${m(a, "motivation")}<br><br>` +
+    `<b>I asked what you've tried on your own and you said</b>: ${m(a, "prior_attempts")}<br><br>` +
+    `<b>Your business does</b>: ${m(a, "business_description")}<br><br>` +
+    `<b>You said your dream client was the following</b>: ${m(a, "dream_client")}<br><br>` +
+    `<b>I asked why someone might choose you over your competition and you said</b>: ${m(a, "why_choose_you")}<br><br>` +
+    `<b>Per customer you estimated you make</b>: ${m(a, "avg_client_value")}<br><br>` +
     `I've written down a lot here so I won't go through all of it again, but does that all sound roughly correct to you?`,
 };
 

@@ -507,7 +507,7 @@ function DiagnosticPanel({ clientId }: { clientId: string }) {
                   {Object.entries(r.answers).map(([q, a]) => (
                     <div key={q}>
                       <dt className="text-xs text-muted-foreground">{q}</dt>
-                      <dd className="whitespace-pre-wrap break-words">{a || "—"}</dd>
+                      <dd className="whitespace-pre-wrap break-words">{a || "none given"}</dd>
                     </div>
                   ))}
                 </dl>
