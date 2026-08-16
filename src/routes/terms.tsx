@@ -34,7 +34,7 @@ function Terms() {
 
           <Block title="1. Who these terms are between">
             <p>
-              These terms are between Script &amp; Scale (&ldquo;we&rdquo;, &ldquo;us&rdquo;) and the
+              These terms are between Arno de Meyer, trading as Script &amp; Scale (&ldquo;we&rdquo;, &ldquo;us&rdquo;) and the
               business or individual who signs up for a subscription (&ldquo;you&rdquo;, the &ldquo;client&rdquo;).
               By starting a subscription you accept these terms.
             </p>
