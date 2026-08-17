@@ -66,7 +66,10 @@ export function CountUp({ to, prefix = "", suffix = "", duration = 1, className 
   const reduced = useReducedMotionSafe();
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
-  const [value, setValue] = useState(0);
+  // Starts at the real value, not 0, so the server-rendered HTML (crawlers, link
+  // previews, anyone viewed before JS runs) always shows the correct number.
+  // The animation is a flourish layered on top, never the only way to reach it.
+  const [value, setValue] = useState(to);
 
   useEffect(() => {
     if (reduced) {
@@ -74,7 +77,9 @@ export function CountUp({ to, prefix = "", suffix = "", duration = 1, className 
       return;
     }
     if (!inView) return;
-    const controls = animate(0, to, {
+    const start = Math.round(to * 0.55);
+    setValue(start);
+    const controls = animate(start, to, {
       duration,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (v) => setValue(Math.round(v)),
