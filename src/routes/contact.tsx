@@ -87,6 +87,7 @@ function Contact() {
                   <option>ITSM provider</option>
                   <option>Consultancy</option>
                   <option>Technical services</option>
+                  <option>Trade business</option>
                   <option>Other</option>
                 </select>
               </div>

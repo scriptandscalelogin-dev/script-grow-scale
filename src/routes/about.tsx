@@ -38,7 +38,7 @@ function About() {
           </div>
           <div className="md:col-span-8 space-y-4 text-base">
             <p>UK small businesses, roughly 2–20 people, where sales is still whoever founded the company.</p>
-            <p>Typical clients: managed service providers, ITSM consultancies, technical services firms, boutique consultancies. The kind of business where the offer is real and the delivery is good, and the missing piece is a repeatable way to move deals forward.</p>
+            <p>Typical clients: managed service providers, ITSM consultancies, technical services firms, boutique consultancies, and high-ticket trades such as kitchen fitters, joiners, landscapers and boutique builders. The kind of business where the offer is real and the delivery is good, and the missing piece is a repeatable way to move deals forward.</p>
           </div>
         </Reveal>
       </section>

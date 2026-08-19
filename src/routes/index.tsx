@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Script & Scale · Sales enablement for UK small businesses" },
-      { name: "description", content: "Weekly sales workshops, scripts, objection drills and follow-up SOPs for MSPs, ITSM providers and consultancies. Fee-recovery guarantee on the first three months." },
+      { name: "description", content: "Weekly sales workshops, scripts, objection drills and follow-up SOPs for MSPs, ITSM providers, consultancies and high-ticket trades. Fee-recovery guarantee on the first three months." },
       { property: "og:title", content: "Script & Scale · Revenue enablement, UK, subscription" },
       { property: "og:description", content: "Founder-led sales without a process? Weekly reps, not a course. Three tiers from £525/month." },
       { property: "og:type", content: "website" },
@@ -32,7 +32,7 @@ function Home() {
               It still can’t close without you.
             </h1>
             <p className="mt-7 max-w-2xl text-base text-muted-foreground">
-              MSPs, ITSM providers, consultancies. Same pattern every time: founder-led sales, no
+              MSPs, ITSM providers, consultancies, high-ticket trades. Same pattern every time: founder-led sales, no
               real process, deals dying in follow-up, quotes sent into silence. Script &amp; Scale
               fixes that with weekly reps, not a course.
             </p>
@@ -270,7 +270,7 @@ function Home() {
               },
               {
                 q: "Who is this actually for?",
-                a: "Founder-led B2B service businesses, MSPs, ITSM providers, consultancies, where the founder is still doing most of the selling and there's no written process to hand off.",
+                a: "Founder-led B2B service businesses, MSPs, ITSM providers, consultancies, high-ticket trades, where the founder is still doing most of the selling and there's no written process to hand off.",
               },
               {
                 q: "How is this different from a sales training course?",
