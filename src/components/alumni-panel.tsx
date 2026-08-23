@@ -50,6 +50,9 @@ export function AlumniPanel({
           whatever lands here: earlier access to new frameworks before other tiers see them,
           priority on workshop scheduling, and first invite if a peer group ever opens up.
         </p>
+        <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
+          Know another founder who'd get real value from this? Send them my way, I'd rather work with people you vouch for.
+        </p>
       </div>
     </section>
   );

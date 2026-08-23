@@ -38,7 +38,7 @@ function About() {
           </div>
           <div className="md:col-span-8 space-y-4 text-base">
             <p>UK small businesses, roughly 2–20 people, where sales is still whoever founded the company.</p>
-            <p>Typical clients: managed service providers, ITSM consultancies, technical services firms, boutique consultancies, and high-ticket trades such as kitchen fitters, joiners, landscapers and boutique builders. The kind of business where the offer is real and the delivery is good, and the missing piece is a repeatable way to move deals forward.</p>
+            <p>Typical clients: managed service providers, boutique consultancies, and high-ticket trades such as kitchen fitters, joiners, landscapers and boutique builders. The kind of business where the offer is real and the delivery is good, and the missing piece is a repeatable way to move deals forward.</p>
           </div>
         </Reveal>
       </section>
@@ -82,13 +82,12 @@ function About() {
             </p>
 
             <p>
-              Built and led sales teams using live roleplay, objection handling drills, and
-              structured discovery, the same approach behind this program, lifting close rates by{" "}
-              <CountUp to={25} suffix="%" /> and cutting onboarding errors by <CountUp to={40} suffix="%" />.
+              Built and ran sales process using the same tools behind this program: live roleplay,
+              objection handling drills, and structured discovery.
             </p>
             <p>
               Foundation-level certified in ITIL4, PRINCE2 Agile, DevOps, and TOGAF. So when we sit
-              down to build your script, I’m not learning what an MSP or ITSM provider does from
+              down to build your script, I’m not learning what an MSP or consultancy does from
               scratch. I already speak the language your prospects speak.
             </p>
           </div>

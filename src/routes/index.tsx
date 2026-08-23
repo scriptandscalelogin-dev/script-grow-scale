@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Script & Scale · Sales enablement for UK small businesses" },
-      { name: "description", content: "Weekly sales workshops, scripts, objection drills and follow-up SOPs for MSPs, ITSM providers, consultancies and high-ticket trades. Fee-recovery guarantee on the first three months." },
+      { name: "description", content: "Weekly sales workshops, scripts, objection drills and follow-up SOPs for MSPs, consultancies and high-ticket trades. Fee-recovery guarantee on the first three months." },
       { property: "og:title", content: "Script & Scale · Revenue enablement, UK, subscription" },
       { property: "og:description", content: "Founder-led sales without a process? Weekly reps, not a course. Three tiers from £525/month." },
       { property: "og:type", content: "website" },
@@ -32,9 +32,12 @@ function Home() {
               It still can’t close without you.
             </h1>
             <p className="mt-7 max-w-2xl text-base text-muted-foreground">
-              MSPs, ITSM providers, consultancies, high-ticket trades. Same pattern every time: founder-led sales, no
+              MSPs, consultancies, high-ticket trades. Same pattern every time: founder-led sales, no
               real process, deals dying in follow-up, quotes sent into silence. Script &amp; Scale
               fixes that with weekly reps, not a course.
+            </p>
+            <p className="mt-3 max-w-2xl text-sm font-medium">
+              Your script is yours. Export it any time, and it's still yours even if you leave.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Magnetic>
@@ -50,6 +53,7 @@ function Home() {
               <li>Objection responses drilled until they’re automatic</li>
               <li>Follow-up SOPs so nothing sits in your inbox</li>
               <li>Live call review at the top tier</li>
+              <li>A tool you keep, not a login you lose access to</li>
             </ul>
           </aside>
         </Reveal>
@@ -270,7 +274,7 @@ function Home() {
               },
               {
                 q: "Who is this actually for?",
-                a: "Founder-led B2B service businesses, MSPs, ITSM providers, consultancies, high-ticket trades, where the founder is still doing most of the selling and there's no written process to hand off.",
+                a: "Founder-led B2B service businesses, MSPs, consultancies, high-ticket trades, where the founder is still doing most of the selling and there's no written process to hand off.",
               },
               {
                 q: "How is this different from a sales training course?",

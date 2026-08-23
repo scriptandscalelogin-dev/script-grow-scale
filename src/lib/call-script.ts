@@ -236,7 +236,7 @@ export const SCRIPT_AND_SCALE_CONFIG: ScriptConfig = {
     "Before we get into the how, here's why this isn't guesswork.\n\n" +
     "Over 10+ years in B2B sales across SaaS, telecoms, and enterprise. SaaS deals closed in the £12,000–£180,000 ARR range, most recent close £60,000 a month, in the founder's most recent role prior to founding Script & Scale.\n\n" +
     "Top 5% performance across 5 territories.\n\n" +
-    "Currently leading an 8-person sales team: +25% close rate, -40% onboarding errors, through the same structured KYC, roleplay, and objection frameworks you're looking at right now.\n\n" +
+    "Every framework you're looking at right now, KYC, roleplay, objection handling, is the same structure used to close those deals personally.\n\n" +
     "Foundation-level certified in ITIL4, PRINCE2 Agile, DevOps, and TOGAF.",
   riskReversalBody:
     "If closed deal value across your first three months doesn't cover the fees you paid, and you attended the workshops and ran the program, month four is free. Every month after that too, until we're square.\n\n" +
