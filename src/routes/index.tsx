@@ -32,18 +32,19 @@ function Home() {
               It still can’t close without you.
             </h1>
             <p className="mt-7 max-w-2xl text-base text-muted-foreground">
-              MSPs, consultancies, high-ticket trades. Same pattern every time: founder-led sales, no
-              real process, deals dying in follow-up, quotes sent into silence. Script &amp; Scale
-              fixes that with weekly reps, not a course.
+              Most MSPs, consultancies, and trades win the deal, then lose it in week 2. You don't have a follow-up process. So every deal gets handled differently. Some close. Most don't. That's usually £200k–600k in lost revenue per year.
+            </p>
+            <p className="mt-4 max-w-2xl text-base text-muted-foreground">
+              Script &amp; Scale fixes the leak. Custom script, follow-up sequences, monthly workshops. Guarantee: if it doesn't recover your pipeline, month 4 is free.
             </p>
             <p className="mt-3 max-w-2xl text-sm font-medium">
               Your script is yours. Export it any time, and it's still yours even if you leave.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Magnetic>
-                <Link to="/contact" className="btn-cta">Book a discovery call</Link>
+                <Link to="/contact" className="btn-cta">Book a 20-Minute Diagnostic</Link>
               </Magnetic>
-              <Link to="/how-it-works" className="btn-outline">See how it works</Link>
+              <Link to="/how-it-works" className="btn-outline">See How We Find the Leak</Link>
             </div>
           </div>
           <aside className="md:col-span-4 md:border-l md:border-rule md:pl-8">
@@ -64,10 +65,9 @@ function Home() {
         <Reveal className="container-tight grid gap-10 py-16 md:grid-cols-12">
           <div className="md:col-span-5">
             <div className="eyebrow">Before you book a call</div>
-            <h2 className="mt-3 font-serif text-3xl">Find your leak in four questions.</h2>
+            <h2 className="mt-3 font-serif text-3xl">See Your Pipeline Leak in 60 Seconds.</h2>
             <p className="mt-4 text-sm text-muted-foreground">
-              No email required to see it. This is a rough read, not the real diagnosis, but it'll
-              tell you roughly what's sitting in your pipeline right now.
+              We'll estimate how much revenue you're losing right now. No email required. No pitch, just math.
             </p>
           </div>
           <div className="md:col-span-7">
@@ -79,7 +79,7 @@ function Home() {
       {/* PROBLEM */}
       <section className="rule-b bg-secondary/40">
         <div className="container-tight py-20">
-          <div className="eyebrow">What breaks first</div>
+          <div className="eyebrow">Where the Money Actually Leaks</div>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
               { t: "No process.", b: "Every deal handled from memory. What worked last month doesn’t repeat, because nothing was written down." },
@@ -169,7 +169,7 @@ function Home() {
         <Reveal className="container-tight grid gap-10 py-28 md:grid-cols-12">
           <div className="md:col-span-5">
             <div className="eyebrow">The guarantee</div>
-            <h2 className="mt-3 font-serif text-4xl">Your first three months pay for themselves.</h2>
+            <h2 className="mt-3 font-serif text-4xl">The Guarantee (This Is Real)</h2>
           </div>
           <div className="md:col-span-7">
             <p className="text-base">
@@ -189,10 +189,7 @@ function Home() {
       {/* COMPARISON */}
       <section className="rule-b">
         <div className="container-tight py-20">
-          <div className="eyebrow">What founders usually try first</div>
-          <p className="mt-4 max-w-2xl text-sm text-muted-foreground">
-            Typical UK market rates by category, not quotes from any named competitor.
-          </p>
+          <div className="eyebrow">Why Other Options Don't Work For This Problem</div>
           <div className="mt-8 divide-y divide-rule border-y border-rule">
             {[
               {
@@ -227,9 +224,9 @@ function Home() {
               },
               {
                 name: "Script & Scale",
-                price: "£525 to £2,100 a month",
-                shape: "Weekly to monthly workshops",
-                note: "Scripts, SOPs, live roleplay, and a guarantee tied to fees recovered.",
+                price: "£525–2,100/mo",
+                shape: "Custom script, follow-up SOPs, live roleplay, monthly-to-weekly workshops",
+                note: "Guarantee tied to fee recovery (month 4 free if it doesn't work). You own the process even after you leave (standalone portal access).",
               },
             ].map((row) => (
               <div
@@ -248,7 +245,7 @@ function Home() {
             ))}
           </div>
           <p className="mt-6 text-sm text-muted-foreground">
-            Most of these solve a different problem than the one actually costing you deals, and the ones that come close sell confidence, not a number. This is the one with a guarantee tied to fee recovery, not to how the workshops make you feel.
+            The difference: Most of these solve a different problem. Script & Scale solves the actual problem costing you deals: no follow-up process, no repeatable script, no way to drill your team. And if it doesn't work, you don't pay for month 4.
           </p>
         </div>
       </section>
@@ -262,7 +259,7 @@ function Home() {
             {[
               {
                 q: "What happens if it doesn't work?",
-                a: "If closed deal value across your first three months doesn't cover what you paid, and you attended the workshops and ran the program, month four is free. Every month after that too, until we're square. No cash refund, this is a real guarantee tied to attendance, not a marketing line.",
+                a: "Three things have to be true: 1) you attended every workshop (no exceptions), 2) you ran the program (used the script on calls, logged deals, sent follow-up sequences), 3) closed deal value in three months didn't cover total fees paid (£250 + 3x monthly). If all three are true, month 4 is free. We keep working until it works. If you didn't attend or didn't run the program, the guarantee doesn't apply. This is a real bet, not a refund.",
               },
               {
                 q: "Is there a minimum commitment?",
@@ -270,7 +267,7 @@ function Home() {
               },
               {
                 q: "What do we actually get each week?",
-                a: "A script that fits how you actually talk, objection responses drilled until automatic, follow-up SOPs so nothing sits in your inbox, and live call review at the top tier.",
+                a: "It depends on your tier. All tiers include your custom script (built during onboarding), follow-up sequences timed to your deal cycle, and monthly to weekly workshops. Closer and above add live roleplay against real objections from your team. Rainmaker adds live call coaching where I sit on your discovery calls. Monthly workshops drill the process into your team.",
               },
               {
                 q: "Who is this actually for?",
@@ -278,7 +275,7 @@ function Home() {
               },
               {
                 q: "How is this different from a sales training course?",
-                a: "A course is one-off. This is ongoing, weekly cadence work with live roleplay and follow-up SOPs, closer to a fractional sales manager than a training day.",
+                a: "Training courses deliver generic content once and you forget by week 2. Script & Scale is custom script built around your pitch and objections, with monthly to weekly workshops, live roleplay against what you actually hear, call review where I sit in on your discovery calls, and a guarantee tied to pipeline recovery. Success is measured by closed deals, not motivation. We're betting on results, not content delivery.",
               },
             ].map((item) => (
               <FaqRow key={item.q} question={item.q} answer={item.a} />
@@ -296,7 +293,7 @@ function Home() {
           </p>
           <div className="mt-8">
             <Magnetic>
-              <Link to="/contact" className="btn-cta">Book a discovery call</Link>
+              <Link to="/contact" className="btn-cta">Book a 20-Minute Diagnostic</Link>
             </Magnetic>
           </div>
         </Reveal>
