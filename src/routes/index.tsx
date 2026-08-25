@@ -287,7 +287,7 @@ function Home() {
       {/* CTA */}
       <section>
         <Reveal className="container-tight py-20 text-center">
-          <h2 className="font-serif text-4xl md:text-5xl">30-minute call. <em className="italic">No pitch deck.</em></h2>
+          <h2 className="font-serif text-4xl md:text-5xl">20-Minute Pipeline Diagnostic</h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
             Tell me what your last five deals looked like. If it isn’t a fit, I’ll say so.
           </p>

@@ -8,9 +8,9 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Book a discovery call · Script & Scale" },
-      { name: "description", content: "Tell us about your last five deals. 30-minute call, no pitch deck, no obligation." },
+      { name: "description", content: "Tell us about your last five deals. 20-minute diagnostic, no pitch deck, no obligation." },
       { property: "og:title", content: "Book a discovery call · Script & Scale" },
-      { property: "og:description", content: "30 minutes. If it isn't a fit, I'll say so." },
+      { property: "og:description", content: "20-minute pipeline diagnostic. If it isn't a fit, I'll say so." },
     ],
   }),
   component: Contact,
@@ -60,7 +60,7 @@ function Contact() {
       <section className="rule-b">
         <div className="container-tight py-20">
           <div className="eyebrow">Book a call</div>
-          <h1 className="mt-4 font-serif text-5xl md:text-6xl">30 minutes. No pitch deck.</h1>
+          <h1 className="mt-4 font-serif text-5xl md:text-6xl">20-Minute Pipeline Diagnostic</h1>
           <p className="mt-6 max-w-2xl text-muted-foreground">
             Tell me about your last five deals. What came in, what closed, what stalled. I’ll say
             whether Script &amp; Scale would move the needle. If it wouldn’t, I’ll say that too.
@@ -120,7 +120,7 @@ function Contact() {
             <ol className="mono mt-4 space-y-4 text-sm list-none">
               <li><span className="text-highlight">01</span>. I read your note.</li>
               <li><span className="text-highlight">02</span>. You'll be taken straight to my calendar to pick a time.</li>
-              <li><span className="text-highlight">03</span>. 30-minute call. No slide deck.</li>
+              <li><span className="text-highlight">03</span>. 20-minute diagnostic. No slide deck.</li>
               <li><span className="text-highlight">04</span>. If we work together, onboarding starts the week after.</li>
             </ol>
           </aside>
