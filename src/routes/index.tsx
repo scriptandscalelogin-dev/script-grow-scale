@@ -82,9 +82,9 @@ function Home() {
           <div className="eyebrow">Where the Money Actually Leaks</div>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
-              { t: "No process.", b: "Every deal handled from memory. What worked last month doesn’t repeat, because nothing was written down." },
-              { t: "Follow-up is where deals die.", b: "You send the proposal, they go quiet, you don’t know when or how to push. So you don’t. So it closes lost." },
-              { t: "You can’t hand it off.", b: "No script, no playbook, no SOP. A hire would take a year to be useful. You keep doing it yourself." },
+              { t: "Week 1: You win the deal.", b: "Prospect says yes. You're excited." },
+              { t: "Week 2: Radio silence.", b: "They're thinking. You don't follow up because you don't have a process. So someone else calls them back first." },
+              { t: "Week 3: Deal is gone.", b: "They chose a competitor. You never knew why. Result: 20-30% of your pipeline leaks. That's £200k-600k per year." },
             ].map((c, i) => (
               <Reveal
                 key={c.t}

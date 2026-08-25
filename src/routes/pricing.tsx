@@ -48,7 +48,7 @@ function Pricing() {
                   )}
                 </div>
                 <div className="mt-3">
-                  <span className="mono text-4xl"><CountUp to={t.price} prefix="£" duration={2} /></span>
+                  <span className="mono text-4xl">{`£${t.price}`}</span>
                   <span className="text-sm text-muted-foreground"> / month</span>
                 </div>
                 <div className="mt-1 text-sm text-muted-foreground">{t.cadence}</div>
