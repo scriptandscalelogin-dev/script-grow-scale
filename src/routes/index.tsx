@@ -194,31 +194,31 @@ function Home() {
             {[
               {
                 name: "Business coach",
-                price: "£150 to £3,500 a month",
+                price: "£150–3,500/mo",
                 shape: "Ongoing 1:1 sessions",
                 note: "Advice and accountability. No scripts, no SOPs. Coaching is unregulated in the UK, so quality varies a lot at every price point.",
               },
               {
                 name: "Fractional head of sales",
-                price: "£1,500 to £5,000 a month",
+                price: "£1,500–5,000/mo",
                 shape: "One to two days a week",
                 note: "Senior strategic oversight. Not hands-on scripting, roleplay, or workshop cadence.",
               },
               {
                 name: "Sales training firm",
-                price: "£5,000 to £20,000",
+                price: "£5,000–20,000",
                 shape: "One-off program, not a subscription",
                 note: "Structured content delivered once. No ongoing pipeline work after the program ends.",
               },
               {
                 name: "Outbound or lead-gen agency",
-                price: "£1,500 to £8,000 a month",
+                price: "£1,500–8,000/mo",
                 shape: "Retainer",
                 note: "Fixes how many leads arrive. Doesn’t touch what happens once a lead becomes a live deal, which is where deals actually die.",
               },
               {
                 name: "Community / cohort coaching",
-                price: "£200 to £2,500 a month",
+                price: "£200–2,500/mo",
                 shape: "Group calls, shared content library",
                 note: "Peer accountability and mindset coaching, built around a cohort, not your specific pipeline. No 1:1 roleplay against the objections you're actually hearing.",
               },
