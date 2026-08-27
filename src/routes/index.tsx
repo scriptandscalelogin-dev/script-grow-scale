@@ -204,6 +204,148 @@ function Home() {
         </Reveal>
       </section>
 
+      {/* COMPARISON: Show why yours wins */}
+      <section className="rule-b">
+        <div className="container-tight py-20">
+          <Reveal>
+            <div className="text-center mb-12">
+              <div className="eyebrow">Why Script & Scale Wins</div>
+              <h2 className="mt-3 font-serif text-4xl md:text-5xl">You're not paying for mindset coaching.</h2>
+              <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
+                Most alternatives solve a different problem. Here's how they actually compare on what matters: process, script, drilling, and results.
+              </p>
+            </div>
+          </Reveal>
+          
+          <div className="mt-12 overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-rule">
+                  <th className="text-left py-4 px-3 font-serif text-base">Solution</th>
+                  <th className="text-left py-4 px-3 font-serif text-base">Price</th>
+                  <th className="text-left py-4 px-3 font-serif text-base">Custom Script</th>
+                  <th className="text-left py-4 px-3 font-serif text-base">Live Roleplay</th>
+                  <th className="text-left py-4 px-3 font-serif text-base">Follow-Up SOPs</th>
+                  <th className="text-left py-4 px-3 font-serif text-base">Guarantee</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-rule hover:bg-secondary/30 transition-colors">
+                  <td className="py-4 px-3">Business coach</td>
+                  <td className="py-4 px-3 mono text-xs">£150-3,500/mo</td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                </tr>
+                <tr className="border-b border-rule hover:bg-secondary/30 transition-colors">
+                  <td className="py-4 px-3">Fractional head of sales</td>
+                  <td className="py-4 px-3 mono text-xs">£1,500-5,000/mo</td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">Sometimes</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                </tr>
+                <tr className="border-b border-rule hover:bg-secondary/30 transition-colors">
+                  <td className="py-4 px-3">Sales training firm</td>
+                  <td className="py-4 px-3 mono text-xs">£5,000-20,000 (one-off)</td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">Generic</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                </tr>
+                <tr className="border-b border-rule hover:bg-secondary/30 transition-colors">
+                  <td className="py-4 px-3">Lead-gen agency</td>
+                  <td className="py-4 px-3 mono text-xs">£1,500-8,000/mo</td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                </tr>
+                <tr className="border-b border-rule hover:bg-secondary/30 transition-colors">
+                  <td className="py-4 px-3">Cohort coaching</td>
+                  <td className="py-4 px-3 mono text-xs">£200-2,500/mo</td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">Group only</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">Generic</span>
+                  </td>
+                  <td className="py-4 px-3 text-center">
+                    <span className="text-muted-foreground">No</span>
+                  </td>
+                </tr>
+                <tr className="bg-secondary/60 border-l-2 border-highlight font-medium">
+                  <td className="py-5 px-3">Script & Scale</td>
+                  <td className="py-5 px-3 mono text-xs">£525-2,100/mo</td>
+                  <td className="py-5 px-3 text-center">
+                    <span className="text-highlight">Yes, yours</span>
+                  </td>
+                  <td className="py-5 px-3 text-center">
+                    <span className="text-highlight">Live, 1:1</span>
+                  </td>
+                  <td className="py-5 px-3 text-center">
+                    <span className="text-highlight">Custom</span>
+                  </td>
+                  <td className="py-5 px-3 text-center">
+                    <span className="text-highlight">Yes, real</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-10 rounded-md border border-rule bg-card/60 p-6 md:p-8">
+            <h3 className="font-serif text-lg md:text-xl">The actual edge</h3>
+            <p className="mt-3 text-sm text-muted-foreground">
+              You're not paying for general business coaching or group mindset work. You're buying a custom script built around your actual pitch and objections, drilled live in roleplay against what your team hears, with SOPs that match your deal cycle, and a guarantee tied to real pipeline recovery.
+            </p>
+            <p className="mt-3 text-sm text-muted-foreground">
+              If it doesn't work, you don't pay for month 4. None of the alternatives above have that. Most don't even have a process to give you in the first place.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link to="/contact" className="btn-cta">Book Your Diagnostic</Link>
+              <Link to="/compare" className="btn-outline">See Full Details</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="rule-b">
         <div className="container-tight py-20">
