@@ -98,7 +98,7 @@ export function MiniDiagnostic() {
   if (step >= steps.length) {
     return (
       <div className="rounded-md border border-rule bg-card p-6">
-        <div className="font-serif text-xl">One optional thing</div>
+        <div className="font-serif text-lg md:text-xl">One optional thing</div>
         <p className="mt-2 text-sm text-muted-foreground">
           Want the number emailed to you too? Leave your email, or skip straight to the result.
         </p>
@@ -107,11 +107,24 @@ export function MiniDiagnostic() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@company.com (optional)"
-          className="mt-4 w-full rounded-md border border-rule bg-background p-3 text-sm focus:border-highlight focus:outline-none"
+          className="mt-4 w-full rounded-md border border-rule bg-background p-4 text-base md:text-sm focus:border-highlight focus:outline-none focus:ring-2 focus:ring-highlight/50"
+          aria-label="Email address (optional)"
         />
-        <div className="mt-5 flex items-center justify-between">
-          <button onClick={() => setStep((s) => s - 1)} className="btn-outline text-xs">Back</button>
-          <button onClick={finish} className="btn-cta text-xs">Show me the number</button>
+        <div className="mt-6 flex items-center justify-between gap-3">
+          <button 
+            onClick={() => setStep((s) => s - 1)} 
+            className="btn-outline text-sm md:text-xs h-12 md:h-10 min-w-12"
+            aria-label="Go to previous question"
+          >
+            Back
+          </button>
+          <button 
+            onClick={finish} 
+            className="btn-cta text-sm md:text-xs h-12 md:h-10 px-6"
+            aria-label="View your pipeline leak estimate"
+          >
+            Show me the number
+          </button>
         </div>
       </div>
     );
@@ -128,27 +141,34 @@ export function MiniDiagnostic() {
           style={{ width: `${((step + 1) / steps.length) * 100}%` }}
         />
       </div>
-      <div className="mt-5 font-serif text-xl leading-snug">{current.label}</div>
+      <label htmlFor={`q-${step}`} className="mt-5 block font-serif text-lg md:text-xl leading-snug">
+        {current.label}
+      </label>
       <input
+        id={`q-${step}`}
         type={current.type}
         value={current.value}
         onChange={(e) => current.onChange(e.target.value)}
         placeholder={current.placeholder}
         autoFocus
-        className="mt-4 w-full rounded-md border border-rule bg-background p-3 text-sm focus:border-highlight focus:outline-none"
+        inputMode={current.type === "number" ? "numeric" : "text"}
+        className="mt-4 w-full rounded-md border border-rule bg-background p-4 text-base md:text-sm focus:border-highlight focus:outline-none focus:ring-2 focus:ring-highlight/50"
+        aria-label={`Answer to: ${current.label}`}
       />
-      <div className="mt-5 flex items-center justify-between">
+      <div className="mt-6 flex items-center justify-between gap-3">
         <button
           onClick={() => setStep((s) => Math.max(0, s - 1))}
           disabled={step === 0}
-          className="btn-outline text-xs disabled:opacity-40"
+          className="btn-outline text-sm md:text-xs disabled:opacity-40 h-12 md:h-10 min-w-12"
+          aria-label="Go to previous question"
         >
           Back
         </button>
         <button
           onClick={() => setStep((s) => s + 1)}
           disabled={!current.value}
-          className="btn-cta text-xs disabled:opacity-40"
+          className="btn-cta text-sm md:text-xs disabled:opacity-40 h-12 md:h-10 px-6"
+          aria-label={step === steps.length - 1 ? "View your pipeline leak estimate" : "Go to next question"}
         >
           {step === steps.length - 1 ? "See my number" : "Next"}
         </button>
