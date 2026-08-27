@@ -3,7 +3,6 @@ import { PageShell } from "@/components/site-shell";
 import { TIERS } from "@/lib/tiers";
 import { Reveal, Magnetic, CountUp, ShineOnce } from "@/components/motion";
 import { MiniDiagnostic } from "@/components/mini-diagnostic";
-import { ScrollStory } from "@/components/scroll-story";
 import { useState } from "react";
 
 export const Route = createFileRoute("/")({
@@ -23,7 +22,6 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <PageShell>
-      <ScrollStory />
       {/* HERO: Outcome-first, diagnostic interactive, trust signal included */}
       <section className="rule-b">
         <Reveal className="container-tight grid gap-10 py-16 md:grid-cols-12 md:gap-14 md:py-24">
