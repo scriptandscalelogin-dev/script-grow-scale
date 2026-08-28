@@ -34,7 +34,7 @@ function RefundPolicy() {
 
           <Block title="No cash refunds">
             <p>
-              Arno de Meyer, trading as Script &amp; Scale, does not offer cash refunds on subscription fees or the onboarding fee. Instead
+              2026 Script &amp; Scale - Sole Proprietor does not offer cash refunds on subscription fees or the onboarding fee. Instead
               of a refund, we back the service with a fee-recovery guarantee, described below and in full on our{" "}
               <a className="underline underline-offset-4" href="/guarantee">Guarantee page</a>.
             </p>
