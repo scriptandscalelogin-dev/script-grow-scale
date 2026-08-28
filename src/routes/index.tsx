@@ -228,8 +228,8 @@ function Home() {
                 You get accountability and advice. No written script. No process to hand to your team. Every rep invents their own approach.
               </p>
               <div className="mt-6 rounded-md bg-secondary/40 p-4">
-                <div className="mono text-xs text-muted-foreground">If you close £50k/month</div>
-                <div className="mt-2 font-serif text-lg text-foreground">£1,800-£42,000/year on advice that doesn't transfer</div>
+                <div className="mono text-xs text-muted-foreground">What it costs you</div>
+                <div className="mt-2 font-serif text-lg text-foreground">£1,800-£42,000/year on advice that doesn't transfer to your team</div>
               </div>
             </Reveal>
 
@@ -240,8 +240,8 @@ function Home() {
                 Strategic oversight, not hands-on drilling. They review calls after the fact. Your team still doesn't know what to say on the next one.
               </p>
               <div className="mt-6 rounded-md bg-secondary/40 p-4">
-                <div className="mono text-xs text-muted-foreground">If you close £50k/month</div>
-                <div className="mt-2 font-serif text-lg text-foreground">£18,000-£60,000/year for oversight, not process</div>
+                <div className="mono text-xs text-muted-foreground">What it costs you</div>
+                <div className="mt-2 font-serif text-lg text-foreground">£18,000-£60,000/year for strategic oversight, not hands-on process</div>
               </div>
             </Reveal>
 
@@ -252,8 +252,8 @@ function Home() {
                 Content delivered once. No follow-up. No drilling against YOUR objections. No accountability for results.
               </p>
               <div className="mt-6 rounded-md bg-secondary/40 p-4">
-                <div className="mono text-xs text-muted-foreground">If you close £50k/month</div>
-                <div className="mt-2 font-serif text-lg text-foreground">£5k-20k upfront, then zero after week 3</div>
+                <div className="mono text-xs text-muted-foreground">What it costs you</div>
+                <div className="mt-2 font-serif text-lg text-foreground">£5k-20k upfront, no follow-up after the content ends</div>
               </div>
             </Reveal>
           </div>
@@ -266,8 +266,8 @@ function Home() {
                 They fix how many leads arrive. They don't fix what happens once a lead is live. That's where deals actually die.
               </p>
               <div className="mt-6 rounded-md bg-secondary/40 p-4">
-                <div className="mono text-xs text-muted-foreground">If you close £50k/month</div>
-                <div className="mt-2 font-serif text-lg text-foreground">£18,000-£96,000/year on volume, not conversion</div>
+                <div className="mono text-xs text-muted-foreground">What it costs you</div>
+                <div className="mt-2 font-serif text-lg text-foreground">£18,000-£96,000/year on lead volume, not conversion</div>
               </div>
             </Reveal>
 
@@ -278,8 +278,8 @@ function Home() {
                 Custom script configured for YOUR business. Live roleplay against YOUR objections. Follow-up SOPs tied to YOUR deal cycle. Guarantee tied to YOUR pipeline recovery.
               </p>
               <div className="mt-6 rounded-md bg-highlight/10 p-4 border border-highlight/30">
-                <div className="mono text-xs text-highlight">If you close £50k/month and recover 15-20%</div>
-                <div className="mt-2 font-serif text-lg text-highlight">£7,500-£10,000 extra revenue in month 1 alone</div>
+                <div className="mono text-xs text-highlight">What you get</div>
+                <div className="mt-2 font-serif text-lg text-highlight">Custom script, live drilling, SOPs, and a guarantee. You keep the process even if you leave.</div>
               </div>
             </Reveal>
           </div>
