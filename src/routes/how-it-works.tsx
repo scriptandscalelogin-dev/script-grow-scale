@@ -37,10 +37,10 @@ function HowItWorks() {
         <div className="container-tight py-16">
           <div className="mt-2 grid gap-8 md:grid-cols-4">
             {[
-              ["Minutes 0 to 5", "Pipeline review", "What moved, what stalled, what needs a nudge this week."],
-              ["Minutes 5 to 20", "The work", "Write the script, draft the follow-up sequence, dissect a lost deal."],
-              ["Minutes 20 to 35", "Roleplay", "Run the objection you keep hitting until the response is muscle memory."],
-              ["Minutes 35 to 45", "Action items", "Three things you’ll do before we speak next. Logged in your portal."],
+              ["Minutes 0 to 5", "Pipeline review", "Spot where deals are leaking. What moved, what stalled, what needs a nudge this week."],
+              ["Minutes 5 to 20", "The work", "Build what you need now. Write the script, draft the follow-up sequence, fix what killed the last deal."],
+              ["Minutes 20 to 35", "Roleplay", "Drill it until it's automatic. Run the objection you keep hitting until the response is muscle memory."],
+              ["Minutes 35 to 45", "Action items", "Lock in accountability. Three things you'll do before we speak next. Logged in your portal."],
             ].map(([time, title, body], i) => (
               <Reveal key={title} delay={i * 0.17}>
                 <div className="mono text-xs text-highlight">{time}</div>

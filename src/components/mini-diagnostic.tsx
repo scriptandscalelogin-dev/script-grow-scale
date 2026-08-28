@@ -90,7 +90,7 @@ export function MiniDiagnostic() {
         <p className="mt-4 text-xs text-muted-foreground">
           This is a rough read from four numbers, not a diagnosis. The real one happens on a call, live, against your actual last five deals.
         </p>
-        <Link to="/contact" className="btn-cta mt-5 inline-block">Book a discovery call</Link>
+        <Link to="/contact" className="btn-cta mt-5 inline-block">Bad leak, but easy to plug. Ready to fix it?</Link>
       </div>
     );
   }

@@ -82,8 +82,7 @@ function About() {
             </p>
 
             <p>
-              Built and ran sales process using the same tools behind this program: live roleplay,
-              objection handling drills, and structured discovery.
+              I scaled my own pipeline using the exact scripts and frameworks I'm now teaching you. Same discovery structure. Same objection isolation. Same follow-up cadence. It worked then. It works now.
             </p>
             <p>
               Foundation-level certified in ITIL4, PRINCE2 Agile, DevOps, and TOGAF. So when we sit

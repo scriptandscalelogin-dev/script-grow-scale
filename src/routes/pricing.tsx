@@ -29,6 +29,49 @@ function Pricing() {
         </div>
       </section>
 
+      <section className="rule-b bg-secondary/40">
+        <div className="container-tight py-16 space-y-12">
+          <div>
+            <h2 className="font-serif text-2xl md:text-3xl">Which tier is right for you?</h2>
+          </div>
+          
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="rounded-md border border-rule bg-card/60 p-6">
+              <div className="font-serif text-lg">Opener</div>
+              <p className="mt-3 text-sm text-muted-foreground">
+                For founders who are solo or have a small team. You can attend one workshop monthly and drill the script between sessions.
+              </p>
+              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                <li><strong className="font-medium text-foreground">Ideal if:</strong> Your deal cycle is under 60 days, or you're losing deals to follow-up, not complexity.</li>
+                <li><strong className="font-medium text-foreground">You have:</strong> Limited time for workshops, a clear pitch, and a small team.</li>
+              </ul>
+            </div>
+
+            <div className="rounded-md border border-highlight bg-card p-6">
+              <div className="font-serif text-lg">Closer</div>
+              <p className="mt-3 text-sm text-muted-foreground">
+                For founders scaling. You want biweekly momentum to keep deals moving forward. This is our most popular tier.
+              </p>
+              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                <li><strong className="font-medium text-foreground">Ideal if:</strong> You're closing £40k-£100k in deals monthly and want to recover 15-20% more through better follow-up and objection handling.</li>
+                <li><strong className="font-medium text-foreground">You have:</strong> A pipeline that moves, team members to train, and a few deals stalling in week 2.</li>
+              </ul>
+            </div>
+
+            <div className="rounded-md border border-rule bg-card/60 p-6">
+              <div className="font-serif text-lg">Rainmaker</div>
+              <p className="mt-3 text-sm text-muted-foreground">
+                For founders closing £100k+ monthly or needing urgent recovery. You want live call coaching so we fix tonality and process in real-time.
+              </p>
+              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                <li><strong className="font-medium text-foreground">Ideal if:</strong> You're leaving deals on the table and can't afford to wait a month between workshops.</li>
+                <li><strong className="font-medium text-foreground">You have:</strong> High-value deals, a large pipeline, and need weekly accountability and live support.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="rule-b">
         <div className="container-tight py-16">
           <div className="grid gap-6 md:grid-cols-3">

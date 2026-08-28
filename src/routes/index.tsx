@@ -28,24 +28,24 @@ function Home() {
           <div className="md:col-span-6">
             <div className="eyebrow">Revenue enablement · UK · Subscription</div>
             <h1 className="mt-5 font-serif text-5xl leading-[1.05] tracking-[-0.015em] sm:text-6xl md:text-7xl md:leading-[1.02] md:tracking-[-0.02em]">
-              Get your custom sales script in 20 minutes.
+              Most MSPs, consultancies, and trades lose deals in week 2.
             </h1>
             <p className="mt-6 max-w-2xl text-base font-medium text-foreground">
-              Guarantee: if it doesn't recover your pipeline value in the first 3 months, month 4 is free.
+              You win the deal, then radio silence. No follow-up process. So someone else calls them back first. That's 20-30% of your pipeline leaking. That's £200k-600k per year.
             </p>
             <p className="mt-4 max-w-2xl text-sm text-muted-foreground">
-              Custom script, follow-up SOPs, objection drills, monthly to weekly workshops. Founder-led sales without a process costs you 20-30% of your pipeline. That's £200k-600k per year leaking. We fix the leak with a script you own and keep, even if you leave.
+              Script & Scale fixes the leak. Custom script configured for your business, follow-up SOPs, objection drills, monthly to weekly workshops. You own the process. Export it any time, even if you leave. Guarantee: if it doesn't recover your pipeline in the first 3 months, month 4 is free.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Magnetic>
-                <Link to="/contact" className="btn-cta">Book Your Diagnostic</Link>
+                <Link to="/contact" className="btn-cta">Get Your Custom Diagnostic</Link>
               </Magnetic>
-              <Link to="/how-it-works" className="btn-outline">See the Process</Link>
+              <Link to="/how-it-works" className="btn-outline">See How We Find the Leak</Link>
             </div>
             <div className="mt-10 border-t border-rule pt-6">
               <div className="eyebrow text-xs">Why you should talk to me</div>
               <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
-                <li>10+ years B2B sales. Closed deals £12k-£180k ARR. Most recent close: £60k/month.</li>
+                <li>I spent years closing the deals your team is losing right now. 10+ years B2B sales, £12k-£180k ARR range, most recent £60k/month.</li>
                 <li>Top 5% performance across 5 territories.</li>
                 <li>Implemented structured sales processes across founder-led businesses: +25% close rates, -40% onboarding errors, repeatable frameworks for non-sales leaders.</li>
               </ul>
