@@ -47,7 +47,7 @@ function Home() {
               <ul className="mt-3 space-y-2 text-xs text-muted-foreground">
                 <li>10+ years B2B sales. Closed deals £12k-£180k ARR. Most recent close: £60k/month.</li>
                 <li>Top 5% performance across 5 territories.</li>
-                <li>Currently lead an 8-person team: +25% close rate, -40% onboarding errors via structured process.</li>
+                <li>Implemented structured sales processes across founder-led businesses: +25% close rates, -40% onboarding errors, repeatable frameworks for non-sales leaders.</li>
               </ul>
             </div>
           </div>

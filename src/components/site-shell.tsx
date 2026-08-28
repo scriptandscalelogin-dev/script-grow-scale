@@ -89,7 +89,7 @@ export function SiteFooter() {
       </div>
       <div className="rule-t">
         <div className="container-tight flex flex-col items-start justify-between gap-2 py-5 text-xs text-muted-foreground md:flex-row md:items-center">
-          <div>© {new Date().getFullYear()} 2026 Script &amp; Scale - Sole Proprietor.</div>
+          <div>© {new Date().getFullYear()} Script &amp; Scale - Sole Proprietor.</div>
           <div className="mono">Direct sales, weekly reps, no fluff.</div>
         </div>
       </div>
