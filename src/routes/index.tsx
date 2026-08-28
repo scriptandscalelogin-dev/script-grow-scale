@@ -210,133 +210,87 @@ function Home() {
           <Reveal>
             <div className="text-center mb-12">
               <div className="eyebrow">Why Script & Scale Wins</div>
-              <h2 className="mt-3 font-serif text-4xl md:text-5xl">You're not paying for mindset coaching.</h2>
-              <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
-                Most alternatives solve a different problem. Here's how they actually compare on what matters: process, script, drilling, and results.
+              <h2 className="mt-3 font-serif text-4xl md:text-5xl">You've probably tried the other options.</h2>
+              <p className="mt-6 max-w-3xl mx-auto text-base text-muted-foreground leading-relaxed">
+                You hired a business coach for accountability. Got advice, no process. You tried hiring a sales rep or fractional head. Expensive, slow ramp, still closed the big deals yourself. You took a training course. Content was solid, but nothing changed after week 2. You bought lead-gen. More leads arrived, but you still lost them in the follow-up.
+              </p>
+              <p className="mt-4 max-w-3xl mx-auto text-base text-muted-foreground leading-relaxed">
+                None of them fixed the actual leak: no written script, no repeatable process, no way to drill your team, no accountability tied to results. Script & Scale is different.
               </p>
             </div>
           </Reveal>
           
-          <div className="mt-12 overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-rule">
-                  <th className="text-left py-4 px-3 font-serif text-base">Solution</th>
-                  <th className="text-left py-4 px-3 font-serif text-base">Price</th>
-                  <th className="text-left py-4 px-3 font-serif text-base">Custom Script</th>
-                  <th className="text-left py-4 px-3 font-serif text-base">Live Roleplay</th>
-                  <th className="text-left py-4 px-3 font-serif text-base">Follow-Up SOPs</th>
-                  <th className="text-left py-4 px-3 font-serif text-base">Guarantee</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-rule hover:bg-secondary/30 transition-colors">
-                  <td className="py-4 px-3">Business coach</td>
-                  <td className="py-4 px-3 mono text-xs">£150-3,500/mo</td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                </tr>
-                <tr className="border-b border-rule hover:bg-secondary/30 transition-colors">
-                  <td className="py-4 px-3">Fractional head of sales</td>
-                  <td className="py-4 px-3 mono text-xs">£1,500-5,000/mo</td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">Sometimes</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                </tr>
-                <tr className="border-b border-rule hover:bg-secondary/30 transition-colors">
-                  <td className="py-4 px-3">Sales training firm</td>
-                  <td className="py-4 px-3 mono text-xs">£5,000-20,000 (one-off)</td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">Generic</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                </tr>
-                <tr className="border-b border-rule hover:bg-secondary/30 transition-colors">
-                  <td className="py-4 px-3">Lead-gen agency</td>
-                  <td className="py-4 px-3 mono text-xs">£1,500-8,000/mo</td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                </tr>
-                <tr className="border-b border-rule hover:bg-secondary/30 transition-colors">
-                  <td className="py-4 px-3">Cohort coaching</td>
-                  <td className="py-4 px-3 mono text-xs">£200-2,500/mo</td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">Group only</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">Generic</span>
-                  </td>
-                  <td className="py-4 px-3 text-center">
-                    <span className="text-muted-foreground">No</span>
-                  </td>
-                </tr>
-                <tr className="bg-secondary/60 border-l-2 border-highlight font-medium">
-                  <td className="py-5 px-3">Script & Scale</td>
-                  <td className="py-5 px-3 mono text-xs">£525-2,100/mo</td>
-                  <td className="py-5 px-3 text-center">
-                    <span className="text-highlight">Yes, yours</span>
-                  </td>
-                  <td className="py-5 px-3 text-center">
-                    <span className="text-highlight">Live, 1:1</span>
-                  </td>
-                  <td className="py-5 px-3 text-center">
-                    <span className="text-highlight">Custom</span>
-                  </td>
-                  <td className="py-5 px-3 text-center">
-                    <span className="text-highlight">Yes, real</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="mt-16 grid gap-8 md:grid-cols-3">
+            <Reveal delay={0} className="rounded-md border border-rule bg-card/60 p-8">
+              <div className="font-serif text-2xl">Business Coach</div>
+              <div className="mt-2 mono text-xs text-highlight">£150-3,500/month</div>
+              <p className="mt-5 text-sm text-muted-foreground">
+                You get accountability and advice. No written script. No process to hand to your team. Every rep invents their own approach.
+              </p>
+              <div className="mt-6 rounded-md bg-secondary/40 p-4">
+                <div className="mono text-xs text-muted-foreground">If you close £50k/month</div>
+                <div className="mt-2 font-serif text-lg text-foreground">£1,800-£42,000/year on advice that doesn't transfer</div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.1} className="rounded-md border border-rule bg-card/60 p-8">
+              <div className="font-serif text-2xl">Fractional Sales Head</div>
+              <div className="mt-2 mono text-xs text-highlight">£1,500-5,000/month</div>
+              <p className="mt-5 text-sm text-muted-foreground">
+                Strategic oversight, not hands-on drilling. They review calls after the fact. Your team still doesn't know what to say on the next one.
+              </p>
+              <div className="mt-6 rounded-md bg-secondary/40 p-4">
+                <div className="mono text-xs text-muted-foreground">If you close £50k/month</div>
+                <div className="mt-2 font-serif text-lg text-foreground">£18,000-£60,000/year for oversight, not process</div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.2} className="rounded-md border border-rule bg-card/60 p-8">
+              <div className="font-serif text-2xl">Sales Training Firm</div>
+              <div className="mt-2 mono text-xs text-highlight">£5,000-20,000 (one-off)</div>
+              <p className="mt-5 text-sm text-muted-foreground">
+                Content delivered once. No follow-up. No drilling against YOUR objections. No accountability for results.
+              </p>
+              <div className="mt-6 rounded-md bg-secondary/40 p-4">
+                <div className="mono text-xs text-muted-foreground">If you close £50k/month</div>
+                <div className="mt-2 font-serif text-lg text-foreground">£5k-20k upfront, then zero after week 3</div>
+              </div>
+            </Reveal>
           </div>
 
-          <div className="mt-10 rounded-md border border-rule bg-card/60 p-6 md:p-8">
-            <h3 className="font-serif text-lg md:text-xl">The actual edge</h3>
+          <div className="mt-12 grid gap-8 md:grid-cols-2">
+            <Reveal delay={0.3} className="rounded-md border border-rule bg-card/60 p-8">
+              <div className="font-serif text-2xl">Lead-Gen Agency</div>
+              <div className="mt-2 mono text-xs text-highlight">£1,500-8,000/month</div>
+              <p className="mt-5 text-sm text-muted-foreground">
+                They fix how many leads arrive. They don't fix what happens once a lead is live. That's where deals actually die.
+              </p>
+              <div className="mt-6 rounded-md bg-secondary/40 p-4">
+                <div className="mono text-xs text-muted-foreground">If you close £50k/month</div>
+                <div className="mt-2 font-serif text-lg text-foreground">£18,000-£96,000/year on volume, not conversion</div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.4} className="rounded-md border border-highlight bg-card p-8 border-2">
+              <div className="font-serif text-2xl text-highlight">Script & Scale</div>
+              <div className="mt-2 mono text-xs text-highlight">£525-2,100/month</div>
+              <p className="mt-5 text-sm text-muted-foreground">
+                Custom script configured for YOUR business. Live roleplay against YOUR objections. Follow-up SOPs tied to YOUR deal cycle. Guarantee tied to YOUR pipeline recovery.
+              </p>
+              <div className="mt-6 rounded-md bg-highlight/10 p-4 border border-highlight/30">
+                <div className="mono text-xs text-highlight">If you close £50k/month and recover 15-20%</div>
+                <div className="mt-2 font-serif text-lg text-highlight">£7,500-£10,000 extra revenue in month 1 alone</div>
+              </div>
+            </Reveal>
+          </div>
+
+          <div className="mt-12 rounded-md border border-rule bg-card/60 p-8">
+            <h3 className="font-serif text-lg md:text-xl">Why this actually works</h3>
             <p className="mt-3 text-sm text-muted-foreground">
-              You're not paying for general business coaching or group mindset work. You're buying a custom script built around your actual pitch and objections, drilled live in roleplay against what your team hears, with SOPs that match your deal cycle, and a guarantee tied to real pipeline recovery.
+              You're not paying for accountability that disappears after the call. You're buying a custom script built from your last five deals, drilled live until it's automatic, SOPs that match how you actually close, and a guarantee that says: if this doesn't recover your pipeline, we keep working for free until it does.
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
-              If it doesn't work, you don't pay for month 4. None of the alternatives above have that. Most don't even have a process to give you in the first place.
+              None of the alternatives above have that. Most don't even have a process to hand you in the first place.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link to="/contact" className="btn-cta">Book Your Diagnostic</Link>
