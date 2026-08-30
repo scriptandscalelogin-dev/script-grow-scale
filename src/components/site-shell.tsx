@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { CookieBanner } from "./cookie-banner";
 
 const nav = [
   { to: "/how-it-works", label: "How it works" },
@@ -103,6 +104,7 @@ export function PageShell({ children }: { children: React.ReactNode }) {
       <SiteHeader />
       <main>{children}</main>
       <SiteFooter />
+      <CookieBanner />
     </div>
   );
 }
