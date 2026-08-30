@@ -9,7 +9,6 @@ export const Route = createFileRoute("*")({
     ],
   }),
   component: NotFound,
-  errorComponent: NotFound,
 });
 
 function NotFound() {
