@@ -31,20 +31,44 @@ const schema = z.object({
 
 function CalEmbed({ name, email }: { name: string; email: string }) {
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://app.cal.com/embed/embed.js";
-    script.async = true;
-    document.head.appendChild(script);
+    const loadCalScript = async () => {
+      // Check if Cal is already loaded
+      if ((window as any).Cal) {
+        initCal();
+        return;
+      }
 
-    script.onload = () => {
-      (window as any).Cal?.("init", "chat-with-me", { origin: "https://app.cal.com" });
-      (window as any).Cal?.config?.({ forwardQueryParams: true });
-      (window as any).Cal?.ns?.["chat-with-me"]?.("inline", {
+      // Load the script
+      const script = document.createElement("script");
+      script.src = "https://app.cal.com/embed/embed.js";
+      script.async = true;
+      
+      script.onload = () => {
+        // Small delay to ensure Cal is available
+        setTimeout(initCal, 100);
+      };
+
+      document.body.appendChild(script);
+    };
+
+    const initCal = () => {
+      const Cal = (window as any).Cal;
+      if (!Cal) return;
+
+      Cal("init", "chat-with-me", { origin: "https://app.cal.com" });
+      Cal.config = Cal.config || {};
+      Cal.config.forwardQueryParams = true;
+      
+      Cal.ns["chat-with-me"]("inline", {
         elementOrSelector: "#my-cal-inline-chat-with-me",
-        config: { layout: "month_view", useSlotsViewOnSmallScreen: true },
+        config: {
+          layout: "month_view",
+          useSlotsViewOnSmallScreen: true,
+        },
         calLink: "arno-script-scale/chat-with-me",
       });
-      (window as any).Cal?.ns?.["chat-with-me"]?.("ui", {
+
+      Cal.ns["chat-with-me"]("ui", {
         cssVarsPerTheme: {
           light: { "cal-brand": "#B5A642" },
           dark: { "cal-brand": "#ececec" },
@@ -54,10 +78,8 @@ function CalEmbed({ name, email }: { name: string; email: string }) {
       });
     };
 
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [name, email]);
+    loadCalScript();
+  }, []);
 
   return null;
 }
