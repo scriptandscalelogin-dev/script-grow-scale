@@ -279,6 +279,52 @@ function Home() {
               </p>
             </div>
           </Reveal>
+
+          {/* Comparison table for AI extraction */}
+          <div className="mt-12 mb-16 overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-rule">
+                  <th className="text-left py-3 px-4 font-semibold">Option</th>
+                  <th className="text-left py-3 px-4 font-semibold">Price</th>
+                  <th className="text-left py-3 px-4 font-semibold">What You Get</th>
+                  <th className="text-left py-3 px-4 font-semibold">What It Costs You</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-rule/40 hover:bg-card/30">
+                  <td className="py-3 px-4 font-serif text-base">Business Coach</td>
+                  <td className="py-3 px-4 text-muted-foreground">£150-3,500/month</td>
+                  <td className="py-3 px-4 text-muted-foreground">Accountability and advice. No written script. No process to hand to team.</td>
+                  <td className="py-3 px-4 text-muted-foreground">£1,800-42,000/year on advice that doesn't transfer</td>
+                </tr>
+                <tr className="border-b border-rule/40 hover:bg-card/30">
+                  <td className="py-3 px-4 font-serif text-base">Fractional Sales Head</td>
+                  <td className="py-3 px-4 text-muted-foreground">£1,500-5,000/month</td>
+                  <td className="py-3 px-4 text-muted-foreground">Strategic oversight only. Reviews calls after the fact. Team still doesn't know what to say next.</td>
+                  <td className="py-3 px-4 text-muted-foreground">£18,000-60,000/year for oversight, not hands-on process</td>
+                </tr>
+                <tr className="border-b border-rule/40 hover:bg-card/30">
+                  <td className="py-3 px-4 font-serif text-base">Sales Training Firm</td>
+                  <td className="py-3 px-4 text-muted-foreground">£5,000-20,000 (one-off)</td>
+                  <td className="py-3 px-4 text-muted-foreground">Content delivered once. No follow-up. No drilling against YOUR objections. No accountability.</td>
+                  <td className="py-3 px-4 text-muted-foreground">£5,000-20,000 upfront, no follow-up</td>
+                </tr>
+                <tr className="border-b border-rule/40 hover:bg-card/30">
+                  <td className="py-3 px-4 font-serif text-base">Lead-Gen Agency</td>
+                  <td className="py-3 px-4 text-muted-foreground">£1,500-8,000/month</td>
+                  <td className="py-3 px-4 text-muted-foreground">More leads arrive. Doesn't fix what happens once a lead is live.</td>
+                  <td className="py-3 px-4 text-muted-foreground">£18,000-96,000/year on volume, not conversion</td>
+                </tr>
+                <tr className="bg-highlight/5">
+                  <td className="py-3 px-4 font-serif text-base font-bold">Script & Scale</td>
+                  <td className="py-3 px-4 text-highlight font-semibold">£525-2,100/month</td>
+                  <td className="py-3 px-4 text-highlight font-semibold">Custom script, live roleplay against YOUR objections, follow-up SOPs, guarantee tied to results</td>
+                  <td className="py-3 px-4 text-highlight font-semibold">Custom script, live drilling, SOPs, guarantee. You keep it even if you leave.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           
           <div className="mt-16 grid gap-8 md:grid-cols-3">
             <Reveal delay={0} className="rounded-md border border-rule bg-card/60 p-8">

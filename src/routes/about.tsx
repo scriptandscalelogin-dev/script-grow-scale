@@ -9,7 +9,66 @@ export const Route = createFileRoute("/about")({
       { name: "description", content: "Why Script & Scale exists, who it's for, and who's on the other end of the workshops." },
       { property: "og:title", content: "About Script & Scale" },
       { property: "og:description", content: "Founder-led, built for UK small businesses without a sales process." },
+      { property: "og:image", content: "https://scriptandscale.co.uk/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://scriptandscale.co.uk/og-image.png" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Arno",
+          "title": "Founder, Script & Scale",
+          "description": "Revenue enablement expert with 10+ years in B2B sales",
+          "url": "https://scriptandscale.co.uk/about",
+          "jobTitle": "Founder",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Script & Scale",
+            "url": "https://scriptandscale.co.uk"
+          },
+          "knowsAbout": [
+            "Sales Enablement",
+            "B2B Sales",
+            "Sales Process Design",
+            "Objection Handling",
+            "Sales Coaching"
+          ],
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "Certification",
+              "name": "ITIL4 Foundation"
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "Certification",
+              "name": "PRINCE2 Agile"
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "Certification",
+              "name": "DevOps Foundation"
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "Certification",
+              "name": "TOGAF"
+            }
+          ],
+          "knowsLanguage": ["English"],
+          "areaServed": "GB",
+          "experience": {
+            "@type": "WorkExperience",
+            "description": "10+ years B2B sales across SaaS, telecoms, enterprise. Closed deals £12k-£180k ARR. Top 5% performance across 5 territories. Most recent close: £60k/month."
+          }
+        })
+      }
+    ]
   }),
   component: About,
 });
