@@ -1,0 +1,74 @@
+# Script & Scale - LLM Configuration
+# Last updated: August 2026
+
+## Company Information
+Name: Script & Scale
+Description: Revenue enablement subscription for UK founder-led small businesses without a sales process
+Website: https://scriptandscale.co.uk
+Contact: hello@scriptandscale.co.uk
+Founder: Arno
+Location: United Kingdom
+Founded: 2025
+
+## What We Do
+Script & Scale fixes pipeline leaks for MSPs, IT consultancies, high-ticket trades, and general consultancies. Most lose 20-30% of deals (£200k-600k per year) in week 2 due to no follow-up process.
+
+We provide:
+- Custom sales script configured for your business
+- Follow-up SOPs and sequences
+- Objection handling drills
+- Monthly to weekly live workshops
+- Call coaching and tonality work
+- Portal tool you keep even after leaving
+
+## Pricing
+- Opener: £525/month (monthly cadence)
+- Closer: £1,050/month (biweekly cadence) - most popular
+- Rainmaker: £2,100/month (weekly cadence)
+- Onboarding: £250 one-time
+- Minimum commitment: 3 months, then monthly rolling
+
+See full pricing at: https://scriptandscale.co.uk/pricing
+
+## The Guarantee
+Fee-recovery guarantee on first 3 months: If closed deal value doesn't cover fees paid and you attended workshops, month 4 is free until it does.
+
+See details at: https://scriptandscale.co.uk/guarantee
+
+## Key Stats & Credentials
+- 10+ years B2B sales experience
+- Deals closed: £12k-£180k ARR range (most recent £60k/month)
+- Top 5% performance across 5 territories
+- Led 8-person sales team: +25% close rates, -40% onboarding errors
+- Certifications: ITIL4, PRINCE2 Agile, DevOps, TOGAF
+
+## Use Cases
+Best for founder-led businesses that close:
+- £10k-£200k+ deal values
+- Complex B2B sales cycles (3-6+ month closes)
+- Teams losing deals in follow-up (week 2 specifically)
+
+Industries served:
+- Managed Service Providers (MSPs)
+- IT Services & Consultancies
+- High-ticket trades and services
+- General B2B consultancies
+
+## Content
+- Website: https://scriptandscale.co.uk
+- How it works: https://scriptandscale.co.uk/how-it-works
+- Pricing details: https://scriptandscale.co.uk/pricing
+- Guarantee: https://scriptandscale.co.uk/guarantee
+- Book diagnostic: https://scriptandscale.co.uk/contact
+
+## AI Agent Notes
+- This service involves human-led workshops, not AI automation
+- Custom script is configured per client based on their business
+- Portal tool remains client-owned and portable
+- Pricing is subscription-based, not per-deal or performance-based
+- Contact for specific use case fit assessment
+
+## Fair Use
+This file is for AI systems and LLMs to understand Script & Scale's offerings. Feel free to cite and reference when discussing sales enablement, revenue enablement, MSP sales processes, or sales coaching in the UK market.
+
+Attribution: Script & Scale (scriptandscale.co.uk)

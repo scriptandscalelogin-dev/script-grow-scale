@@ -16,6 +16,54 @@ export const Route = createFileRoute("/pricing")({
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: "https://scriptandscale.co.uk/og-image.png" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "PriceSpecification",
+          "priceCurrency": "GBP",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Opener - Monthly",
+              "price": "525",
+              "priceCurrency": "GBP",
+              "description": "Monthly cadence. Core process locked in. Custom script, follow-up sequence, objection library, monthly workshop.",
+              "availability": "https://schema.org/InStock",
+              "offerDetails": {
+                "@type": "OfferDetails",
+                "billingPeriod": "P1M"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Closer - Biweekly",
+              "price": "1050",
+              "priceCurrency": "GBP",
+              "description": "Biweekly cadence. Follow-up on autopilot. Everything in Opener plus biweekly workshops, live roleplay, follow-up SOPs, call coaching.",
+              "availability": "https://schema.org/InStock",
+              "offerDetails": {
+                "@type": "OfferDetails",
+                "billingPeriod": "P1M"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Rainmaker - Weekly",
+              "price": "2100",
+              "priceCurrency": "GBP",
+              "description": "Weekly cadence. Full call partnership. Everything in Closer plus four weekly workshops, live discovery call attendance, tonality coaching, priority support.",
+              "availability": "https://schema.org/InStock",
+              "offerDetails": {
+                "@type": "OfferDetails",
+                "billingPeriod": "P1M"
+              }
+            }
+          ]
+        })
+      }
+    ]
   }),
   component: Pricing,
 });

@@ -19,6 +19,62 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: "https://scriptandscale.co.uk/og-image.png" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Script & Scale",
+          "url": "https://scriptandscale.co.uk",
+          "logo": "https://scriptandscale.co.uk/logo.png",
+          "description": "Revenue enablement subscription for UK SMBs. Custom sales scripts, follow-up SOPs, objection drills, monthly to weekly workshops.",
+          "founder": {
+            "@type": "Person",
+            "name": "Arno",
+            "jobTitle": "Founder",
+            "knowsAbout": ["B2B Sales", "Sales Enablement", "Sales Process Design"]
+          },
+          "areaServed": "GB",
+          "telephone": "+44",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "Sales",
+            "email": "hello@scriptandscale.co.uk"
+          },
+          "sameAs": "https://www.linkedin.com/in/arno",
+          "offers": [
+            {
+              "@type": "Service",
+              "name": "Opener",
+              "description": "Monthly cadence. Core process locked in.",
+              "price": "525",
+              "priceCurrency": "GBP",
+              "priceValidUntil": "2026-12-31",
+              "includes": ["Custom script", "Follow-up sequence", "Objection library", "Monthly workshop"]
+            },
+            {
+              "@type": "Service",
+              "name": "Closer",
+              "description": "Biweekly cadence. Follow-up on autopilot.",
+              "price": "1050",
+              "priceCurrency": "GBP",
+              "priceValidUntil": "2026-12-31",
+              "includes": ["Custom script", "Follow-up SOPs", "Biweekly workshops", "Live roleplay", "Call coaching"]
+            },
+            {
+              "@type": "Service",
+              "name": "Rainmaker",
+              "description": "Weekly cadence. Full call partnership.",
+              "price": "2100",
+              "priceCurrency": "GBP",
+              "priceValidUntil": "2026-12-31",
+              "includes": ["Custom script", "Weekly workshops", "Live discovery calls", "Tonality coaching", "Priority support"]
+            }
+          ]
+        })
+      }
+    ]
   }),
   component: Home,
 });

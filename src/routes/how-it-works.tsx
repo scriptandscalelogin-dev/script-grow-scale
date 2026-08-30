@@ -16,6 +16,49 @@ export const Route = createFileRoute("/how-it-works")({
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: "https://scriptandscale.co.uk/og-image.png" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What happens if it doesn't work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "If closed deal value in the first 3 months doesn't cover the fees you paid, and you attended the workshops and ran the program, month 4 is free. Every month after that too, until we're square. No cash refund. Attendance is required."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is there a minimum commitment?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. 3-month minimum. Monthly rolling after that. You can cancel after month 3 anytime."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What do we actually get each week?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Depends on your tier. Opener: monthly 45-minute workshop. Closer: biweekly workshops, live roleplay, call coaching. Rainmaker: weekly workshops, live discovery call attendance, tonality coaching."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Who is this actually for?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Founder-led SMBs without a sales process. MSPs, IT consultancies, high-ticket trades, general consultancies. If you close £10k-£200k+ deals and your team is losing them in follow-up, this is for you."
+              }
+            }
+          ]
+        })
+      }
+    ]
   }),
   component: HowItWorks,
 });
