@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { z } from "zod";
 import { PageShell } from "@/components/site-shell";
 import { supabase } from "@/integrations/supabase/client";
@@ -29,43 +29,9 @@ const schema = z.object({
   message: z.string().trim().min(1, "A short message").max(2000),
 });
 
-function CalEmbed() {
-  useEffect(() => {
-    // Load Cal.com embed script
-    const script = document.createElement("script");
-    script.src = "https://app.cal.com/embed/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    script.onload = () => {
-      const Cal = (window as any).Cal;
-      if (Cal) {
-        Cal("init", "chat-with-me", { origin: "https://app.cal.com" });
-        Cal.config = Cal.config || {};
-        Cal.config.forwardQueryParams = true;
-        Cal.ns["chat-with-me"]("inline", {
-          elementOrSelector: "#my-cal-inline-chat-with-me",
-          config: { layout: "month_view", useSlotsViewOnSmallScreen: true },
-          calLink: "arno-script-scale/chat-with-me",
-        });
-        Cal.ns["chat-with-me"]("ui", { hideEventTypeDetails: false, layout: "month_view" });
-      }
-    };
-
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, []);
-
-  return <div style={{ width: "100%", height: "100%", overflow: "auto" }} id="my-cal-inline-chat-with-me"></div>;
-}
-
 function Contact() {
-  const [status, setStatus] = useState<"idle" | "sending" | "error" | "submitted">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [submittedData, setSubmittedData] = useState<{ name: string; email: string } | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -90,32 +56,7 @@ function Contact() {
       setErrorMsg("Something went wrong. Email hello@scriptandscale.co.uk instead.");
       return;
     }
-    setSubmittedData({ name: parsed.data.name, email: parsed.data.email });
-    setStatus("submitted");
-  }
-
-  if (status === "submitted" && submittedData) {
-    return (
-      <PageShell>
-        <section className="rule-b">
-          <div className="container-tight py-20">
-            <div className="eyebrow">Book a call</div>
-            <h1 className="mt-4 font-serif text-5xl md:text-6xl">Pick a time</h1>
-            <p className="mt-6 max-w-2xl text-muted-foreground">
-              Great. Your diagnostic note is on the way. Pick a time below.
-            </p>
-          </div>
-        </section>
-
-        <section>
-          <div className="container-tight py-16">
-            <div style={{ height: "700px" }}>
-              <CalEmbed />
-            </div>
-          </div>
-        </section>
-      </PageShell>
-    );
+    window.location.href = `https://cal.com/arno-script-scale/chat-with-me?name=${encodeURIComponent(parsed.data.name)}&email=${encodeURIComponent(parsed.data.email)}`;
   }
 
   return (
@@ -182,7 +123,7 @@ function Contact() {
             <div className="eyebrow">What happens next</div>
             <ol className="mono mt-4 space-y-4 text-sm list-none">
               <li><span className="text-highlight">01</span>. I read your note.</li>
-              <li><span className="text-highlight">02</span>. Pick a time below.</li>
+              <li><span className="text-highlight">02</span>. You'll be taken to my calendar to pick a time.</li>
               <li><span className="text-highlight">03</span>. 20-minute diagnostic. No slide deck.</li>
               <li><span className="text-highlight">04</span>. If we work together, onboarding starts the week after.</li>
             </ol>
