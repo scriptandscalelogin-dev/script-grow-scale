@@ -83,6 +83,18 @@ function Inbox() {
     load();
   }
 
+  async function deleteSubmission(id: string) {
+    if (!confirm("Delete this submission? This cannot be undone.")) return;
+    await supabase.from("contact_submissions").delete().eq("id", id);
+    load();
+  }
+
+  async function deleteLead(id: string) {
+    if (!confirm("Delete this lead? This cannot be undone.")) return;
+    await supabase.from("mini_diagnostic_leads").delete().eq("id", id);
+    loadLeads();
+  }
+
   return (
     <PageShell>
       <section className="rule-b">
@@ -139,6 +151,12 @@ function Inbox() {
                     >
                       {r.handled ? "Mark as unhandled" : "Mark as handled"}
                     </button>
+                    <button
+                      onClick={() => deleteSubmission(r.id)}
+                      className="text-xs text-destructive underline underline-offset-4"
+                    >
+                      Delete
+                    </button>
                   </div>
                 </li>
               ))}
@@ -173,11 +191,19 @@ function Inbox() {
                     {l.opportunities} opportunities/mo · {l.close_rate}% close rate · £{l.avg_deal_value.toLocaleString("en-GB")} avg deal
                   </div>
                   <p className="mt-2 whitespace-pre-wrap">{l.why_deals_dont_close}</p>
-                  {l.email && (
-                    <a href={`mailto:${l.email}`} className="btn-outline mt-3 inline-block text-xs">
-                      Reply by email
-                    </a>
-                  )}
+                  <div className="mt-3 flex items-center gap-2">
+                    {l.email && (
+                      <a href={`mailto:${l.email}`} className="btn-outline inline-block text-xs">
+                        Reply by email
+                      </a>
+                    )}
+                    <button
+                      onClick={() => deleteLead(l.id)}
+                      className="text-xs text-destructive underline underline-offset-4"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>
