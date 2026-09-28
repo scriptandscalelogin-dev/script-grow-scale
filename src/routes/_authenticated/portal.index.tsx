@@ -78,6 +78,7 @@ function Portal() {
   const [kpis, setKpis] = useState<Kpi[]>([]);
   const [openContacts, setOpenContacts] = useState(0);
   const [clientCount, setClientCount] = useState(0);
+  const [leadsCount, setLeadsCount] = useState(0);
 
   const loadClient = useCallback(async (uid: string) => {
     const [{ data: p }, { data: d }, { data: s }, { data: r }, { data: k }] = await Promise.all([
@@ -131,7 +132,7 @@ function Portal() {
       setIsAdmin(admin);
 
       if (admin) {
-        const [{ count: cCount }, { data: adminRoles }, { count: pCount }] = await Promise.all([
+        const [{ count: cCount }, { data: adminRoles }, { count: pCount }, { count: lCount }] = await Promise.all([
       supabase
         .from("contact_submissions")
         .select("id", { count: "exact", head: true })
@@ -143,9 +144,13 @@ function Portal() {
       supabase
         .from("profiles")
         .select("id", { count: "exact", head: true }),
+      supabase
+        .from("landing_page_leads")
+        .select("id", { count: "exact", head: true }),
     ]);
     setOpenContacts(cCount ?? 0);
     setClientCount((pCount ?? 0) - (adminRoles?.length ?? 0));
+    setLeadsCount(lCount ?? 0);
       } else {
         await loadClient(user.id);
       }
@@ -189,7 +194,7 @@ function Portal() {
       {loading ? (
         <div className="container-tight py-16 text-sm text-muted-foreground">Loading…</div>
       ) : isAdmin ? (
-        <AdminHome openContacts={openContacts} clientCount={clientCount} />
+        <AdminHome openContacts={openContacts} clientCount={clientCount} leadsCount={leadsCount} />
       ) : (
         <ClientHome
           profile={profile}
@@ -206,11 +211,11 @@ function Portal() {
 }
 
 
-function AdminHome({ openContacts, clientCount }: { openContacts: number; clientCount: number }) {
+function AdminHome({ openContacts, clientCount, leadsCount }: { openContacts: number; clientCount: number; leadsCount: number }) {
   return (
     <>
       <section>
-        <div className="container-tight grid gap-6 py-12 md:grid-cols-3">
+        <div className="container-tight grid gap-6 py-12 md:grid-cols-2 lg:grid-cols-4">
           <Link
             to="/portal/clients"
             className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
@@ -218,7 +223,17 @@ function AdminHome({ openContacts, clientCount }: { openContacts: number; client
             <div className="eyebrow">Clients</div>
             <div className="mt-2 font-serif text-2xl">{clientCount}</div>
             <p className="mt-2 text-sm text-muted-foreground">
-              View, edit tier, log deal value against guarantee.
+              View, edit tier, log deal value.
+            </p>
+          </Link>
+          <Link
+            to="/portal/leads"
+            className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
+          >
+            <div className="eyebrow">Leads</div>
+            <div className="mt-2 font-serif text-2xl">{leadsCount}</div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Real-time captures from ads campaign.
             </p>
           </Link>
           <Link
@@ -226,9 +241,9 @@ function AdminHome({ openContacts, clientCount }: { openContacts: number; client
             className="rounded-md border border-rule bg-card p-6 transition-colors hover:border-highlight"
           >
             <div className="eyebrow">Library</div>
-            <div className="mt-2 font-serif text-2xl">Scripts · SOPs · Objections</div>
+            <div className="mt-2 font-serif text-xl">Scripts · SOPs</div>
             <p className="mt-2 text-sm text-muted-foreground">
-              Author versioned content and assign to clients.
+              Author content and assign to clients.
             </p>
           </Link>
           <Link
@@ -237,10 +252,10 @@ function AdminHome({ openContacts, clientCount }: { openContacts: number; client
           >
             <div className="eyebrow">Contact inbox</div>
             <div className="mt-2 font-serif text-2xl">
-              {openContacts} <span className="text-sm text-muted-foreground">unhandled</span>
+              {openContacts} <span className="text-sm text-muted-foreground">new</span>
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
-              Manual follow-up. Mark handled when replied.
+              Manual follow-up. Mark handled when done.
             </p>
           </Link>
         </div>
