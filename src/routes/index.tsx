@@ -3,6 +3,7 @@ import { PageShell } from "@/components/site-shell";
 import { TIERS } from "@/lib/tiers";
 import { Reveal, Magnetic, CountUp, ShineOnce } from "@/components/motion";
 import { MiniDiagnostic } from "@/components/mini-diagnostic";
+import { PilotResults } from "@/components/pilot-results";
 import { useState } from "react";
 
 export const Route = createFileRoute("/")({
@@ -263,6 +264,9 @@ function Home() {
           </div>
         </Reveal>
       </section>
+
+      {/* PILOT RESULTS: Consented, disclosed unpaid pilot clients */}
+      <PilotResults />
 
       {/* COMPARISON: Show why yours wins */}
       <section className="rule-b">
