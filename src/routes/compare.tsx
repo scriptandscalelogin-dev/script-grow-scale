@@ -93,7 +93,7 @@ function Compare() {
               Most of these solve a different problem than the one costing you deals. Script &amp; Scale solves this one: no follow-up process, no repeatable script, no way to drill your team. 
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
-              And unlike everything above, if it doesn't work, you don't pay for month 4. That's not a refund policy. That's a guarantee tied to your actual pipeline recovery.
+              And unlike everything above, if closed deal value in your first three months doesn't cover your fees, month 4 is free until it does. That's not a refund policy, it's a guarantee tied to fee recovery. Attendance and running the program required.
             </p>
           </div>
         </div>
