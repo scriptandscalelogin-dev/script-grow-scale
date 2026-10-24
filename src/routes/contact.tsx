@@ -100,10 +100,7 @@ function Contact() {
       setErrorMsg(parsed.error.issues[0]?.message ?? "Check the form and try again.");
       return;
     }
-    const { source, ...rest } = parsed.data;
-    // No source column yet, so the tag is stored as a prefix on the message.
-    const row = { ...rest, message: `[Source: ${source}]\n${rest.message}` };
-    const { error } = await supabase.from("contact_submissions").insert(row);
+    const { error } = await supabase.from("contact_submissions").insert(parsed.data);
     if (error) {
       setStatus("error");
       setErrorMsg("Something went wrong. Email hello@scriptandscale.co.uk instead.");

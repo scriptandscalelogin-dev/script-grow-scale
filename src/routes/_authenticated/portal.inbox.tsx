@@ -9,6 +9,7 @@ type Submission = {
   email: string;
   company: string;
   company_type: string | null;
+  source?: string | null;
   message: string;
   handled: boolean;
   created_at: string;
@@ -136,6 +137,7 @@ function Inbox() {
                       <div className="mono text-xs text-muted-foreground">
                         {r.company}
                         {r.company_type ? ` · ${r.company_type}` : ""} · {r.email}
+                        {r.source ? ` · Source: ${r.source}` : ""}
                       </div>
                     </div>
                     <div className="mono text-xs text-muted-foreground">
