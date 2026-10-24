@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Cal, { getCalApi } from "@calcom/embed-react";
 import { z } from "zod";
 import { PageShell } from "@/components/site-shell";
 import { supabase } from "@/integrations/supabase/client";
@@ -27,10 +28,58 @@ const schema = z.object({
   company: z.string().trim().min(1, "Company name").max(150),
   company_type: z.string().trim().max(100).optional(),
   message: z.string().trim().min(1, "A short message").max(2000),
+  source: z.string().trim().min(1, "Tell me how you found us"),
 });
+
+const CAL_NAMESPACE = "chat-with-me";
+const CAL_LINK = "arno-script-scale/chat-with-me";
+const CAL_URL = `https://cal.com/${CAL_LINK}`;
+
+const SOURCES = ["LinkedIn", "Email", "Referral", "Google search", "AI assistant", "WhatsApp or SMS", "Ad", "Other"];
+
+function CalInline({ name, email }: { name: string; email: string }) {
+  useEffect(() => {
+    (async () => {
+      try {
+        const cal = await getCalApi({ namespace: CAL_NAMESPACE });
+        cal("ui", {
+          cssVarsPerTheme: {
+            light: { "cal-brand": "#B5A642" },
+            dark: { "cal-brand": "#B5A642" },
+          },
+          hideEventTypeDetails: false,
+          layout: "month_view",
+        });
+      } catch {
+        // Styling is optional. The calendar still works without it.
+      }
+    })();
+  }, []);
+
+  return (
+    <div>
+      <div style={{ width: "100%", minHeight: 700 }}>
+        <Cal
+          namespace={CAL_NAMESPACE}
+          calLink={CAL_LINK}
+          style={{ width: "100%", minHeight: 700, overflow: "auto" }}
+          config={{ layout: "month_view", name, email, useSlotsViewOnSmallScreen: "true" }}
+        />
+      </div>
+      <p className="mt-4 text-sm text-muted-foreground">
+        Calendar not loading?{" "}
+        <a href={CAL_URL} target="_blank" rel="noopener noreferrer" className="underline">
+          Open it in a new tab
+        </a>
+        .
+      </p>
+    </div>
+  );
+}
 
 function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
+  const [booking, setBooking] = useState<{ name: string; email: string } | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -44,19 +93,25 @@ function Contact() {
       company: fd.get("company"),
       company_type: fd.get("company_type") || undefined,
       message: fd.get("message"),
+      source: fd.get("source"),
     });
     if (!parsed.success) {
       setStatus("error");
       setErrorMsg(parsed.error.issues[0]?.message ?? "Check the form and try again.");
       return;
     }
-    const { error } = await supabase.from("contact_submissions").insert(parsed.data);
+    const { source, ...rest } = parsed.data;
+    // No source column yet, so the tag is stored as a prefix on the message.
+    const row = { ...rest, message: `[Source: ${source}]\n${rest.message}` };
+    const { error } = await supabase.from("contact_submissions").insert(row);
     if (error) {
       setStatus("error");
       setErrorMsg("Something went wrong. Email hello@scriptandscale.co.uk instead.");
       return;
     }
-    window.location.href = `https://cal.com/arno-script-scale/chat-with-me?name=${encodeURIComponent(parsed.data.name)}&email=${encodeURIComponent(parsed.data.email)}`;
+    setStatus("idle");
+    setBooking({ name: parsed.data.name, email: parsed.data.email });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   return (
@@ -75,6 +130,9 @@ function Contact() {
       <section>
         <div className="container-tight grid gap-12 py-16 md:grid-cols-12">
           <div className="md:col-span-7">
+            {booking ? (
+              <CalInline name={booking.name} email={booking.email} />
+            ) : (
             <form onSubmit={onSubmit} className="space-y-5">
               <Field name="name" label="Your name" required autoComplete="name" />
               <Field name="email" type="email" label="Email" required autoComplete="email" />
@@ -93,6 +151,21 @@ function Contact() {
                   <option>Technical services</option>
                   <option>Trade business</option>
                   <option>Other</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="source" className="eyebrow">How did you find us?</label>
+                <select
+                  id="source"
+                  name="source"
+                  required
+                  defaultValue=""
+                  className="mt-2 w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm focus:border-ring focus:outline-none"
+                >
+                  <option value="" disabled>Select one</option>
+                  {SOURCES.map((o) => (
+                    <option key={o}>{o}</option>
+                  ))}
                 </select>
               </div>
               <div>
@@ -118,12 +191,13 @@ function Contact() {
                 {status === "sending" ? "Sending…" : "Continue to booking"}
               </button>
             </form>
+            )}
           </div>
           <aside className="md:col-span-5 md:border-l md:border-rule md:pl-10">
             <div className="eyebrow">What happens next</div>
             <ol className="mono mt-4 space-y-4 text-sm list-none">
               <li><span className="text-highlight">01</span>. I read your note.</li>
-              <li><span className="text-highlight">02</span>. You'll be taken to my calendar to pick a time.</li>
+              <li><span className="text-highlight">02</span>. Pick a time on this page.</li>
               <li><span className="text-highlight">03</span>. 20-minute diagnostic. No slide deck.</li>
               <li><span className="text-highlight">04</span>. If we work together, onboarding starts the week after.</li>
             </ol>
