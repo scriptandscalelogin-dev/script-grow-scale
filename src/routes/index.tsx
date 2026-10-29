@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Script & Scale · Sales enablement for UK small businesses" },
-      { name: "description", content: "Weekly sales workshops, scripts, objection drills and follow-up SOPs for MSPs, consultancies and high-ticket trades. Fee-recovery guarantee on the first three months." },
+      { name: "description", content: "Monthly to weekly sales workshops, scripts, objection drills and follow-up SOPs for MSPs, consultancies and high-ticket trades. Fee-recovery guarantee on the first three months." },
       { property: "og:title", content: "Script & Scale · Revenue enablement, UK, subscription" },
       { property: "og:description", content: "Founder-led sales without a process? Weekly reps, not a course. Three tiers from £525/month." },
       { property: "og:type", content: "website" },
@@ -91,10 +91,10 @@ function Home() {
               Most MSPs, consultancies, and trades lose deals in week 2.
             </h1>
             <p className="mt-6 max-w-2xl text-base font-medium text-foreground">
-              You win the deal, then radio silence. No follow-up process. So someone else calls them back first. That's 20-30% of your pipeline leaking. That's £200k-600k per year.
+              You send the quote, they say they'll come back to you, then radio silence. No follow-up process. So someone else calls them back first.
             </p>
             <p className="mt-4 max-w-2xl text-sm text-muted-foreground">
-              Script & Scale fixes the leak. Custom script configured for your business, follow-up SOPs, objection drills, monthly to weekly workshops. You own the process. Export it any time, even if you leave. Guarantee: if it doesn't recover your pipeline in the first 3 months, month 4 is free.
+              Script & Scale fixes the leak. Custom script configured for your business, follow-up SOPs, objection drills, monthly to weekly workshops. You own the process. Export it any time, even if you leave. Guarantee: if closed deal value in your first three months doesn't cover the fees you paid, and you attend every workshop and run the program, month 4 is free until it does.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Magnetic>
@@ -162,9 +162,9 @@ function Home() {
           <div className="eyebrow">Where the Money Actually Leaks</div>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
-              { t: "Week 1: You win the deal.", b: "Prospect says yes. You're excited." },
+              { t: "Week 1: You send the quote.", b: "The prospect is interested and says they'll come back to you. You're excited." },
               { t: "Week 2: Radio silence.", b: "They're thinking. You don't follow up because you don't have a process. So someone else calls them back first." },
-              { t: "Week 3: Deal is gone.", b: "They chose a competitor. You never knew why. Result: 20-30% of your pipeline leaks. That's £200k-600k per year." },
+              { t: "Week 3: Deal is gone.", b: "They chose a competitor. You never knew why." },
             ].map((c, i) => (
               <Reveal
                 key={c.t}
@@ -184,7 +184,7 @@ function Home() {
       <section className="rule-b">
         <Reveal className="container-tight py-10 text-center">
           <p className="font-serif text-2xl md:text-3xl">
-            First three months don't pay for themselves, next month is free. That's the whole risk you're taking.
+            If closed deal value in your first three months doesn't cover your fees, month four is free until it does. Attendance and running the program are required.
           </p>
         </Reveal>
       </section>
@@ -214,7 +214,7 @@ function Home() {
                 <div className="flex items-baseline justify-between">
                   <div className="font-serif text-2xl">{t.name}</div>
                   {t.highlight && (
-                    <ShineOnce className="eyebrow text-highlight">Most pick this</ShineOnce>
+                    <ShineOnce className="eyebrow text-highlight">Recommended</ShineOnce>
                   )}
                 </div>
                 <div className="mt-3 flex items-baseline gap-1">
@@ -275,7 +275,7 @@ function Home() {
                 You hired a business coach for accountability. Got advice, no process. You tried hiring a sales rep or fractional head. Expensive, slow ramp, still closed the big deals yourself. You took a training course. Content was solid, but nothing changed after week 2. You bought lead-gen. More leads arrived, but you still lost them in the follow-up.
               </p>
               <p className="mt-4 max-w-3xl mx-auto text-base text-muted-foreground leading-relaxed">
-                None of them fixed the actual leak: no written script, no repeatable process, no way to drill your team, no accountability tied to results. Script & Scale is different.
+                None of them fixed the actual leak: no written script, no repeatable process, no way to drill your team, no guarantee tied to fee recovery. Script & Scale is different.
               </p>
             </div>
           </Reveal>
@@ -319,7 +319,7 @@ function Home() {
                 <tr className="bg-highlight/5">
                   <td className="py-3 px-4 font-serif text-base font-bold">Script & Scale</td>
                   <td className="py-3 px-4 text-highlight font-semibold">£525-2,100/month</td>
-                  <td className="py-3 px-4 text-highlight font-semibold">Custom script, live roleplay against YOUR objections, follow-up SOPs, guarantee tied to results</td>
+                  <td className="py-3 px-4 text-highlight font-semibold">Custom script, live roleplay against YOUR objections, follow-up SOPs, guarantee tied to fee recovery</td>
                   <td className="py-3 px-4 text-highlight font-semibold">Custom script, live drilling, SOPs, guarantee. You keep it even if you leave.</td>
                 </tr>
               </tbody>
@@ -381,7 +381,7 @@ function Home() {
               <div className="font-serif text-2xl text-highlight">Script & Scale</div>
               <div className="mt-2 mono text-xs text-highlight">£525-2,100/month</div>
               <p className="mt-5 text-sm text-muted-foreground">
-                Custom script configured for YOUR business. Live roleplay against YOUR objections. Follow-up SOPs tied to YOUR deal cycle. Guarantee tied to YOUR pipeline recovery.
+                Custom script configured for YOUR business. Live roleplay against YOUR objections. Follow-up SOPs tied to YOUR deal cycle. Guarantee tied to recovering your fees.
               </p>
               <div className="mt-6 rounded-md bg-highlight/10 p-4 border border-highlight/30">
                 <div className="mono text-xs text-highlight">What you get</div>
@@ -393,7 +393,7 @@ function Home() {
           <div className="mt-12 rounded-md border border-rule bg-card/60 p-8">
             <h3 className="font-serif text-lg md:text-xl">Why this actually works</h3>
             <p className="mt-3 text-sm text-muted-foreground">
-              You're not paying for accountability that disappears after the call. You're buying a custom script built from your last five deals, drilled live until it's automatic, SOPs that match how you actually close, and a guarantee that says: if this doesn't recover your pipeline, we keep working for free until it does.
+              You're not paying for accountability that disappears after the call. You're buying a custom script built from your last five deals, drilled live until it's automatic, SOPs that match how you actually close, and a guarantee that says: if closed deal value doesn't cover your fees, and you attended and ran the program, we keep working for free until it does.
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
               None of the alternatives above have that. Most don't even have a process to hand you in the first place.
@@ -415,7 +415,7 @@ function Home() {
             {[
               {
                 q: "What happens if it doesn't work?",
-                a: "Three things have to be true: 1) you attended every workshop (no exceptions), 2) you ran the program (used the script on calls, logged deals, sent follow-up sequences), 3) closed deal value in three months didn't cover total fees paid (£250 + 3x monthly). If all three are true, month 4 is free. We keep working until it works. If you didn't attend or didn't run the program, the guarantee doesn't apply. This is a real bet, not a refund.",
+                a: "Three things have to be true: 1) you attended every workshop (no exceptions), 2) you ran the program (used the script on calls, logged deals, sent follow-up sequences), 3) closed deal value in three months didn't cover total fees paid (£250 + 3x monthly). If all three are true, month 4 is free. We keep working until closed deals cover your fees. If you didn't attend or didn't run the program, the guarantee doesn't apply. This is a real bet, not a refund.",
               },
               {
                 q: "Is there a minimum commitment?",
@@ -431,7 +431,7 @@ function Home() {
               },
               {
                 q: "How is this different from a sales training course?",
-                a: "Training courses deliver generic content once and you forget by week 2. Script & Scale is custom script built around your pitch and objections, with monthly to weekly workshops, live roleplay against what you actually hear, call review where I sit in on your discovery calls, and a guarantee tied to pipeline recovery. Success is measured by closed deals, not motivation. We're betting on results, not content delivery.",
+                a: "Training courses deliver generic content once and you forget by week 2. Script & Scale is custom script built around your pitch and objections, with monthly to weekly workshops, live roleplay against what you actually hear, call review where I sit in on your discovery calls, and a guarantee tied to fee recovery. Success is measured by closed deals, not motivation. We're betting on the process, not content delivery.",
               },
               {
                 q: "How does this compare to other options?",

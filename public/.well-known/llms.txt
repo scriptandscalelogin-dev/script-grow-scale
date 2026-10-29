@@ -11,7 +11,7 @@ Location: United Kingdom
 Founded: 2025
 
 ## What We Do
-Script & Scale fixes pipeline leaks for MSPs, IT consultancies, high-ticket trades, and general consultancies. Most lose 20-30% of deals (£200k-600k per year) in week 2 due to no follow-up process.
+Script & Scale fixes pipeline leaks for MSPs, IT consultancies, high-ticket trades, and general consultancies. Many lose deals in the follow-up: the quote goes out, the prospect goes quiet, and without a process a competitor calls back first.
 
 We provide:
 - Custom sales script configured for your business

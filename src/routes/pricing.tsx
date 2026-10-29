@@ -140,7 +140,7 @@ function Pricing() {
                 <div className="flex items-baseline justify-between">
                   <div className="font-serif text-2xl">{t.name}</div>
                   {t.highlight && (
-                    <ShineOnce className="eyebrow text-highlight">Most pick this</ShineOnce>
+                    <ShineOnce className="eyebrow text-highlight">Recommended</ShineOnce>
                   )}
                 </div>
                 <div className="mt-3">

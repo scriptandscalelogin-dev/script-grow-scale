@@ -83,7 +83,7 @@ function Compare() {
               <div className="mono md:col-span-3 text-sm">£525-2,100/mo</div>
               <div className="md:col-span-2 text-sm">Custom script, live roleplay, monthly-to-weekly workshops</div>
               <p className="md:col-span-4 text-sm">
-                Guarantee tied to fee recovery (month 4 free if it doesn't work). You own the process even after you leave (standalone portal access).
+                Guarantee tied to fee recovery (month 4 free until closed deal value covers fees). You own the process even after you leave (standalone portal access).
               </p>
             </div>
           </div>
@@ -93,7 +93,7 @@ function Compare() {
               Most of these solve a different problem than the one costing you deals. Script &amp; Scale solves this one: no follow-up process, no repeatable script, no way to drill your team. 
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
-              And unlike everything above, if it doesn't work, you don't pay for month 4. That's not a refund policy. That's a guarantee tied to your actual pipeline recovery.
+              And unlike everything above, if closed deal value doesn't cover your fees (and you attended and ran the program), month 4 is free until it does. That's not a refund policy. That's a guarantee tied to fee recovery.
             </p>
           </div>
         </div>

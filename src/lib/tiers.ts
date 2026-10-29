@@ -29,7 +29,7 @@ export const TIERS: Tier[] = [
     name: "Closer",
     price: 1050,
     cadence: "Biweekly cadence. Follow-up on autopilot.",
-    tagline: "Most pick this. For founders who want to drill the process and see live results.",
+    tagline: "For founders who want to drill the process and see live results.",
     includes: [
       "Everything in Opener",
       "Two 45-minute workshops per month",

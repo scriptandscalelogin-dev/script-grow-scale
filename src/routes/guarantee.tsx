@@ -26,10 +26,9 @@ function Guarantee() {
         <div className="container-tight py-28">
           <div className="eyebrow">The guarantee</div>
           <h1 className="mt-4 font-serif text-5xl sm:text-6xl tracking-tight md:text-7xl">
-            Simple math. If it didn't work, we keep going for free.
+            Simple math. If closed deals don't cover your fees, we keep going for free.
           </h1>
           <p className="mt-6 max-w-2xl text-sm text-muted-foreground">
-            Most sales training sells you hope. We sell you a number. Closed deal value in your first three months either covers the fees you paid, or month four is free. And every month after that, until you're square.
             Most sales training sells you hope. We sell you a number. Closed deal value in your first three months either covers the fees you paid, or month four is free. And every month after that, until you're square.
           </p>
         </div>
