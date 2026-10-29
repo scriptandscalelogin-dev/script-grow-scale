@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
-  Link,
   createRootRouteWithContext,
   useRouter,
   HeadContent,
@@ -13,23 +12,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { supabase } from "@/integrations/supabase/client";
 import { logActivity } from "@/lib/activity";
-
-function NotFoundComponent() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <div className="eyebrow">404</div>
-        <h1 className="mt-3 font-serif text-4xl">Page not found</h1>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Broken link, or a page that never existed. Head home.
-        </p>
-        <div className="mt-6">
-          <Link to="/" className="btn-primary">Back to home</Link>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { NotFoundPage } from "@/components/not-found";
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
@@ -93,7 +76,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   }),
   shellComponent: RootShell,
   component: RootComponent,
-  notFoundComponent: NotFoundComponent,
+  notFoundComponent: NotFoundPage,
   errorComponent: ErrorComponent,
 });
 
