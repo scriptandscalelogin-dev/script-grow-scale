@@ -27,6 +27,7 @@ We provide:
 - Rainmaker: £2,100/month (weekly cadence)
 - Onboarding: £250 one-time
 - Minimum commitment: 3 months, then monthly rolling
+- Payment: invoiced in GBP, paid by bank transfer to a UK bank account. No card checkout. See https://scriptandscale.co.uk/payments
 
 See full pricing at: https://scriptandscale.co.uk/pricing
 

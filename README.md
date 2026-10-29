@@ -100,7 +100,7 @@ Roleplay upload and playback
 
 KPI tracking and session history
 
-Leave payment processing (Stripe) for a later pass, this build is the portal and content storage first.
+Payments are manual: clients are invoiced and pay by UK bank transfer. There is no card processor or checkout in this codebase.
 
 This project was built with [Lovable](https://lovable.dev).
 

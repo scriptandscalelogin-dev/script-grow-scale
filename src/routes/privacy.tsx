@@ -52,7 +52,7 @@ function Privacy() {
               <li><strong>KPI figures:</strong> monthly opportunities, average deal value, estimated close rate, closed deal value, and dead pipeline value.</li>
               <li><strong>Workshop and session data:</strong> attendance, topics covered, action items, and internal notes.</li>
               <li><strong>Roleplay recordings:</strong> audio or video files uploaded for coaching, plus your notes.</li>
-              <li><strong>Payment status:</strong> whether your subscription is active, paused, or ended. We do not store card numbers.</li>
+              <li><strong>Payment status:</strong> whether your subscription is active, paused, or ended, and whether each invoice has been paid. We do not take card payments and do not store card numbers.</li>
               <li><strong>Activity log:</strong> sign-in timestamps and which library items you open, so your coach can see engagement.</li>
             </ul>
           </Block>
@@ -81,7 +81,7 @@ function Privacy() {
             <ul className="list-disc space-y-2 pl-5">
               <li>Supabase (database, auth, storage)</li>
               <li>Our email provider, when you receive a portal invite or password reset link</li>
-              <li>Our payment processor, if you are on a paid subscription</li>
+              <li>Our bank and payment transfer provider, to receive and reconcile your bank transfers</li>
               <li>Cal.com (booking/scheduling): processes your name, email, and meeting details when you book a call. Cal.com is US-hosted; transfers from the UK are covered by Cal.com&rsquo;s Data Processing Agreement and Standard Contractual Clauses.</li>
             </ul>
             <p>

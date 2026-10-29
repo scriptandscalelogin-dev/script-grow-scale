@@ -56,7 +56,7 @@ function Terms() {
 
           <Block title="3. Onboarding and commitment">
             <ul className="list-disc space-y-2 pl-5">
-              <li>A one-off onboarding fee of £250 is payable before the first workshop.</li>
+              <li>A one-off onboarding fee of £250 is invoiced on your onboarding call and is due on the call.</li>
               <li>The minimum commitment is three (3) months from your start date.</li>
               <li>After the initial 3 months the subscription rolls monthly and can be cancelled with 30 days&rsquo; written notice.</li>
               <li>You can upgrade tier at any time; the new fee applies from the next billing cycle.</li>
@@ -65,8 +65,9 @@ function Terms() {
 
           <Block title="4. Payment">
             <ul className="list-disc space-y-2 pl-5">
-              <li>Monthly fees are invoiced in advance on the same day of the month as your start date.</li>
-              <li>Payment is due within 7 days of invoice date.</li>
+              <li>All fees are invoiced in GBP and paid by bank transfer to the UK bank account shown on the invoice. We do not take card payments.</li>
+              <li>Your first month&rsquo;s service fee is invoiced within 24 hours of your onboarding call and is due within 7 days of the invoice.</li>
+              <li>From month 2 onwards, fees are invoiced on the 1st of each month and are due by the end of that month.</li>
               <li>Overdue accounts may be paused. Access to the portal, workshops, and content library is suspended until the account is settled.</li>
             </ul>
           </Block>

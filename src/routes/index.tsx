@@ -238,7 +238,8 @@ function Home() {
             ))}
           </div>
           <p className="mt-6 text-xs text-muted-foreground">
-            £250 onboarding fee. 3-month minimum. Monthly rolling after that.
+            £250 onboarding fee. 3-month minimum. Monthly rolling after that. Invoiced in GBP and paid by bank transfer.{" "}
+            <Link to="/payments" className="underline">How payment works</Link>
           </p>
         </div>
       </section>

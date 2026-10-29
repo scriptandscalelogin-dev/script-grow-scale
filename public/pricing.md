@@ -56,10 +56,12 @@ Script & Scale offers three tiers for UK SMBs. All include £250 onboarding fee.
 
 ## Payment Terms
 
-- £250 onboarding fee due on day 1 (bank transfer)
-- Monthly fees invoiced on the 1st of each month
-- Due by end of month
-- UK bank transfer (Currencies Direct processor)
+- All fees are invoiced in GBP and paid by bank transfer to a UK bank account (details on each invoice). No card payments.
+- £250 onboarding fee: invoiced on the onboarding call, due on the call
+- First month's service fee: invoiced within 24 hours of the call, due within 7 days
+- From month 2: invoiced on the 1st of each month, due by the end of that month
+- An invoice still unpaid at day 28 overdue leads to service suspension
+- Full detail: https://scriptandscale.co.uk/payments
 
 ## The Guarantee
 
@@ -86,10 +88,10 @@ Every month after that is also free until closed deal value covers fees paid.
 ## Common Questions
 
 **Can I upgrade mid-month?**
-Yes. Pro-rated based on days used. Applies toward next invoice.
+Yes. You can upgrade tier at any time. The new fee applies from the next billing cycle.
 
 **What if I want to cancel?**
-After the 3-month minimum, you can cancel anytime. Month becomes final month.
+After the 3-month minimum the subscription rolls monthly and can be cancelled with 30 days' written notice.
 
 **Is VAT included?**
 Pricing shown is exc. VAT where applicable. Standard rate applied per HMRC.

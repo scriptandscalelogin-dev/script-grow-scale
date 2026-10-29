@@ -172,6 +172,7 @@ function Pricing() {
               <ul className="mt-5 space-y-4 text-sm">
                 <li><strong className="font-medium">£250 onboarding fee.</strong> One-off. Covers the initial deep-dive: your offer, ICP, current pipeline, existing collateral.</li>
                 <li><strong className="font-medium">3-month minimum.</strong> Real change doesn’t happen in a single session. After month three it’s monthly rolling. Cancel any time with 30 days’ notice.</li>
+                <li><strong className="font-medium">Paid by invoice.</strong> Bank transfer in GBP, no card checkout. <Link to="/payments" className="underline">See exactly what is invoiced, and when.</Link></li>
                 <li><strong className="font-medium">No long contracts.</strong> No auto-escalating price tiers. What you sign is what you pay.</li>
               </ul>
             </div>
