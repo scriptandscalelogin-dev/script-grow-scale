@@ -147,7 +147,7 @@ function Payments() {
               <div className="rounded-md border border-rule bg-card/60 p-5">
                 <div className="font-medium">Check before you pay</div>
                 <p className="mt-2 text-muted-foreground">
-                  Bank details only ever arrive on an invoice from hello@scriptandscale.co.uk. If a message, email or call tells you our bank details have changed, do not pay it. Email us to check first.
+                  Bank details only ever arrive on an invoice from billing@scriptandscale.co.uk. If a message, email or call tells you our bank details have changed, do not pay it. Email billing@scriptandscale.co.uk to check first.
                 </p>
               </div>
             </div>
@@ -184,7 +184,7 @@ function Payments() {
                 <li className="flex gap-3"><span className="mono text-highlight">·</span> The guarantee gives you free months, not money back. See the <Link to="/guarantee" className="underline">guarantee</Link> and the <Link to="/refund-policy" className="underline">refund policy</Link>.</li>
               </ul>
               <p className="text-muted-foreground">
-                Questions about an invoice? Email hello@scriptandscale.co.uk.
+                Questions about an invoice? Email billing@scriptandscale.co.uk.
               </p>
             </div>
           </Reveal>
