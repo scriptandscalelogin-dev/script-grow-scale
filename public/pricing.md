@@ -39,7 +39,7 @@ Script & Scale offers three tiers for UK SMBs. All include £250 onboarding fee.
 
 **Includes:**
 - Everything in Closer
-- Four 45-minute workshops per month (every Thursday 7pm UK)
+- A booked slot every week. Same time, same place, 45 minutes.
 - Live discovery call attendance (I sit on your calls)
 - Tonality coaching (you record, I listen, we fix what breaks deals)
 - Ad-hoc script tweaks when you hit new objections

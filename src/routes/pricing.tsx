@@ -53,7 +53,7 @@ export const Route = createFileRoute("/pricing")({
               "name": "Rainmaker - Weekly",
               "price": "2100",
               "priceCurrency": "GBP",
-              "description": "Weekly cadence. Full call partnership. Everything in Closer plus four weekly workshops, live discovery call attendance, tonality coaching, priority support.",
+              "description": "Weekly cadence. Full call partnership. Everything in Closer plus a booked weekly workshop slot, live discovery call attendance, tonality coaching, priority support.",
               "availability": "https://schema.org/InStock",
               "offerDetails": {
                 "@type": "OfferDetails",

@@ -48,7 +48,7 @@ export const TIERS: Tier[] = [
     tagline: "For founders closing £60k+ ARR deals who want live coaching and process refinement.",
     includes: [
       "Everything in Closer",
-      "Four 45-minute workshops per month (every Thursday 7pm UK)",
+      "A booked slot every week. Same time, same place, 45 minutes.",
       "I sit on your discovery calls live. We debrief after.",
       "Tonality coaching. You record calls, I listen, we fix what breaks deals.",
       "Ad-hoc script tweaks when you hit new objections",
